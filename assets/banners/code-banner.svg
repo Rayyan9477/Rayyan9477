@@ -1,0 +1,38 @@
+<svg width="400" height="100" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#43cea2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#185a9d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="100" fill="url(#codeGrad)" rx="10"/>
+  
+  <!-- Code window frame -->
+  <rect x="10" y="10" width="380" height="80" fill="#1a1a1a" rx="5"/>
+  
+  <!-- Window controls -->
+  <circle cx="25" cy="25" r="4" fill="#ff5f56"/>
+  <circle cx="40" cy="25" r="4" fill="#ffbd2e"/>
+  <circle cx="55" cy="25" r="4" fill="#27ca3f"/>
+  
+  <!-- Code lines -->
+  <g font-family="Monaco, monospace" font-size="10" fill="#ffffff">
+    <text x="20" y="45">def build_ai_future():</text>
+    <text x="30" y="60" fill="#67d8ef">    while True:</text>
+    <text x="40" y="75" fill="#a6e22e">        innovate()</text>
+  </g>
+  
+  <!-- Typing cursor -->
+  <rect x="90" y="68" width="2" height="12" fill="#ffffff">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Terminal prompt -->
+  <text x="100" y="45" font-family="Monaco, monospace" font-size="10" fill="#67d8ef">❯ </text>
+  
+  <!-- Animated brackets -->
+  <text x="370" y="45" font-family="Monaco, monospace" font-size="14" fill="#f92672">{</text>
+  <text x="370" y="75" font-family="Monaco, monospace" font-size="14" fill="#f92672">}</text>
+</svg>

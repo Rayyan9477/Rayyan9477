@@ -1,0 +1,69 @@
+{
+  "github": {
+    "username": "Rayyan9477",
+    "repositories": {
+      "featured": [
+        "OCR-Image-to-Text",
+        "Chatbot-Generative-AI", 
+        "Hate-Speech-Detection",
+        "House-Price-Prediction"
+      ],
+      "pinned": [
+        "Rayyan9477/OCR-Image-to-Text",
+        "Rayyan9477/Chatbot-AI",
+        "Rayyan9477/Hate-Speech-Detection",
+        "Rayyan9477/House-Price-Prediction"
+      ]
+    }
+  },
+  "profile": {
+    "name": "Rayyan Ahmed",
+    "title": "AI Engineer & Data Scientist",
+    "subtitle": "Specializing in NLP • Computer Vision • RAG • LLMs",
+    "location": "Pakistan",
+    "company": "Nobility MBS",
+    "bio": "AI Engineer passionate about building intelligent systems that solve real-world problems",
+    "tagline": "The best way to predict the future is to invent it!",
+    "skills": {
+      "ai_ml": ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Keras", "OpenCV"],
+      "specializations": ["NLP", "Computer Vision", "RAG", "LLMs", "Deep Learning"],
+      "cloud": ["AWS", "Azure", "GCP", "Docker", "Kubernetes"],
+      "databases": ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch"],
+      "web": ["Streamlit", "FastAPI", "Flask", "React", "JavaScript"],
+      "tools": ["Git", "GitHub", "VS Code", "Jupyter", "Google Colab"]
+    }
+  },
+  "social": {
+    "email": "rayyanahmed265@yahoo.com",
+    "linkedin": "https://www.linkedin.com/in/rayyan-ahmed9477",
+    "twitter": "https://twitter.com/rayyan9477",
+    "github": "https://github.com/Rayyan9477",
+    "portfolio": "https://rayyan-portfolio.vercel.app",
+    "medium": "https://medium.com/@rayyanahmed265"
+  },
+  "automation": {
+    "update_frequency": {
+      "readme": "6 hours",
+      "quotes": "daily",
+      "metrics": "weekly"
+    },
+    "features": {
+      "dynamic_quotes": true,
+      "github_stats": true,
+      "contribution_graph": true,
+      "visitor_counter": true,
+      "latest_repos": true
+    }
+  },
+  "themes": {
+    "primary": "tokyonight",
+    "secondary": "synthwave",
+    "accent": "merko",
+    "colors": {
+      "primary": "#F85D7F",
+      "secondary": "#F8D866", 
+      "background": "#0D1117",
+      "text": "#FFFFFF"
+    }
+  }
+}
