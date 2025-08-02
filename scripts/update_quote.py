@@ -61,14 +61,22 @@ class QuoteUpdater:
         try:
             # Try to get quote from API first
             response = requests.get(self.quotes_api_url, timeout=5)
+            response.raise_for_status()
+            
             if response.status_code == 200:
                 data = response.json()
-                return {
-                    "content": data.get("content", ""),
-                    "author": data.get("author", "Unknown")
-                }
-        except:
-            pass
+                content = data.get("content", "").strip()
+                author = data.get("author", "Unknown").strip()
+                
+                if content and author:
+                    return {
+                        "content": content,
+                        "author": author
+                    }
+        except requests.exceptions.RequestException as e:
+            print(f"⚠️ Failed to fetch quote from API: {e}")
+        except ValueError as e:
+            print(f"⚠️ Invalid quote data received: {e}")
         
         # Fallback to predefined tech quotes
         return random.choice(self.tech_quotes)

@@ -12,18 +12,26 @@ from datetime import datetime, timedelta
 class GitHubStatsFetcher:
     def __init__(self):
         self.token = os.getenv('GITHUB_TOKEN')
+        if not self.token:
+            raise ValueError("GITHUB_TOKEN environment variable is not set")
         self.username = 'Rayyan9477'
         self.headers = {
             'Authorization': f'token {self.token}',
             'Accept': 'application/vnd.github.v3+json'
         }
+        self.timeout = 10  # 10 seconds timeout for requests
     
     def get_user_stats(self):
         """Get basic user statistics"""
         url = f'https://api.github.com/users/{self.username}'
-        response = requests.get(url, headers=self.headers)
-        
-        if response.status_code == 200:
+        try:
+            response = requests.get(url, headers=self.headers, timeout=self.timeout)
+            response.raise_for_status()
+            
+            if response.status_code == 403:
+                print("⚠️ Rate limit exceeded. Waiting before retry...")
+                return {}
+                
             data = response.json()
             return {
                 'followers': data.get('followers', 0),
@@ -33,7 +41,9 @@ class GitHubStatsFetcher:
                 'total_forks': self.get_total_forks(),
                 'contributions_this_year': self.get_contributions_this_year()
             }
-        return {}
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Error fetching user stats: {e}")
+            return {}
     
     def get_total_stars(self):
         """Get total stars across all repositories"""

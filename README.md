@@ -10,7 +10,7 @@
 
 <!-- Profile Stats & Social Links -->
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge&initial=125000" alt="Profile Views" />
+  <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge&initial=1438" alt="Profile Views" />
   <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="GitHub Followers" />
   <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="GitHub Stars" />
 </div>

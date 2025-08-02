@@ -17,13 +17,25 @@ class ReadmeUpdater:
         
     def get_github_stats(self):
         """Fetch latest GitHub statistics"""
-        headers = {'Authorization': f'token {self.github_token}'}
+        if not self.github_token:
+            print("⚠️ GITHUB_TOKEN not set")
+            return {}
+            
+        headers = {
+            'Authorization': f'token {self.github_token}',
+            'Accept': 'application/vnd.github.v3+json'
+        }
         
-        # Get user info
-        user_url = f'https://api.github.com/users/{self.username}'
-        response = requests.get(user_url, headers=headers)
-        
-        if response.status_code == 200:
+        try:
+            # Get user info
+            user_url = f'https://api.github.com/users/{self.username}'
+            response = requests.get(user_url, headers=headers, timeout=10)
+            response.raise_for_status()
+            
+            if response.status_code == 403:
+                print("⚠️ Rate limit exceeded")
+                return {}
+                
             user_data = response.json()
             return {
                 'followers': user_data.get('followers', 0),
@@ -31,7 +43,9 @@ class ReadmeUpdater:
                 'public_repos': user_data.get('public_repos', 0),
                 'created_at': user_data.get('created_at', ''),
             }
-        return {}
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Error fetching GitHub stats: {e}")
+            return {}
     
     def get_random_tech_quote(self):
         """Get a random tech quote"""
