@@ -14,6 +14,8 @@
   <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge&initial=1438" alt="Profile Views" />
   <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="GitHub Followers" />
   <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="GitHub Stars" />
+  <img src="https://img.shields.io/github/contributions/Rayyan9477?label=Total%20Contributions&style=for-the-badge&color=green&logo=github" alt="Total Contributions" />
+  <img src="https://img.shields.io/github/contributions/Rayyan9477?label=This%20Year&style=for-the-badge&color=blue&logo=github" alt="This Year Contributions" />
 </div>
 
 <br>
@@ -247,7 +249,20 @@ class AIEngineer:
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=Rayyan9477&custom_title=Rayyan's%20Contribution%20Graph&bg_color=0D1117&color=F8D866&line=F85D7F&point=FFFFFF&area_color=F85D7F&area=true&hide_border=true&theme=tokyo-night" width="100%" alt="Activity Graph"/>
 </p>
 
+### 🐍 **Contribution Snake**
+
+<p align="center">
+  <img src="assets/github-contribution-grid-snake.svg" alt="Contribution Snake"/>
+</p>
+
 </div>
+
+---
+
+## 📊 WakaTime Stats
+
+<!--START_SECTION:waka-->
+<!--END_SECTION:waka-->
 
 ---
 
@@ -294,3 +309,18 @@ class AIEngineer:
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
 <!-- Last Updated: August 04, 2025 at 12:41 PM UTC -->
+
+---
+
+## 🤖 Automated Updates
+
+This README is automatically updated daily with:
+
+- 📊 **WakaTime Stats**: Coding activity and language usage
+- 🐍 **Contribution Snake**: Visual representation of GitHub contributions  
+- 📈 **GitHub Analytics**: Stats, streaks, and activity graphs
+- 💡 **Daily Quotes**: Inspirational developer quotes
+
+*Updates run daily at 8-9 AM UTC via GitHub Actions*
+
+---

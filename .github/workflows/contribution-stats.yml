@@ -1,0 +1,40 @@
+name: Contribution Statistics Update
+
+on:
+  schedule:
+    # Runs every day at 3 AM UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-contribution-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Generate Snake Game
+      uses: Platane/snk@v3
+      with:
+        github_user_name: Rayyan9477
+        outputs: |
+          assets/github-contribution-grid-snake.svg
+          assets/github-contribution-grid-snake-dark.svg?palette=github-dark
+          assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+          
+    - name: Generate GitHub Stats
+      uses: jamesgeorge007/github-activity-readme@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        COMMIT_MSG: '📊 Update GitHub activity stats'
+        MAX_LINES: 5
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main 
