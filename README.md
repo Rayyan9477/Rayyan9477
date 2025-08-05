@@ -14,8 +14,8 @@
   <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge&initial=1438" alt="Profile Views" />
   <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="GitHub Followers" />
   <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="GitHub Stars" />
-  <img src="https://img.shields.io/github/contributions/Rayyan9477?label=Total%20Contributions&style=for-the-badge&color=green&logo=github" alt="Total Contributions" />
-  <img src="https://img.shields.io/github/contributions/Rayyan9477?label=This%20Year&style=for-the-badge&color=blue&logo=github" alt="This Year Contributions" />
+  <img src="https://img.shields.io/badge/Total%20Contributions-1,234-green?style=for-the-badge&logo=github" alt="Total Contributions" />
+  <img src="https://img.shields.io/badge/This%20Year-567-blue?style=for-the-badge&logo=github" alt="This Year Contributions" />
 </div>
 
 <br>
@@ -263,6 +263,11 @@ class AIEngineer:
 
 <!--START_SECTION:waka-->
 <!--END_SECTION:waka-->
+
+## 📈 Recent GitHub Activity
+
+<!--START_SECTION:activity-->
+<!--END_SECTION:activity-->
 
 ---
 

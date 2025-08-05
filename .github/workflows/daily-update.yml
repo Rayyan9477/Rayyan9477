@@ -1,0 +1,79 @@
+name: 🤖 Daily README Update
+
+on:
+  schedule:
+    # Run daily at 8:00 AM UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/daily_update.py'
+      - '.github/workflows/daily-update.yml'
+
+jobs:
+  daily-update:
+    name: 🚀 Daily Update Job
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch full history for contribution snake
+    
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+    
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+    
+      - name: 🔧 Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git config --local pull.rebase false
+    
+      - name: 🔑 Setup GitHub Token
+        run: |
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+          echo "PUSH_CHANGES=true" >> $GITHUB_ENV
+    
+      - name: 🤖 Run Daily Update
+        run: |
+          cd scripts
+          python daily_update.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUSH_CHANGES: 'true'
+    
+      - name: 📊 Upload Logs (if failed)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: daily-update-logs
+          path: |
+            daily_update.log
+            scripts/daily_update.log
+          retention-days: 7
+    
+      - name: ✅ Success Notification
+        if: success()
+        run: |
+          echo "🎉 Daily update completed successfully!"
+          echo "📅 Date: $(date)"
+          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+    
+      - name: ❌ Failure Notification
+        if: failure()
+        run: |
+          echo "❌ Daily update failed!"
+          echo "📅 Date: $(date)"
+          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "📋 Check the logs for more details" 

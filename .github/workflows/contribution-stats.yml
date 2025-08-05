@@ -2,8 +2,8 @@ name: Contribution Statistics Update
 
 on:
   schedule:
-    # Runs every day at 3 AM UTC
-    - cron: '0 3 * * *'
+    # Runs every day at 9 AM UTC
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
@@ -25,13 +25,18 @@ jobs:
           assets/github-contribution-grid-snake-dark.svg?palette=github-dark
           assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
           
-    - name: Generate GitHub Stats
+    - name: Generate GitHub Activity
       uses: jamesgeorge007/github-activity-readme@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         COMMIT_MSG: '📊 Update GitHub activity stats'
         MAX_LINES: 5
+        GH_USERNAME: 'Rayyan9477'
+        COMMIT_NAME: 'github-actions[bot]'
+        COMMIT_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+        TARGET_FILE: 'README.md'
+        EMPTY_COMMIT_MSG: ':memo: empty commit to keep workflow active after 60 days of no activity'
         
     - name: Push changes
       uses: ad-m/github-push-action@master
