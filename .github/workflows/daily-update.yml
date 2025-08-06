@@ -1,15 +1,20 @@
+# ⚠️ DEPRECATED: This workflow is deprecated and has been replaced by unified-update.yml
+# Please use unified-update.yml instead for all daily updates
+# This file is kept for reference but should not be run
+
 name: 🤖 Daily README Update
 
 on:
-  schedule:
-    # Run daily at 8:00 AM UTC
-    - cron: '0 8 * * *'
-  workflow_dispatch:  # Allow manual trigger
-  push:
-    branches: [ main ]
-    paths:
-      - 'scripts/daily_update.py'
-      - '.github/workflows/daily-update.yml'
+  # Disabled schedule to prevent duplicate runs
+  # schedule:
+  #   - cron: '0 8 * * *'
+  workflow_dispatch:  # Allow manual trigger only
+  # Disabled push triggers
+  # push:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'scripts/daily_update.py'
+  #     - '.github/workflows/daily-update.yml'
 
 jobs:
   daily-update:

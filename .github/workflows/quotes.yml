@@ -1,10 +1,15 @@
+# ⚠️ DEPRECATED: This workflow is deprecated and has been replaced by unified-update.yml
+# Please use unified-update.yml instead for all daily updates
+# This file is kept for reference but should not be run
+
 name: Dev Quotes Update
 
 on:
-  schedule:
-    # Runs every day at 8 AM UTC
-    - cron: '0 8 * * *'
-  workflow_dispatch:
+  # Disabled schedule to prevent duplicate runs
+  # schedule:
+  #   # Runs every day at 8 AM UTC
+  #   - cron: '0 8 * * *'
+  workflow_dispatch:  # Allow manual trigger only
 
 jobs:
   update-quote:

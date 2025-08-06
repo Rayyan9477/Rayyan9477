@@ -11,7 +11,9 @@
     "auto_push": true,
     "log_level": "INFO",
     "max_retries": 3,
-    "timeout": 30
+    "timeout": 30,
+    "single_commit": true,
+    "combined_workflow": true
   },
   "quotes": {
     "api_url": "https://api.quotable.io/random",

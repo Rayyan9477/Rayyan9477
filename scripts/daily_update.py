@@ -20,8 +20,20 @@ class DailyUpdater:
         self.github_token = os.getenv('GITHUB_TOKEN')
         self.username = 'Rayyan9477'
         self.quotes_api_url = "https://api.quotable.io/random"
-        self.readme_file = 'README.md'
-        self.log_file = 'daily_update.log'
+        
+        # Check multiple locations for README.md
+        possible_readme_paths = [
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md'),  # Two dirs up
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'README.md'),  # Same dir as script
+            os.path.join(os.getcwd(), 'README.md'),  # Current working directory
+            'README.md'  # Relative path
+        ]
+        
+        # Use the first README.md that exists
+        self.readme_file = next((path for path in possible_readme_paths if os.path.exists(path)), 
+                               possible_readme_paths[0])  # Default to first path if none exist
+                               
+        self.log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'daily_update.log')
         
         # Tech quotes as fallback
         self.tech_quotes = [
@@ -339,6 +351,27 @@ class DailyUpdater:
         """Execute complete daily update process"""
         try:
             self.log("🔄 Starting daily update process...")
+            
+            # Check if README.md exists
+            if not os.path.exists(self.readme_file):
+                self.log(f"⚠️ README.md not found at {self.readme_file}", "WARNING")
+                
+                # Try alternative locations
+                possible_paths = [
+                    'README.md',  # Current directory
+                    os.path.join('..', 'README.md'),  # Parent directory
+                    os.path.join(os.getcwd(), 'README.md'),  # Full path to current dir
+                    os.path.join(os.path.dirname(os.getcwd()), 'README.md')  # Full path to parent dir
+                ]
+                
+                for path in possible_paths:
+                    if os.path.exists(path):
+                        self.log(f"✅ Found README.md at {path}")
+                        self.readme_file = path
+                        break
+                else:
+                    self.log("❌ README.md not found in any expected location", "ERROR")
+                    return False
             
             # Step 1: Get daily quote
             quote = self.get_daily_quote()

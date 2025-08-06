@@ -13,6 +13,7 @@ from datetime import datetime
 class QuoteUpdater:
     def __init__(self):
         self.quotes_api_url = "https://api.quotable.io/random"
+        self.readme_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md')
         self.tech_quotes = [
             {
                 "content": "The best way to predict the future is to invent it.",
@@ -84,7 +85,7 @@ class QuoteUpdater:
     def update_quote_in_readme(self):
         """Update the quote section in README.md"""
         try:
-            with open('README.md', 'r', encoding='utf-8') as file:
+            with open(self.readme_path, 'r', encoding='utf-8') as file:
                 content = file.read()
             
             quote = self.get_daily_quote()
@@ -113,7 +114,7 @@ class QuoteUpdater:
             else:
                 content = f"<!-- Quote Updated: {now} -->\n" + content
             
-            with open('README.md', 'w', encoding='utf-8') as file:
+            with open(self.readme_path, 'w', encoding='utf-8') as file:
                 file.write(content)
             
             print("✅ Quote updated successfully!")

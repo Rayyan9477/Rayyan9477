@@ -1,12 +1,18 @@
+# ⚠️ DEPRECATED: This workflow is deprecated and has been replaced by unified-update.yml
+# Please use unified-update.yml instead for all daily updates
+# This file is kept for reference but should not be run
+
 name: Update README with Dynamic Content
 
 on:
-  schedule:
-    # Runs every 6 hours
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
-  push:
-    branches: [ main ]
+  # Disabled schedule to prevent duplicate runs
+  # schedule:
+  #   # Runs every 6 hours
+  #   - cron: '0 */6 * * *'
+  workflow_dispatch:  # Allow manual trigger only
+  # Disabled push triggers
+  # push:
+  #   branches: [ main ]
 
 jobs:
   update-readme:
