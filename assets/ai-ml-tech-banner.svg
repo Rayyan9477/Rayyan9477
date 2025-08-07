@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#161b22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8E53;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#764BA2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#667EEA;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="techGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bgGradient)" rx="15" ry="15" />
+
+  <!-- Title -->
+  <text x="600" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">AI/ML Technology Expertise</text>
+  
+  <!-- Main Technology Groups -->
+  <g id="techGroups">
+    <!-- Deep Learning -->
+    <g transform="translate(120, 100)">
+      <rect width="180" height="160" rx="10" ry="10" fill="url(#techGradient1)" opacity="0.9" />
+      <text x="90" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Deep Learning</text>
+      <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="white">• PyTorch</text>
+      <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="white">• TensorFlow</text>
+      <text x="20" y="110" font-family="Arial, sans-serif" font-size="14" fill="white">• Transformers</text>
+      <text x="20" y="135" font-family="Arial, sans-serif" font-size="14" fill="white">• Neural Networks</text>
+    </g>
+
+    <!-- NLP -->
+    <g transform="translate(330, 100)">
+      <rect width="180" height="160" rx="10" ry="10" fill="url(#techGradient2)" opacity="0.9" />
+      <text x="90" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">NLP</text>
+      <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="white">• LLMs</text>
+      <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="white">• RAG Systems</text>
+      <text x="20" y="110" font-family="Arial, sans-serif" font-size="14" fill="white">• Hugging Face</text>
+      <text x="20" y="135" font-family="Arial, sans-serif" font-size="14" fill="white">• Langchain</text>
+    </g>
+
+    <!-- Computer Vision -->
+    <g transform="translate(540, 100)">
+      <rect width="180" height="160" rx="10" ry="10" fill="url(#techGradient3)" opacity="0.9" />
+      <text x="90" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Computer Vision</text>
+      <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="white">• OpenCV</text>
+      <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="white">• YOLO</text>
+      <text x="20" y="110" font-family="Arial, sans-serif" font-size="14" fill="white">• ResNet</text>
+      <text x="20" y="135" font-family="Arial, sans-serif" font-size="14" fill="white">• Object Detection</text>
+    </g>
+
+    <!-- MLOps -->
+    <g transform="translate(750, 100)">
+      <rect width="180" height="160" rx="10" ry="10" fill="url(#techGradient4)" opacity="0.9" />
+      <text x="90" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">MLOps</text>
+      <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="white">• Kubernetes</text>
+      <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="white">• Docker</text>
+      <text x="20" y="110" font-family="Arial, sans-serif" font-size="14" fill="white">• CI/CD</text>
+      <text x="20" y="135" font-family="Arial, sans-serif" font-size="14" fill="white">• Monitoring</text>
+    </g>
+
+    <!-- Data Science -->
+    <g transform="translate(960, 100)">
+      <rect width="180" height="160" rx="10" ry="10" fill="url(#techGradient5)" opacity="0.9" />
+      <text x="90" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Data Science</text>
+      <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="white">• Pandas</text>
+      <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="white">• NumPy</text>
+      <text x="20" y="110" font-family="Arial, sans-serif" font-size="14" fill="white">• Scikit-learn</text>
+      <text x="20" y="135" font-family="Arial, sans-serif" font-size="14" fill="white">• Visualization</text>
+    </g>
+  </g>
+
+  <!-- Connecting Lines -->
+  <g id="connectionLines" stroke-width="2" opacity="0.6">
+    <path d="M210 180 C 250 180, 290 180, 330 180" stroke="url(#techGradient1)" fill="none" />
+    <path d="M420 180 C 460 180, 500 180, 540 180" stroke="url(#techGradient2)" fill="none" />
+    <path d="M630 180 C 670 180, 710 180, 750 180" stroke="url(#techGradient3)" fill="none" />
+    <path d="M840 180 C 880 180, 920 180, 960 180" stroke="url(#techGradient4)" fill="none" />
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="285" font-family="Arial, sans-serif" font-size="14" fill="#8b949e" text-anchor="middle">Building Intelligent Systems • Solving Real-World Problems • Innovating with AI</text>
+</svg>

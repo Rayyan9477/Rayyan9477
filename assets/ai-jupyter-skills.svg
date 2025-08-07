@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FC5C7D"/>
+      <stop offset="100%" stop-color="#6A82FB"/>
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3E5151"/>
+      <stop offset="100%" stop-color="#DECBA4"/>
+    </linearGradient>
+    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#AA076B"/>
+      <stop offset="100%" stop-color="#61045F"/>
+    </linearGradient>
+    <linearGradient id="cellGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a" />
+      <stop offset="100%" stop-color="#2d2d2d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" rx="10" ry="10" fill="#0d1117" />
+  
+  <!-- Notebook Header -->
+  <rect width="800" height="40" rx="5" ry="5" fill="#161b22" />
+  <text x="20" y="27" font-family="Monaco, Consolas, monospace" font-size="16" fill="#6e7681">Rayyan_AI_Skills.ipynb</text>
+  <text x="780" y="27" font-family="Monaco, Consolas, monospace" font-size="16" fill="#6e7681" text-anchor="end">Python 3.10</text>
+  
+  <!-- Cell 1: AI/ML Core -->
+  <g transform="translate(20, 60)">
+    <rect width="760" height="80" rx="5" ry="5" fill="url(#cellGradient)" />
+    <text x="10" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#56a0d3">[1]:</text>
+    <text x="40" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">import numpy as np</text>
+    <text x="40" y="45" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">import pandas as pd</text>
+    <text x="40" y="65" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">from sklearn.ensemble import RandomForestClassifier</text>
+  </g>
+  
+  <!-- Cell 2: Deep Learning -->
+  <g transform="translate(20, 160)">
+    <rect width="760" height="60" rx="5" ry="5" fill="url(#cellGradient)" />
+    <text x="10" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#56a0d3">[2]:</text>
+    <text x="40" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">import torch</text>
+    <text x="40" y="45" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">import tensorflow as tf</text>
+  </g>
+  
+  <!-- Cell 3: NLP -->
+  <g transform="translate(20, 240)">
+    <rect width="760" height="60" rx="5" ry="5" fill="url(#cellGradient)" />
+    <text x="10" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#56a0d3">[3]:</text>
+    <text x="40" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">from transformers import AutoModel, AutoTokenizer</text>
+    <text x="40" y="45" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">from langchain import LLMChain, PromptTemplate</text>
+  </g>
+  
+  <!-- Cell 4: MLOps -->
+  <g transform="translate(20, 320)">
+    <rect width="760" height="60" rx="5" ry="5" fill="url(#cellGradient)" />
+    <text x="10" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#56a0d3">[4]:</text>
+    <text x="40" y="25" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">from mlflow import log_metric, log_param, start_run</text>
+    <text x="40" y="45" font-family="Monaco, Consolas, monospace" font-size="12" fill="#e6edf3">import ray.tune as tune</text>
+  </g>
+</svg>

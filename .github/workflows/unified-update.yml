@@ -1,11 +1,9 @@
-name: 🤖 Unified Daily Profile Update
+name:  Unified Daily Profile Update
 
-# IMPORTANT: To fix WAKATIME_API_KEY errors:
+# IMPORTANT: GitHub Secrets Configuration:
 # 1. Go to your repository Settings > Secrets and variables > Actions
-# 2. Add a new secret named "WAKATIME_API_KEY"
-# 3. Get your API key from https://wakatime.com/settings/api-key
-# 4. Paste the API key as the secret value
-# 5. Save the secret
+# 2. Add the following secrets:
+#    - WAKATIME_API_KEY: Your WakaTime API key from https://wakatime.com/settings/api-key
 
 on:
   schedule:
@@ -18,42 +16,38 @@ on:
       - 'scripts/daily_update.py'
       - '.github/workflows/unified-update.yml'
 
-# This workflow consolidates all the updates into a single job with one commit
-# It replaces the separate workflows: daily-update.yml, metrics.yml, contribution-stats.yml, quotes.yml
-
 jobs:
   daily-update:
-    name: 🚀 Daily GitHub Profile Update
+    name:  Daily GitHub Profile Update
     runs-on: ubuntu-latest
     permissions:
       contents: write
       actions: read
     
     steps:
-      - name: 📥 Checkout Repository
+      - name:  Checkout Repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0  # Fetch full history for contribution snake
     
-      - name: 🐍 Setup Python
+      - name:  Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'pip'
     
-      - name: 📦 Install Dependencies
+      - name:  Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
     
-      - name: 🔧 Configure Git
+      - name:  Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
     
-      - name: 🐍 Generate Contribution Snake
+      - name:  Generate Contribution Snake
         uses: Platane/snk@v3
         with:
           github_user_name: "Rayyan9477"
@@ -63,26 +57,15 @@ jobs:
             assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
             assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
       
-      - name: 🔍 Check WakaTime API Key
-        run: |
-          if [ -z "${{ secrets.WAKATIME_API_KEY || '' }}" ]; then
-            echo "⚠️ WAKATIME_API_KEY not found in secrets"
-            echo "Skipping WakaTime stats update"
-            echo "SKIP_WAKATIME=true" >> $GITHUB_ENV
-          else
-            echo "✅ WAKATIME_API_KEY found"
-            echo "SKIP_WAKATIME=false" >> $GITHUB_ENV
-          fi
-      
-      - name: 📊 Update WakaTime Stats
-        if: env.SKIP_WAKATIME == 'false'
+      - name:  Update WakaTime Stats
         uses: athul/waka-readme@master
+        continue-on-error: true
         with:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY || '' }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
           REPOSITORY: "Rayyan9477/Rayyan9477"
           SHOW_TITLE: true
-          SECTION_NAME: "📊 WakaTime Stats"
+          SECTION_NAME: " WakaTime Stats"
           BLOCKS: "programming"
           CODE_LANG: "text"
           TIME_RANGE: "last_7_days"
@@ -95,24 +78,22 @@ jobs:
           TARGET_BRANCH: "main"
           TARGET_PATH: "README.md"
           API_BASE_URL: "https://wakatime.com/api"
-          COMMIT_MESSAGE: "📊 Updated waka-readme graph with new metrics"
+          COMMIT_MESSAGE: " Updated waka-readme graph with new metrics"
           COMMITTER_NAME: "GitHub Action"
           COMMITTER_EMAIL: "action@github.com"
           AUTHOR_NAME: "GitHub Action"
           AUTHOR_EMAIL: "action@github.com"
-        continue-on-error: true  # Continue even if WakaTime fails
 
-      - name: 📈 Generate GitHub Activity
+      - name:  Generate GitHub Activity
         uses: jamesgeorge007/github-activity-readme@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          COMMIT_MSG: '📊 Update GitHub activity stats'
+          GITHUB_TOKEN: ${{ github.token }}
+          COMMIT_MSG: ' Update GitHub activity stats'
           MAX_LINES: 5
           GH_USERNAME: 'Rayyan9477'
           TARGET_FILE: 'README.md'
     
-      - name: 🤖 Run Daily Update Script
+      - name:  Run Daily Update Script
         run: |
           # Ensure README.md is accessible in scripts directory
           if [ -f "README.md" ]; then
@@ -120,18 +101,21 @@ jobs:
           fi
           cd scripts
           python daily_update.py
+          cd ..
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
     
-      - name: 📝 Commit & Push All Changes
+      - name:  Commit & Push All Changes
         run: |
           git add .
-          git diff --staged --quiet || git commit -m "🤖 Daily profile update - $(date +%Y-%m-%d)"
+          git status
+          git diff --staged --quiet || git commit -m " Daily profile update - $(date +%Y-%m-%d)"
           git push
         continue-on-error: true
     
-      - name: 📊 Upload Logs (if failed)
+      - name:  Upload Logs (if failed)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
@@ -141,17 +125,17 @@ jobs:
             scripts/daily_update.log
           retention-days: 7
     
-      - name: ✅ Success Notification
+      - name:  Success Notification
         if: success()
         run: |
-          echo "🎉 Daily update completed successfully!"
-          echo "📅 Date: $(date)"
-          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo " Daily update completed successfully!"
+          echo " Date: $(date)"
+          echo " Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
     
-      - name: ❌ Failure Notification
+      - name:  Failure Notification
         if: failure()
         run: |
-          echo "❌ Daily update failed!"
-          echo "📅 Date: $(date)"
-          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "📋 Check the logs for more details"
+          echo " Daily update failed!"
+          echo " Date: $(date)"
+          echo " Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo " Check the logs for more details"
