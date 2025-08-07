@@ -9,11 +9,10 @@ import os
 import re
 import requests
 import random
-import json
 import subprocess
 import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
 class DailyUpdater:
     def __init__(self):
@@ -21,73 +20,40 @@ class DailyUpdater:
         self.username = 'Rayyan9477'
         self.quotes_api_url = "https://api.quotable.io/random"
         
-        # Check multiple locations for README.md
-        possible_readme_paths = [
-            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md'),  # Two dirs up
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'README.md'),  # Same dir as script
-            os.path.join(os.getcwd(), 'README.md'),  # Current working directory
-            'README.md'  # Relative path
-        ]
-        
-        # Use the first README.md that exists
-        self.readme_file = next((path for path in possible_readme_paths if os.path.exists(path)), 
-                               possible_readme_paths[0])  # Default to first path if none exist
-                               
+        # Find README.md
+        self.readme_file = self._find_readme()
         self.log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'daily_update.log')
         
         # Tech quotes as fallback
         self.tech_quotes = [
-            {
-                "content": "The best way to predict the future is to invent it.",
-                "author": "Alan Kay"
-            },
-            {
-                "content": "Code is like humor. When you have to explain it, it's bad.",
-                "author": "Cory House"
-            },
-            {
-                "content": "First, solve the problem. Then, write the code.",
-                "author": "John Johnson"
-            },
-            {
-                "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-                "author": "Martin Fowler"
-            },
-            {
-                "content": "The only way to learn a new programming language is by writing programs in it.",
-                "author": "Dennis Ritchie"
-            },
-            {
-                "content": "Talk is cheap. Show me the code.",
-                "author": "Linus Torvalds"
-            },
-            {
-                "content": "Programs must be written for people to read, and only incidentally for machines to execute.",
-                "author": "Harold Abelson"
-            },
-            {
-                "content": "Simplicity is the ultimate sophistication.",
-                "author": "Leonardo da Vinci"
-            },
-            {
-                "content": "It's not a bug – it's an undocumented feature.",
-                "author": "Anonymous"
-            },
-            {
-                "content": "The computer was born to solve problems that did not exist before.",
-                "author": "Bill Gates"
-            },
-            {
-                "content": "Innovation distinguishes between a leader and a follower.",
-                "author": "Steve Jobs"
-            },
-            {
-                "content": "The only way to do great work is to love what you do.",
-                "author": "Steve Jobs"
-            }
+            {"content": "The best way to predict the future is to invent it.", "author": "Alan Kay"},
+            {"content": "Code is like humor. When you have to explain it, it's bad.", "author": "Cory House"},
+            {"content": "First, solve the problem. Then, write the code.", "author": "John Johnson"},
+            {"content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", "author": "Martin Fowler"},
+            {"content": "Talk is cheap. Show me the code.", "author": "Linus Torvalds"},
+            {"content": "Simplicity is the ultimate sophistication.", "author": "Leonardo da Vinci"},
+            {"content": "Innovation distinguishes between a leader and a follower.", "author": "Steve Jobs"}
         ]
         
         self.log("🚀 Daily Update Script Started")
+    
+    def _find_readme(self) -> str:
+        """Find README.md in common locations"""
+        possible_paths = [
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md'),
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'README.md'),
+            os.path.join(os.getcwd(), 'README.md'),
+            'README.md'
+        ]
+        
+        for path in possible_paths:
+            if os.path.exists(path):
+                self.log(f"✅ Found README.md at {path}")
+                return path
+        
+        # If no README found, return the most likely path
+        self.log(f"⚠️ README.md not found in expected locations, using default: {possible_paths[0]}")
+        return possible_paths[0]
     
     def log(self, message: str, level: str = "INFO"):
         """Log messages with timestamp"""
@@ -95,29 +61,36 @@ class DailyUpdater:
         log_message = f"[{timestamp}] {level}: {message}"
         print(log_message)
         
-        # Write to log file
-        with open(self.log_file, 'a', encoding='utf-8') as f:
-            f.write(log_message + '\n')
+        try:
+            with open(self.log_file, 'a', encoding='utf-8') as f:
+                f.write(log_message + '\n')
+        except (PermissionError, OSError):
+            pass  # Ignore logging errors
+        except Exception:
+            pass  # Ignore any other logging errors
     
     def get_daily_quote(self) -> Dict[str, str]:
         """Get a daily inspirational quote"""
         try:
-            # Try external API first
             response = requests.get(self.quotes_api_url, timeout=5)
-            response.raise_for_status()
-            
             if response.status_code == 200:
                 data = response.json()
                 content = data.get("content", "").strip()
                 author = data.get("author", "Unknown").strip()
                 
-                if content and author and len(content) < 200:  # Reasonable length
+                if content and author and len(content) < 200:
                     self.log(f"✅ Fetched quote from API: '{content[:50]}...' by {author}")
                     return {"content": content, "author": author}
+            else:
+                self.log(f"⚠️ Quote API failed with status {response.status_code}", "WARNING")
+        except requests.exceptions.Timeout:
+            self.log("⚠️ Quote API request timed out", "WARNING")
+        except requests.exceptions.RequestException as e:
+            self.log(f"⚠️ Quote API request failed: {e}", "WARNING")
         except Exception as e:
-            self.log(f"⚠️ API quote fetch failed: {e}", "WARNING")
+            self.log(f"⚠️ Unexpected error fetching quote: {e}", "WARNING")
         
-        # Fallback to predefined tech quotes
+        # Fallback to predefined quotes
         quote = random.choice(self.tech_quotes)
         self.log(f"✅ Using fallback quote: '{quote['content'][:50]}...' by {quote['author']}")
         return quote
@@ -134,13 +107,17 @@ class DailyUpdater:
         }
         
         try:
-            # Get user info
             user_url = f'https://api.github.com/users/{self.username}'
             response = requests.get(user_url, headers=headers, timeout=10)
-            response.raise_for_status()
             
             if response.status_code == 403:
                 self.log("⚠️ GitHub API rate limit exceeded", "WARNING")
+                return {}
+            elif response.status_code == 401:
+                self.log("⚠️ GitHub API authentication failed", "WARNING")
+                return {}
+            elif response.status_code != 200:
+                self.log(f"⚠️ GitHub API request failed with status {response.status_code}", "WARNING")
                 return {}
                 
             user_data = response.json()
@@ -148,18 +125,24 @@ class DailyUpdater:
                 'followers': user_data.get('followers', 0),
                 'following': user_data.get('following', 0),
                 'public_repos': user_data.get('public_repos', 0),
-                'total_stars': self.get_total_stars(headers),
-                'total_forks': self.get_total_forks(headers)
+                'total_stars': self._get_total_stars(headers),
+                'total_forks': self._get_total_forks(headers)
             }
             
-            self.log(f"✅ GitHub stats fetched: {stats['public_repos']} repos, {stats['followers']} followers, {stats['total_stars']} stars")
+            self.log(f"✅ GitHub stats fetched: {stats['public_repos']} repos, {stats['followers']} followers")
             return stats
             
-        except Exception as e:
+        except requests.exceptions.Timeout:
+            self.log("⚠️ GitHub API request timed out", "WARNING")
+            return {}
+        except requests.exceptions.RequestException as e:
             self.log(f"❌ Error fetching GitHub stats: {e}", "ERROR")
             return {}
+        except Exception as e:
+            self.log(f"❌ Unexpected error fetching GitHub stats: {e}", "ERROR")
+            return {}
     
-    def get_total_stars(self, headers: Dict[str, str]) -> int:
+    def _get_total_stars(self, headers: Dict[str, str]) -> int:
         """Get total stars across all repositories"""
         url = f'https://api.github.com/users/{self.username}/repos'
         total_stars = 0
@@ -178,12 +161,16 @@ class DailyUpdater:
                 total_stars += sum(repo.get('stargazers_count', 0) for repo in repos)
                 page += 1
                 
-        except Exception as e:
+        except requests.exceptions.Timeout:
+            self.log("⚠️ Stars fetch timed out", "WARNING")
+        except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Error fetching stars: {e}", "WARNING")
+        except Exception as e:
+            self.log(f"⚠️ Unexpected error fetching stars: {e}", "WARNING")
             
         return total_stars
     
-    def get_total_forks(self, headers: Dict[str, str]) -> int:
+    def _get_total_forks(self, headers: Dict[str, str]) -> int:
         """Get total forks across all repositories"""
         url = f'https://api.github.com/users/{self.username}/repos'
         total_forks = 0
@@ -202,8 +189,12 @@ class DailyUpdater:
                 total_forks += sum(repo.get('forks_count', 0) for repo in repos)
                 page += 1
                 
-        except Exception as e:
+        except requests.exceptions.Timeout:
+            self.log("⚠️ Forks fetch timed out", "WARNING")
+        except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Error fetching forks: {e}", "WARNING")
+        except Exception as e:
+            self.log(f"⚠️ Unexpected error fetching forks: {e}", "WARNING")
             
         return total_forks
     
@@ -211,39 +202,65 @@ class DailyUpdater:
         """Generate contribution snake using Platane/snk API"""
         try:
             # Create assets directory if it doesn't exist
-            os.makedirs('assets', exist_ok=True)
+            assets_dir = 'assets'
+            if not os.path.exists(assets_dir):
+                os.makedirs(assets_dir, exist_ok=True)
+                self.log(f"✅ Created assets directory: {assets_dir}")
             
-            # Generate SVG snake
             svg_url = f"https://raw.githubusercontent.com/Platane/snk/output/{self.username}/github-contribution-grid-snake.svg"
-            
             response = requests.get(svg_url, timeout=10)
+            
             if response.status_code == 200:
-                with open('assets/github-contribution-grid-snake.svg', 'w', encoding='utf-8') as f:
+                svg_path = os.path.join(assets_dir, 'github-contribution-grid-snake.svg')
+                with open(svg_path, 'w', encoding='utf-8') as f:
                     f.write(response.text)
                 self.log("✅ Generated contribution snake SVG")
                 return True
             else:
-                self.log(f"⚠️ Failed to generate snake: {response.status_code}", "WARNING")
+                self.log(f"⚠️ Failed to generate contribution snake: {response.status_code}", "WARNING")
                 return False
                 
+        except requests.exceptions.Timeout:
+            self.log("⚠️ Contribution snake generation timed out", "WARNING")
+            return False
+        except requests.exceptions.RequestException as e:
+            self.log(f"⚠️ Error generating contribution snake: {e}", "WARNING")
+            return False
         except Exception as e:
-            self.log(f"❌ Error generating contribution snake: {e}", "ERROR")
+            self.log(f"❌ Unexpected error generating contribution snake: {e}", "ERROR")
             return False
     
     def update_readme_content(self, quote: Dict[str, str], stats: Dict[str, Any]) -> bool:
-        """Update README.md with all new content"""
+        """Update README.md with new content"""
         try:
+            # Check if README file exists
+            if not os.path.exists(self.readme_file):
+                self.log(f"❌ README.md not found at {self.readme_file}", "ERROR")
+                return False
+            
             with open(self.readme_file, 'r', encoding='utf-8') as file:
                 content = file.read()
             
-            # Update quote section
-            quote_url = f"https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote={quote['content'].replace(' ', '%20')}&author={quote['author'].replace(' ', '%20')}"
+            # Update quote section with proper URL encoding
+            import urllib.parse
+            encoded_quote = urllib.parse.quote(quote['content'])
+            encoded_author = urllib.parse.quote(quote['author'])
+            quote_url = f"https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote={encoded_quote}&author={encoded_author}"
             
-            quote_pattern = r'(<img src="https://quotes-github-readme\.vercel\.app/api\?[^"]*")'
-            quote_replacement = f'<img src="{quote_url}"'
+            # More robust quote pattern matching
+            quote_patterns = [
+                r'(<img src="https://quotes-github-readme\.vercel\.app/api\?[^"]*"[^>]*>)',
+                r'(<img[^>]*src="https://quotes-github-readme\.vercel\.app/api\?[^"]*"[^>]*>)'
+            ]
             
-            if re.search(quote_pattern, content):
-                content = re.sub(quote_pattern, quote_replacement, content)
+            quote_updated = False
+            for pattern in quote_patterns:
+                if re.search(pattern, content):
+                    content = re.sub(pattern, f'<img src="{quote_url}" alt="Dev Quote"/>', content)
+                    quote_updated = True
+                    break
+            
+            if quote_updated:
                 self.log("✅ Updated daily quote in README")
             else:
                 self.log("⚠️ Quote pattern not found in README", "WARNING")
@@ -253,37 +270,30 @@ class DailyUpdater:
                 # Update followers badge
                 followers_pattern = r'(https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*)'
                 followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=for-the-badge&color=4c1&logo=github'
-                content = re.sub(followers_pattern, followers_replacement, content)
+                if re.search(followers_pattern, content):
+                    content = re.sub(followers_pattern, followers_replacement, content)
+                    self.log("✅ Updated followers badge")
                 
                 # Update stars badge
                 stars_pattern = r'(https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*)'
                 stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github'
-                content = re.sub(stars_pattern, stars_replacement, content)
-                
-                self.log("✅ Updated GitHub stats badges")
+                if re.search(stars_pattern, content):
+                    content = re.sub(stars_pattern, stars_replacement, content)
+                    self.log("✅ Updated stars badge")
             
             # Update timestamps
             now = datetime.now().strftime("%B %d, %Y at %I:%M %p UTC")
             
             # Update quote timestamp
             if "<!-- Quote Updated:" in content:
-                content = re.sub(
-                    r'<!-- Quote Updated: .* -->',
-                    f'<!-- Quote Updated: {now} -->',
-                    content
-                )
+                content = re.sub(r'<!-- Quote Updated: .* -->', f'<!-- Quote Updated: {now} -->', content)
             else:
                 content = f"<!-- Quote Updated: {now} -->\n" + content
             
             # Update last updated timestamp
             if "<!-- Last Updated:" in content:
-                content = re.sub(
-                    r'<!-- Last Updated: .* -->',
-                    f'<!-- Last Updated: {now} -->',
-                    content
-                )
+                content = re.sub(r'<!-- Last Updated: .* -->', f'<!-- Last Updated: {now} -->', content)
             else:
-                # Add at the end if not present
                 content += f"\n<!-- Last Updated: {now} -->"
             
             # Write updated content
@@ -293,38 +303,33 @@ class DailyUpdater:
             self.log("✅ README content updated successfully")
             return True
             
+        except FileNotFoundError:
+            self.log(f"❌ README.md not found at {self.readme_file}", "ERROR")
+            return False
+        except PermissionError:
+            self.log(f"❌ Permission denied accessing {self.readme_file}", "ERROR")
+            return False
         except Exception as e:
             self.log(f"❌ Error updating README content: {e}", "ERROR")
             return False
     
     def commit_changes(self) -> bool:
-        """Commit all changes with a descriptive message"""
+        """Commit all changes"""
         try:
-            # Check if there are any changes to commit
-            result = subprocess.run(['git', 'status', '--porcelain'], 
-                                  capture_output=True, text=True, check=True)
+            result = subprocess.run(['git', 'status', '--porcelain'], capture_output=True, text=True, check=True)
             
             if not result.stdout.strip():
                 self.log("ℹ️ No changes to commit")
                 return True
             
-            # Add all changes
             subprocess.run(['git', 'add', '.'], check=True)
             self.log("✅ Added all changes to git")
             
-            # Create commit message
             now = datetime.now().strftime("%Y-%m-%d")
-            commit_message = f"🤖 Daily Update - {now}\n\n" \
-                           f"• Updated daily inspirational quote\n" \
-                           f"• Refreshed GitHub statistics and badges\n" \
-                           f"• Generated latest contribution snake\n" \
-                           f"• Automated daily maintenance\n\n" \
-                           f"Updated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}"
+            commit_message = f"🤖 Daily Update - {now}\n\n• Updated daily inspirational quote\n• Refreshed GitHub statistics\n• Generated latest contribution snake\n• Automated daily maintenance"
             
-            # Commit changes
             subprocess.run(['git', 'commit', '-m', commit_message], check=True)
             self.log("✅ Changes committed successfully")
-            
             return True
             
         except subprocess.CalledProcessError as e:
@@ -354,17 +359,15 @@ class DailyUpdater:
             
             # Check if README.md exists
             if not os.path.exists(self.readme_file):
-                self.log(f"⚠️ README.md not found at {self.readme_file}", "WARNING")
-                
-                # Try alternative locations
-                possible_paths = [
-                    'README.md',  # Current directory
-                    os.path.join('..', 'README.md'),  # Parent directory
-                    os.path.join(os.getcwd(), 'README.md'),  # Full path to current dir
-                    os.path.join(os.path.dirname(os.getcwd()), 'README.md')  # Full path to parent dir
+                self.log(f"❌ README.md not found at {self.readme_file}", "ERROR")
+                # Try to find README in other locations
+                alternative_paths = [
+                    'README.md',
+                    os.path.join('..', 'README.md'),
+                    os.path.join(os.getcwd(), 'README.md')
                 ]
                 
-                for path in possible_paths:
+                for path in alternative_paths:
                     if os.path.exists(path):
                         self.log(f"✅ Found README.md at {path}")
                         self.readme_file = path
@@ -380,27 +383,21 @@ class DailyUpdater:
             stats = self.get_github_stats()
             
             # Step 3: Generate contribution snake
-            snake_success = self.generate_contribution_snake()
+            self.generate_contribution_snake()
             
             # Step 4: Update README content
-            readme_success = self.update_readme_content(quote, stats)
-            
-            if not readme_success:
-                self.log("❌ README update failed, aborting commit", "ERROR")
+            if not self.update_readme_content(quote, stats):
+                self.log("❌ README update failed", "ERROR")
                 return False
             
             # Step 5: Commit changes
-            commit_success = self.commit_changes()
-            
-            if not commit_success:
+            if not self.commit_changes():
                 self.log("❌ Commit failed", "ERROR")
                 return False
             
-            # Step 6: Push changes (optional, can be disabled for testing)
+            # Step 6: Push changes (optional)
             if os.getenv('PUSH_CHANGES', 'true').lower() == 'true':
-                push_success = self.push_changes()
-                if not push_success:
-                    self.log("⚠️ Push failed, but changes are committed locally", "WARNING")
+                self.push_changes()
             
             self.log("🎉 Daily update completed successfully!")
             return True

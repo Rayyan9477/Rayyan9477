@@ -1,0 +1,73 @@
+<svg width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .float {
+      animation: float 4s ease-in-out infinite;
+    }
+    .float1 { animation-delay: 0s; }
+    .float2 { animation-delay: 0.5s; }
+    .float3 { animation-delay: 1s; }
+    .float4 { animation-delay: 1.5s; }
+    .float5 { animation-delay: 2s; }
+    .pulse {
+      animation: pulse 3s ease-in-out infinite;
+    }
+  </style>
+  
+  <!-- Background -->
+  <rect width="600" height="200" fill="#1a1b26" rx="10" ry="10" />
+  
+  <!-- AI & ML Icons -->
+  <g class="float float1" transform="translate(100, 70)">
+    <circle cx="0" cy="0" r="30" fill="#61dafb" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="white" text-anchor="middle">AI</text>
+  </g>
+  
+  <g class="float float2" transform="translate(200, 70)">
+    <circle cx="0" cy="0" r="30" fill="#7e57c2" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="white" text-anchor="middle">ML</text>
+  </g>
+  
+  <g class="float float3" transform="translate(300, 70)">
+    <circle cx="0" cy="0" r="30" fill="#4caf50" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Data</text>
+  </g>
+  
+  <g class="float float4" transform="translate(400, 70)">
+    <circle cx="0" cy="0" r="30" fill="#ff7043" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="white" text-anchor="middle">NLP</text>
+  </g>
+  
+  <g class="float float5" transform="translate(500, 70)">
+    <circle cx="0" cy="0" r="30" fill="#29b6f6" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Cloud</text>
+  </g>
+  
+  <!-- Programming Languages -->
+  <g class="float float3" transform="translate(150, 150)">
+    <circle cx="0" cy="0" r="25" fill="#ffca28" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="10" fill="white" text-anchor="middle">Python</text>
+  </g>
+  
+  <g class="float float4" transform="translate(250, 150)">
+    <circle cx="0" cy="0" r="25" fill="#ec407a" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="10" fill="white" text-anchor="middle">JS</text>
+  </g>
+  
+  <g class="float float5" transform="translate(350, 150)">
+    <circle cx="0" cy="0" r="25" fill="#42a5f5" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="10" fill="white" text-anchor="middle">SQL</text>
+  </g>
+  
+  <g class="float float1" transform="translate(450, 150)">
+    <circle cx="0" cy="0" r="25" fill="#66bb6a" class="pulse" />
+    <text x="0" y="5" font-family="Arial" font-size="10" fill="white" text-anchor="middle">React</text>
+  </g>
+</svg>

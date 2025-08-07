@@ -1,5 +1,12 @@
 name: 🤖 Unified Daily Profile Update
 
+# IMPORTANT: To fix WAKATIME_API_KEY errors:
+# 1. Go to your repository Settings > Secrets and variables > Actions
+# 2. Add a new secret named "WAKATIME_API_KEY"
+# 3. Get your API key from https://wakatime.com/settings/api-key
+# 4. Paste the API key as the secret value
+# 5. Save the secret
+
 on:
   schedule:
     # Run daily at 8:00 AM UTC
@@ -10,7 +17,6 @@ on:
     paths:
       - 'scripts/daily_update.py'
       - '.github/workflows/unified-update.yml'
-      - 'config.json'
 
 # This workflow consolidates all the updates into a single job with one commit
 # It replaces the separate workflows: daily-update.yml, metrics.yml, contribution-stats.yml, quotes.yml
@@ -21,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: read
     
     steps:
       - name: 📥 Checkout Repository
@@ -54,11 +61,24 @@ jobs:
             assets/github-contribution-grid-snake.svg
             assets/github-contribution-grid-snake-dark.svg?palette=github-dark
             assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+            assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
+      
+      - name: 🔍 Check WakaTime API Key
+        run: |
+          if [ -z "${{ secrets.WAKATIME_API_KEY || '' }}" ]; then
+            echo "⚠️ WAKATIME_API_KEY not found in secrets"
+            echo "Skipping WakaTime stats update"
+            echo "SKIP_WAKATIME=true" >> $GITHUB_ENV
+          else
+            echo "✅ WAKATIME_API_KEY found"
+            echo "SKIP_WAKATIME=false" >> $GITHUB_ENV
+          fi
       
       - name: 📊 Update WakaTime Stats
+        if: env.SKIP_WAKATIME == 'false'
         uses: athul/waka-readme@master
         with:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY || '' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: "Rayyan9477/Rayyan9477"
           SHOW_TITLE: true
@@ -75,6 +95,12 @@ jobs:
           TARGET_BRANCH: "main"
           TARGET_PATH: "README.md"
           API_BASE_URL: "https://wakatime.com/api"
+          COMMIT_MESSAGE: "📊 Updated waka-readme graph with new metrics"
+          COMMITTER_NAME: "GitHub Action"
+          COMMITTER_EMAIL: "action@github.com"
+          AUTHOR_NAME: "GitHub Action"
+          AUTHOR_EMAIL: "action@github.com"
+        continue-on-error: true  # Continue even if WakaTime fails
 
       - name: 📈 Generate GitHub Activity
         uses: jamesgeorge007/github-activity-readme@master
@@ -86,16 +112,12 @@ jobs:
           GH_USERNAME: 'Rayyan9477'
           TARGET_FILE: 'README.md'
     
-      - name: 💡 Update Daily Quote
-        run: |
-          python scripts/update_quote.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
       - name: 🤖 Run Daily Update Script
         run: |
-          # Copy README.md to scripts directory for reliable path resolution
-          cp README.md scripts/README.md
+          # Ensure README.md is accessible in scripts directory
+          if [ -f "README.md" ]; then
+            cp README.md scripts/README.md
+          fi
           cd scripts
           python daily_update.py
         env:
@@ -107,6 +129,7 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "🤖 Daily profile update - $(date +%Y-%m-%d)"
           git push
+        continue-on-error: true
     
       - name: 📊 Upload Logs (if failed)
         if: failure()

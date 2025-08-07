@@ -1,0 +1,57 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ragGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8e2de2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a00e0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- RAG Background -->
+  <circle cx="50" cy="50" r="40" fill="url(#ragGrad)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Document Icons -->
+  <g fill="#ffffff" opacity="0.9">
+    <!-- Document 1 -->
+    <rect x="25" y="35" width="15" height="20" rx="2"/>
+    <line x1="28" y1="40" x2="37" y2="40" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="28" y1="44" x2="37" y2="44" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="28" y1="48" x2="33" y2="48" stroke="#8e2de2" stroke-width="1"/>
+    
+    <!-- Document 2 -->
+    <rect x="30" y="40" width="15" height="20" rx="2"/>
+    <line x1="33" y1="45" x2="42" y2="45" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="33" y1="49" x2="42" y2="49" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="33" y1="53" x2="38" y2="53" stroke="#8e2de2" stroke-width="1"/>
+    
+    <!-- Document 3 -->
+    <rect x="35" y="45" width="15" height="20" rx="2"/>
+    <line x1="38" y1="50" x2="47" y2="50" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="38" y1="54" x2="47" y2="54" stroke="#8e2de2" stroke-width="1"/>
+    <line x1="38" y1="58" x2="43" y2="58" stroke="#8e2de2" stroke-width="1"/>
+  </g>
+  
+  <!-- Vector Search Symbol -->
+  <g fill="none" stroke="#ffffff" stroke-width="1.5">
+    <circle cx="60" cy="40" r="8"/>
+    <line x1="65" y1="46" x2="70" y2="52"/>
+  </g>
+  
+  <!-- Connection to Language Model -->
+  <g fill="#ffffff">
+    <rect x="55" y="55" width="15" height="10" rx="5"/>
+    <circle cx="73" cy="60" r="5"/>
+    <text x="58" y="62" font-family="Arial" font-size="6" fill="#8e2de2">LLM</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <g stroke="#ffffff" stroke-width="1" stroke-dasharray="2,2">
+    <path d="M45,55 C50,50 55,55 60,55"/>
+    <path d="M60,45 C65,50 70,55 73,60"/>
+  </g>
+  
+  <!-- Animation -->
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3">
+    <animate attributeName="r" values="38;42;38" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.1;0.3" dur="4s" repeatCount="indefinite"/>
+  </circle>
+</svg>

@@ -1,0 +1,50 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38ef7d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Computer Vision Background -->
+  <circle cx="50" cy="50" r="40" fill="url(#cvGrad)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Eye Iris -->
+  <circle cx="50" cy="50" r="20" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Eye Pupil -->
+  <circle cx="50" cy="50" r="10" fill="#11998e">
+    <animate attributeName="r" values="10;8;10" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Detection Frame -->
+  <rect x="30" y="30" width="40" height="40" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="4,2">
+    <animate attributeName="width" values="40;42;40" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="40;42;40" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="30;29;30" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="30;29;30" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Corner Markers -->
+  <g stroke="#ffffff" stroke-width="2">
+    <line x1="28" y1="30" x2="34" y2="30"/>
+    <line x1="30" y1="28" x2="30" y2="34"/>
+    
+    <line x1="66" y1="30" x2="72" y2="30"/>
+    <line x1="70" y1="28" x2="70" y2="34"/>
+    
+    <line x1="28" y1="70" x2="34" y2="70"/>
+    <line x1="30" y1="66" x2="30" y2="72"/>
+    
+    <line x1="66" y1="70" x2="72" y2="70"/>
+    <line x1="70" y1="66" x2="70" y2="72"/>
+  </g>
+  
+  <!-- Light Rays -->
+  <g stroke="#ffffff" stroke-width="0.5" stroke-dasharray="1,1">
+    <line x1="50" y1="50" x2="30" y2="30"/>
+    <line x1="50" y1="50" x2="70" y2="30"/>
+    <line x1="50" y1="50" x2="30" y2="70"/>
+    <line x1="50" y1="50" x2="70" y2="70"/>
+  </g>
+</svg>

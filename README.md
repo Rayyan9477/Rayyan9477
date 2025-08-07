@@ -1,5 +1,15 @@
-<!-- Quote Updated: August 06, 2025 at 08:29 AM UTC -->
-<!-- Animated Header Banner -->
+<!-- Quote Updated: August 07, 2025 at 08:29 AM UTC -->
+<!-- Animated Custo## 🛠️ Technical Arsenal
+
+<div align="center">
+
+### 🧩 **Tech Visualization**
+
+<div align="center">
+  <img src="assets/ai-tech-bubble.svg" width="600" height="200" alt="AI Tech Bubble Visualization" />
+</div>
+
+<!-- Animated Capsule Header Banner -->
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=300&section=header&text=Rayyan%20Ahmed&fontSize=90&fontAlign=50&fontAlignY=40&desc=AI%20Engineer%20%7C%20Data%20Scientist%20%7C%20Innovation%20Catalyst&descAlign=50&descAlignY=60&animation=fadeIn" width="100%"/>
 </div>
@@ -30,9 +40,6 @@
   <a href="https://github.com/Rayyan9477">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
   </a>
-  <a href="https://twitter.com/rayyan9477">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter"/>
-  </a>
 </div>
 
 ---
@@ -42,7 +49,7 @@
 <img align="right" alt="AI Development" width="400" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif"/>
 
 ### 🎯 **Current Mission**
-Leading AI transformation at **Nobility MBS**, where I architect cutting-edge **RAG & LLM solutions** that automate complex medical billing workflows and drive operational excellence.
+Leading AI transformation at **Nobility RCM**, where I architect cutting-edge **RAG & LLM solutions** that automate complex medical billing workflows and drive operational excellence.
 
 ### 💡 **Innovation Track Record**
 - ⚡ **18% accuracy boost** in deep learning models at Mentorness
@@ -73,7 +80,102 @@ class AIEngineer:
 
 <div align="center">
 
-### 🧠 **AI/ML Core**
+###   **Tech Stack**
+
+<table align="center">
+  <tr>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/python-icon.svg" alt="icon" width="65" height="65" />
+      <br>Python
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/ai-icon.svg" alt="AI" width="65" height="65" />
+      <br>AI
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/ml-icon.svg" alt="Machine Learning" width="65" height="65" />
+      <br>ML
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/transformer-icon.svg" alt="Transformers" width="65" height="65" />
+      <br>Transformers
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/nlp-icon.svg" alt="NLP" width="65" height="65" />
+      <br>NLP
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/cv-icon.svg" alt="Computer Vision" width="65" height="65" />
+      <br>CV
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/python-icon.svg" alt="icon" width="65" height="65" />
+      <br>PyTorch
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/aws-icon.svg" alt="icon" width="65" height="65" />
+      <br>AWS
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/rag-icon.svg" alt="RAG" width="65" height="65" />
+      <br>RAG
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/django-icon.svg" alt="icon" width="65" height="65" />
+      <br>Django
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="65" height="65" />
+      <br>Github
+    </td>
+    <td align="center" width="96">
+        <img src="assets/icons/data-science-icon.svg" alt="Data Science" width="65" height="65" />
+      <br>Data Science
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="65" height="65" />
+      <br>TypeScript
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" />
+      <br>React
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/cpp-icon.svg" alt="icon" width="65" height="65" />
+      <br>C++
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/docker-icon.svg" alt="icon" width="65" height="65" />
+      <br>Docker
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/kubernetes-icon.svg" alt="icon" width="65" height="65" />
+      <br>Kubernetes
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=tensorflow" width="48" height="48" alt="TensorFlow" />
+      <br>TensorFlow
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=mongodb" width="48" height="48" alt="MongoDB" />
+      <br>MongoDB
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=fastapi" width="48" height="48" alt="FastAPI" />
+      <br>FastAPI
+    </td>
+    <td align="center" width="96">
+        <img src="https://techstack-generator.vercel.app/mysql-icon.svg" alt="icon" width="65" height="65" />
+      <br>MySQL
+    </td>
+  </tr>
+</table>
+
+###  🧠 **AI/ML Core**
 ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
@@ -252,7 +354,20 @@ class AIEngineer:
 ### 🐍 **Contribution Snake**
 
 <p align="center">
-  <img src="assets/github-contribution-grid-snake.svg" alt="Contribution Snake"/>
+  <details open>
+    <summary>Light Mode 🌞</summary>
+    <img src="assets/github-contribution-grid-snake.svg" alt="Contribution Snake"/>
+  </details>
+  
+  <details>
+    <summary>Dark Mode 🌙</summary>
+    <img src="assets/github-contribution-grid-snake-dark.svg" alt="Contribution Snake Dark"/>
+  </details>
+  
+  <details>
+    <summary>Rainbow Mode 🌈</summary>
+    <img src="assets/github-contribution-grid-snake-rainbow.svg" alt="Contribution Snake Rainbow"/>
+  </details>
 </p>
 
 </div>
@@ -262,6 +377,14 @@ class AIEngineer:
 ## 📊 WakaTime Stats
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white" alt="WakaTime Status"/>
+</div>
+
+> **Note:** WakaTime stats will appear here once the API key is properly configured in GitHub secrets. 
+> 1. Go to your repository Settings > Secrets and variables > Actions
+> 2. Add a new secret named `WAKATIME_API_KEY` with your API key from https://wakatime.com/settings/api-key
+> 3. Manual trigger the workflow or wait for the next scheduled run
 <!--END_SECTION:waka-->
 
 ## 📈 Recent GitHub Activity
@@ -285,7 +408,42 @@ class AIEngineer:
 
 <div align="center">
 
-### 📬 **Professional Links**
+###  ️ **Development Environment**
+
+<table align="center">
+  <tr>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=vscode" width="48" height="48" alt="VSCode" />
+      <br>VS Code
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=github" width="48" height="48" alt="GitHub" />
+      <br>GitHub
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=docker" width="48" height="48" alt="Docker" />
+      <br>Docker
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=figma" width="48" height="48" alt="Figma" />
+      <br>Figma
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=gcp" width="48" height="48" alt="GCP" />
+      <br>GCP
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=azure" width="48" height="48" alt="Azure" />
+      <br>Azure
+    </td>
+    <td align="center" width="96">
+        <img src="https://skillicons.dev/icons?i=postgres" width="48" height="48" alt="PostgreSQL" />
+      <br>PostgreSQL
+    </td>
+  </tr>
+</table>
+
+###  📬 **Professional Links**
 
 <a href="mailto:rayyanahmed265@yahoo.com">
   <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=D14836"/>

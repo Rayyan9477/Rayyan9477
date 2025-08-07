@@ -1,0 +1,67 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="transformerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fc5c7d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6a82fb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Transformer Background -->
+  <circle cx="50" cy="50" r="40" fill="url(#transformerGrad)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Attention Heads -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="35" cy="30" r="5"/>
+    <circle cx="50" cy="30" r="5"/>
+    <circle cx="65" cy="30" r="5"/>
+  </g>
+  
+  <!-- Multi-Head Attention -->
+  <g stroke="#ffffff" stroke-width="1">
+    <line x1="35" y1="35" x2="35" y2="45"/>
+    <line x1="50" y1="35" x2="50" y2="45"/>
+    <line x1="65" y1="35" x2="65" y2="45"/>
+  </g>
+  
+  <!-- Attention Matrix -->
+  <g fill="#ffffff" opacity="0.6">
+    <rect x="30" y="45" width="40" height="10" rx="2"/>
+    <text x="42" y="52" font-family="Arial" font-size="6" fill="#fc5c7d">Attention</text>
+  </g>
+  
+  <!-- Feed Forward -->
+  <g fill="#ffffff" opacity="0.8">
+    <rect x="35" y="60" width="30" height="10" rx="2"/>
+    <text x="38" y="67" font-family="Arial" font-size="6" fill="#fc5c7d">Feed Forward</text>
+  </g>
+  
+  <!-- Connections -->
+  <g stroke="#ffffff" stroke-width="1" stroke-dasharray="2,1">
+    <line x1="50" y1="55" x2="50" y2="60"/>
+  </g>
+  
+  <!-- Input/Output Connections -->
+  <g stroke="#ffffff" stroke-width="1">
+    <path d="M25,50 C30,50 30,65 35,65"/>
+    <path d="M65,65 C70,65 70,50 75,50"/>
+    <polygon points="75,50 72,48 72,52" fill="#ffffff"/>
+  </g>
+  
+  <!-- Animation -->
+  <g>
+    <circle cx="35" cy="30" r="6" fill="none" stroke="#ffffff" stroke-width="0.5">
+      <animate attributeName="r" values="6;7;6" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="50" cy="30" r="6" fill="none" stroke="#ffffff" stroke-width="0.5">
+      <animate attributeName="r" values="6;7;6" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="65" cy="30" r="6" fill="none" stroke="#ffffff" stroke-width="0.5">
+      <animate attributeName="r" values="6;7;6" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
