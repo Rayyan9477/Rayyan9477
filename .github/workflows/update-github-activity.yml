@@ -14,8 +14,7 @@ jobs:
       contents: write
     env:
       # Provide token in both common env names to satisfy action checks
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
       - name: Checkout repository

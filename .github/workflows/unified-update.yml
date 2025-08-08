@@ -87,7 +87,7 @@ jobs:
       - name:  Generate GitHub Activity
         uses: jamesgeorge007/github-activity-readme@master
         with:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
           COMMIT_MSG: ' Update GitHub activity stats'
           MAX_LINES: 5
           GH_USERNAME: 'Rayyan9477'
@@ -103,7 +103,7 @@ jobs:
           python daily_update.py
           cd ..
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ GH_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
     

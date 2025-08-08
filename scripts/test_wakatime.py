@@ -86,17 +86,17 @@ def test_wakatime_api():
         print(f"❌ Unexpected error: {e}")
         return False
 
-def test_github_token():
+def test_GH_TOKEN():
     """Test GitHub token configuration"""
     
-    github_token = os.getenv('GITHUB_TOKEN')
+    GH_TOKEN = os.getenv('GH_TOKEN')
     
-    if not github_token:
-        print("❌ GITHUB_TOKEN not found in environment variables")
+    if not GH_TOKEN:
+        print("❌ GH_TOKEN not found in environment variables")
         return False
     
     headers = {
-        'Authorization': f'token {github_token}',
+        'Authorization': f'token {GH_TOKEN}',
         'Accept': 'application/vnd.github.v3+json'
     }
     
@@ -133,7 +133,7 @@ def main():
     # Test GitHub Token
     print("\n2️⃣ Testing GitHub Token Configuration")
     print("-" * 40)
-    github_success = test_github_token()
+    github_success = test_GH_TOKEN()
     
     # Summary
     print("\n📋 Test Summary")
@@ -150,7 +150,7 @@ def main():
             print("   - Verify WAKATIME_API_KEY is set correctly")
             print("   - Check WakaTime account settings")
         if not github_success:
-            print("   - Verify GITHUB_TOKEN has proper permissions")
+            print("   - Verify GH_TOKEN has proper permissions")
             print("   - Check repository workflow permissions")
 
 if __name__ == "__main__":

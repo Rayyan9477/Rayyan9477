@@ -28,7 +28,7 @@ class DailyUpdater:
         except Exception as e:
             self.log(f"⚠️ Error loading .env file: {e}")
             
-        self.github_token = os.getenv('GITHUB_TOKEN')
+        self.GH_TOKEN = os.getenv('GH_TOKEN')
         self.wakatime_token = os.getenv('WAKATIME_API_KEY')
         self.username = 'Rayyan9477'
         self.quotes_api_url = "https://api.quotable.io/random"
@@ -110,12 +110,12 @@ class DailyUpdater:
     
     def get_github_stats(self) -> Dict[str, Any]:
         """Fetch latest GitHub statistics"""
-        if not self.github_token:
-            self.log("⚠️ GITHUB_TOKEN not set, skipping GitHub stats", "WARNING")
+        if not self.GH_TOKEN:
+            self.log("⚠️ GH_TOKEN not set, skipping GitHub stats", "WARNING")
             return {}
             
         headers = {
-            'Authorization': f'token {self.github_token}',
+            'Authorization': f'token {self.GH_TOKEN}',
             'Accept': 'application/vnd.github.v3+json'
         }
         
