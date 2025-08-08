@@ -1,0 +1,33 @@
+name: Update GitHub Activity
+
+on:
+  schedule:
+    # Runs every 6 hours; adjust as needed
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    name: Update README with recent activity
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate activity and update README
+        uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          COMMIT_MSG: " Update GitHub activity stats"
+          MAX_LINES: 5
+          GH_USERNAME: Rayyan9477
+          TARGET_FILE: README.md
+          COMMIT_NAME: github-actions[bot]
+          COMMIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          EMPTY_COMMIT_MSG: ":memo: empty commit to keep workflow active after 60 days of no activity"
+
+
