@@ -1,9 +1,16 @@
-name:  Unified Daily Profile Update
+name: 🔄 Unified Daily Profile Update
 
 # IMPORTANT: GitHub Secrets Configuration:
 # 1. Go to your repository Settings > Secrets and variables > Actions
 # 2. Add the following secrets:
+#    - GH_TOKEN: Your GitHub Personal Access Token (optional - fallback to github.token)
 #    - WAKATIME_API_KEY: Your WakaTime API key from https://wakatime.com/settings/api-key
+#
+# Required Permissions for Personal Access Token (if using GH_TOKEN):
+# - repo (Full control of private repositories)
+# - workflow (Update GitHub Action workflows)
+# - read:user (Read user profile data)
+# - user:email (Access user email addresses)
 
 on:
   schedule:
@@ -18,11 +25,16 @@ on:
 
 jobs:
   daily-update:
-    name:  Daily GitHub Profile Update
+    name: 🔄 Daily GitHub Profile Update
     runs-on: ubuntu-latest
     permissions:
       contents: write
       actions: read
+    env:
+      # Use provided GH_TOKEN if available, otherwise fallback to github.token
+      GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
     
     steps:
       - name:  Checkout Repository
@@ -31,7 +43,7 @@ jobs:
           fetch-depth: 0  # Fetch full history for contribution snake
     
       - name:  Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -47,7 +59,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
     
-      - name:  Generate Contribution Snake
+      - name: 🐍 Generate Contribution Snake
         uses: Platane/snk@v3
         with:
           github_user_name: "Rayyan9477"
@@ -56,13 +68,15 @@ jobs:
             assets/github-contribution-grid-snake-dark.svg?palette=github-dark
             assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
             assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
       
-      - name:  Update WakaTime Stats
+      - name: ⏰ Update WakaTime Stats
         uses: athul/waka-readme@master
         continue-on-error: true
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
           REPOSITORY: "Rayyan9477/Rayyan9477"
           SHOW_TITLE: true
           SECTION_NAME: " WakaTime Stats"
@@ -84,16 +98,18 @@ jobs:
           AUTHOR_NAME: "GitHub Action"
           AUTHOR_EMAIL: "action@github.com"
 
-      - name:  Generate GitHub Activity
+      - name: 📈 Generate GitHub Activity
         uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
         with:
-          GH_TOKEN: ${{ github.token }}
-          COMMIT_MSG: ' Update GitHub activity stats'
+          COMMIT_MSG: '📊 Update GitHub activity stats'
           MAX_LINES: 5
           GH_USERNAME: 'Rayyan9477'
           TARGET_FILE: 'README.md'
     
-      - name:  Run Daily Update Script
+      - name: 🔄 Run Daily Update Script
         run: |
           # Ensure README.md is accessible in scripts directory
           if [ -f "README.md" ]; then
@@ -103,16 +119,28 @@ jobs:
           python daily_update.py
           cd ..
         env:
-          GH_TOKEN: ${{ GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
     
-      - name:  Commit & Push All Changes
+      - name: 💾 Commit & Push All Changes
         run: |
           git add .
           git status
-          git diff --staged --quiet || git commit -m " Daily profile update - $(date +%Y-%m-%d)"
-          git push
+          if ! git diff --staged --quiet; then
+            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d) 
+            
+            • 🐍 Updated contribution snake animations
+            • ⏰ Refreshed WakaTime coding statistics  
+            • 📊 Updated GitHub activity feed
+            • 💡 Added daily inspirational quote
+            • 🤖 Automated maintenance completed"
+            git push
+            echo "✅ Successfully committed and pushed changes"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
         continue-on-error: true
     
       - name:  Upload Logs (if failed)
@@ -125,17 +153,19 @@ jobs:
             scripts/daily_update.log
           retention-days: 7
     
-      - name:  Success Notification
+      - name: ✅ Success Notification
         if: success()
         run: |
-          echo " Daily update completed successfully!"
-          echo " Date: $(date)"
-          echo " Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "🎉 Daily update completed successfully!"
+          echo "📅 Date: $(date)"
+          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "🚀 All systems operational!"
     
-      - name:  Failure Notification
+      - name: ❌ Failure Notification
         if: failure()
         run: |
-          echo " Daily update failed!"
-          echo " Date: $(date)"
-          echo " Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo " Check the logs for more details"
+          echo "💥 Daily update failed!"
+          echo "📅 Date: $(date)"
+          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "🔍 Check the logs for more details"
+          echo "⚠️ Troubleshooting: Verify WAKATIME_API_KEY and GH_TOKEN secrets are set"
