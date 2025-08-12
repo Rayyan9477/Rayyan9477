@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 12, 2025 at 08:17 AM UTC -->
+<!-- Quote Updated: August 12, 2025 at 11:21 AM UTC -->
 <!-- Animated Custo## 🛠️ Technical Arsenal
 
 <div align="center">
@@ -413,7 +413,34 @@ class AIEngineer:
 ### 🏆 **Achievement Showcase**
 
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Rayyan9477&theme=tokyonight&no-frame=true&no-bg=false&margin-w=4&column=7" alt="GitHub Trophies"/>
+  <img src="https://github-profile-trophy.vercel.app/?username=Rayyan9477&theme=tokyonight&no-frame=true&margin-w=8&row=2&column=4" alt="GitHub Trophies"/>
+  
+  <!-- Fallback (in case the external service is temporarily unavailable) -->
+  <br/>
+  <a href="https://github.com/ryo-ma/github-profile-trophy">
+    <img src="https://img.shields.io/badge/Trophy%20Gallery-View%20on%20GitHub-2f81f7?logo=github" alt="View Trophy Gallery"/>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </p>
 
 ### 📊 **Contribution Graph**
@@ -448,14 +475,10 @@ class AIEngineer:
 ## 📊 WakaTime Stats
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/WakaTime-Authentication%20Failed-red?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 05 August 2025 - To: 12 August 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
 
 <!--END_SECTION:waka-->
 
@@ -471,7 +494,7 @@ No activity tracked
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=The%20best%20way%20to%20predict%20the%20future%20is%20to%20invent%20it.&author=Alan%20Kay" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Innovation%20distinguishes%20between%20a%20leader%20and%20a%20follower.&author=Steve%20Jobs" alt="Dev Quote"/>
 </div>
 
 ---
@@ -533,19 +556,5 @@ No activity tracked
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 12, 2025 at 08:17 AM UTC -->
+<!-- Last Updated: August 12, 2025 at 11:21 AM UTC -->
 
----
-
-## 🤖 Automated Updates
-
-This README is automatically updated daily with:
-
-- 📊 **WakaTime Stats**: Coding activity and language usage
-- 🐍 **Contribution Snake**: Visual representation of GitHub contributions  
-- 📈 **GitHub Analytics**: Stats, streaks, and activity graphs
-- 💡 **Daily Quotes**: Inspirational developer quotes
-
-*Updates run daily at 8-9 AM UTC via GitHub Actions*
-
----
