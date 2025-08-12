@@ -579,12 +579,16 @@ def main():
     updater = DailyUpdater()
     success = updater.run_daily_update()
     
-    if success:
-        print("\n✅ Daily update completed successfully!")
-        sys.exit(0)
-    else:
-        print("\n❌ Daily update failed!")
-        sys.exit(1)
+    try:
+        if success:
+            print("\nDaily update completed successfully!")
+            sys.exit(0)
+        else:
+            print("\nDaily update failed!")
+            sys.exit(1)
+    except UnicodeEncodeError:
+        # Final safety for terminals that cannot render emojis
+        sys.exit(0 if success else 1)
 
 if __name__ == "__main__":
     main() 
