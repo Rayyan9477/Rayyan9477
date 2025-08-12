@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 12, 2025 at 06:34 AM UTC -->
+<!-- Quote Updated: August 12, 2025 at 08:17 AM UTC -->
 <!-- Animated Custo## 🛠️ Technical Arsenal
 
 <div align="center">
@@ -448,21 +448,15 @@ class AIEngineer:
 ## 📊 WakaTime Stats
 
 <!--START_SECTION:waka-->
-<div align="center">
-  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white" alt="WakaTime Status"/>
-</div>
 
-> **🔧 Setup Instructions:**
-> 
-> 1. Sign up for WakaTime at [wakatime.com](https://wakatime.com) if you haven't already
-> 2. Install WakaTime extensions for your code editors ([installation guide](https://wakatime.com/plugins))
-> 3. Get your API Key from [wakatime.com/settings/api-key](https://wakatime.com/settings/api-key)
-> 4. Go to your repository Settings > Secrets and variables > Actions
-> 5. Add a new secret named `WAKATIME_API_KEY` with your API key value
-> 6. Trigger the workflow manually by going to Actions > Unified Daily Profile Update > Run workflow
-> 7. Your coding stats will appear here after the workflow runs successfully
->
-> _For troubleshooting, check the workflow logs in the Actions tab_
+```text
+From: 05 August 2025 - To: 12 August 2025
+
+Total Time: 0 secs
+
+No activity tracked
+```
+
 <!--END_SECTION:waka-->
 
 ## 📈 Recent GitHub Activity
@@ -539,7 +533,7 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 12, 2025 at 06:34 AM UTC -->
+<!-- Last Updated: August 12, 2025 at 08:17 AM UTC -->
 
 ---
 
