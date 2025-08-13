@@ -288,19 +288,21 @@ class DailyUpdater:
             return placeholder
 
         headers = {"Authorization": f"Bearer {self.wakatime_token}"}
-        end_date = datetime.utcnow().date()
+        from datetime import timezone
+        end_date = datetime.now(timezone.utc).date()
         start_date = end_date - timedelta(days=7)
         url = (
             f"{self.wakatime_api_base}/users/current/summaries?start={start_date.isoformat()}&end={end_date.isoformat()}"
         )
         try:
             response = requests.get(url, headers=headers, timeout=15)
-            if response.status_code == 401:
-                self.log("⚠️ WakaTime authentication failed", "WARNING")
+            if response.status_code in (401, 403):
+                self.log("⚠️ WakaTime authentication/permission failed", "WARNING")
                 return (
                     '<div align="center">\n'
-                    '  <img src="https://img.shields.io/badge/WakaTime-Authentication%20Failed-red?style=for-the-badge&logo=wakatime&logoColor=white"/>\n'
-                    '</div>\n'
+                    '  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>\n'
+                    '</div>\n\n'
+                    '> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.'
                 )
             if response.status_code != 200:
                 self.log(f"⚠️ WakaTime API error: {response.status_code}", "WARNING")
