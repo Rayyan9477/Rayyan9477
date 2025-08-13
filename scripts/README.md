@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 13, 2025 at 06:34 AM UTC -->
+<!-- Quote Updated: August 13, 2025 at 08:17 AM UTC -->
 <!-- Animated Custo## 🛠️ Technical Arsenal
 
 <div align="center">
@@ -413,7 +413,34 @@ class AIEngineer:
 ### 🏆 **Achievement Showcase**
 
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Rayyan9477&theme=tokyonight&no-frame=true&no-bg=false&margin-w=4&column=7" alt="GitHub Trophies"/>
+  <img src="https://github-profile-trophy.vercel.app/?username=Rayyan9477&theme=tokyonight&no-frame=true&margin-w=8&row=2&column=4" alt="GitHub Trophies"/>
+  
+  <!-- Fallback (in case the external service is temporarily unavailable) -->
+  <br/>
+  <a href="https://github.com/ryo-ma/github-profile-trophy">
+    <img src="https://img.shields.io/badge/Trophy%20Gallery-View%20on%20GitHub-2f81f7?logo=github" alt="View Trophy Gallery"/>
+  </a>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </p>
 
 ### 📊 **Contribution Graph**
@@ -450,7 +477,7 @@ class AIEngineer:
 <!--START_SECTION:waka-->
 
 ```text
-From: 05 August 2025 - To: 12 August 2025
+From: 06 August 2025 - To: 13 August 2025
 
 Total Time: 0 secs
 
@@ -471,7 +498,7 @@ No activity tracked
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Innovation%20distinguishes%20between%20a%20leader%20and%20a%20follower.&author=Steve%20Jobs" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Simplicity%20is%20the%20ultimate%20sophistication.&author=Leonardo%20da%20Vinci" alt="Dev Quote"/>
 </div>
 
 ---
@@ -533,19 +560,5 @@ No activity tracked
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 13, 2025 at 06:34 AM UTC -->
+<!-- Last Updated: August 13, 2025 at 08:17 AM UTC -->
 
----
-
-## 🤖 Automated Updates
-
-This README is automatically updated daily with:
-
-- 📊 **WakaTime Stats**: Coding activity and language usage
-- 🐍 **Contribution Snake**: Visual representation of GitHub contributions  
-- 📈 **GitHub Analytics**: Stats, streaks, and activity graphs
-- 💡 **Daily Quotes**: Inspirational developer quotes
-
-*Updates run daily at 8-9 AM UTC via GitHub Actions*
-
----
