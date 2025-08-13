@@ -475,10 +475,14 @@ class AIEngineer:
 ## 📊 WakaTime Stats
 
 <!--START_SECTION:waka-->
-<div align="center">
-  <img src="https://img.shields.io/badge/WakaTime-Authentication%20Failed-red?style=for-the-badge&logo=wakatime&logoColor=white"/>
-</div>
 
+```text
+From: 06 August 2025 - To: 13 August 2025
+
+Total Time: 0 secs
+
+No activity tracked
+```
 
 <!--END_SECTION:waka-->
 
