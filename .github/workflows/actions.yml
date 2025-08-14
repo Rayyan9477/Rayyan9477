@@ -16,8 +16,8 @@ on:
   schedule:
     # Run daily at 8:00 AM UTC
     - cron: '0 8 * * *'
-    # Run every 6 hours for GitHub activity
-    - cron: '0 */6 * * *'
+    # Run every 12 hours for GitHub activity
+    - cron: '0 */12 * * *'
   workflow_dispatch:  # Allow manual trigger
   push:
     branches: [ main ]

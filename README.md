@@ -470,28 +470,6 @@ class AIEngineer:
 
 </div>
 
----
-
-## 📊 WakaTime Stats
-
-<!--START_SECTION:waka-->
-<div align="center">
-  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
-</div>
-
-> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
-
-<!--END_SECTION:waka-->
-
-## 📈 Recent GitHub Activity
-
-<!--START_SECTION:activity-->
-1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
-2. 💪 Opened PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
-<!--END_SECTION:activity-->
-
----
-
 ## 💡 Daily Inspiration
 
 <div align="center">
@@ -558,4 +536,3 @@ class AIEngineer:
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
 <!-- Last Updated: August 14, 2025 at 08:17 AM UTC -->
-
