@@ -1,14 +1,4 @@
-<!-- Quote Updated: August 14, 2025 at 08:17 AM UTC -->
-<!-- Animated Custo## 🛠️ Technical Arsenal
-
-<div align="center">
-
-### 🧩 **Tech Visualization**
-
-<div align="center">
-  <img src="assets/ai-ml-tech-banner.svg" width="800" height="200" alt="AI/ML Technology Expertise" />
-  <img src="assets/ai-jupyter-skills.svg" width="800" height="400" alt="AI/ML Jupyter Code Visualization" style="margin-top: 20px;" />
-</div>
+<!-- Quote Updated: August 14, 2025 at 11:10 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -79,9 +69,14 @@ class AIEngineer:
 
 ## 🛠️ Technical Arsenal
 
-<div align="center">
+### 🧩 **Tech Visualization**
 
-###   **AI-Focused Tech Stack**
+<div align="center">
+  <img src="assets/ai-ml-tech-banner.svg" width="800" height="200" alt="AI/ML Technology Expertise" />
+  <!-- <img src="assets/ai-jupyter-skills.svg" width="800" height="400" alt="AI/ML Jupyter Code Visualization" style="margin-top: 20px;" /> -->
+</div>
+
+### 🚀 **AI-Focused Tech Stack**
 
 <p align="center">
   <!-- First Row: Core AI Technologies -->
@@ -155,7 +150,7 @@ class AIEngineer:
   </a>
 </p>
 
-###  🧠 **AI/ML Core**
+### 🧠 **AI/ML Core**
 
 <p align="center">
   <a href="https://www.python.org/" target="_blank" rel="noreferrer">
@@ -272,6 +267,29 @@ class AIEngineer:
   </a>
   <a href="https://redis.io/" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Redis-Dark.svg" alt="Redis" width="60" height="60"/>
+  </a>
+</p>
+
+### 🛠️ **Development Environment**
+
+<p align="center">
+  <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/VSCode-Dark.svg" alt="VS Code" width="60" height="60"/>
+  </a>
+  <a href="https://github.com/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Github-Dark.svg" alt="GitHub" width="60" height="60"/>
+  </a>
+  <a href="https://www.docker.com/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Docker.svg" alt="Docker" width="60" height="60"/>
+  </a>
+  <a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PyCharm-Dark.svg" alt="PyCharm" width="60" height="60"/>
+  </a>
+  <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Git.svg" alt="Git" width="60" height="60"/>
+  </a>
+  <a href="https://www.linux.org/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Linux-Dark.svg" alt="Linux" width="60" height="60"/>
   </a>
 </p>
 
@@ -394,6 +412,23 @@ class AIEngineer:
 
 ## 📊 GitHub Analytics
 
+<!--START_SECTION:activity-->
+1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
+2. 💪 Opened PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
+<!--END_SECTION:activity-->
+
+<!--START_SECTION:waka-->
+
+```text
+From: 08 August 2025 - To: 15 August 2025
+
+Total Time: 0 secs
+
+No activity tracked
+```
+
+<!--END_SECTION:waka-->
+
 <div align="center">
 
 ### 🔥 **Performance Metrics**
@@ -420,27 +455,6 @@ class AIEngineer:
   <a href="https://github.com/ryo-ma/github-profile-trophy">
     <img src="https://img.shields.io/badge/Trophy%20Gallery-View%20on%20GitHub-2f81f7?logo=github" alt="View Trophy Gallery"/>
   </a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </p>
 
 ### 📊 **Contribution Graph**
@@ -473,7 +487,7 @@ class AIEngineer:
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Innovation%20distinguishes%20between%20a%20leader%20and%20a%20follower.&author=Steve%20Jobs" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=The%20best%20way%20to%20predict%20the%20future%20is%20to%20invent%20it.&author=Alan%20Kay" alt="Dev Quote"/>
 </div>
 
 ---
@@ -482,30 +496,7 @@ class AIEngineer:
 
 <div align="center">
 
-###  ️ **Development Environment**
-
-<p align="center">
-  <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/VSCode-Dark.svg" alt="VS Code" width="60" height="60"/>
-  </a>
-  <a href="https://github.com/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Github-Dark.svg" alt="GitHub" width="60" height="60"/>
-  </a>
-  <a href="https://www.docker.com/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Docker.svg" alt="Docker" width="60" height="60"/>
-  </a>
-  <a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PyCharm-Dark.svg" alt="PyCharm" width="60" height="60"/>
-  </a>
-  <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Git.svg" alt="Git" width="60" height="60"/>
-  </a>
-  <a href="https://www.linux.org/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Linux-Dark.svg" alt="Linux" width="60" height="60"/>
-  </a>
-</p>
-
-###  📬 **Professional Links**
+### 📬 **Professional Links**
 
 <a href="mailto:rayyanahmed265@yahoo.com">
   <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=D14836"/>
@@ -535,4 +526,4 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 14, 2025 at 08:17 AM UTC -->
+<!-- Last Updated: August 14, 2025 at 11:10 AM UTC -->
