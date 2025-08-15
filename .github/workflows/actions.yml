@@ -60,9 +60,27 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
+      
+      - name: 🔍 Verify README Structure
+        run: |
+          echo "🔍 Checking README.md structure..."
+          if grep -q "<!--START_SECTION:activity-->" README.md; then
+            echo "✅ Activity section found in README.md"
+          else
+            echo "❌ Activity section missing from README.md"
+            exit 1
+          fi
+          if grep -q "<!--START_SECTION:waka-->" README.md; then
+            echo "✅ WakaTime section found in README.md"
+          else
+            echo "❌ WakaTime section missing from README.md"
+            exit 1
+          fi
+          echo "✅ README.md structure verification completed"
     
       - name: 🐍 Generate Contribution Snake
         uses: Platane/snk@v3
+        continue-on-error: true
         with:
           github_user_name: "Rayyan9477"
           outputs: |
@@ -82,7 +100,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: "Rayyan9477/Rayyan9477"
           SHOW_TITLE: true
-          SECTION_NAME: " WakaTime Stats"
+          SECTION_NAME: "WakaTime Stats"
           BLOCKS: "programming"
           CODE_LANG: "text"
           TIME_RANGE: "last_7_days"
@@ -104,6 +122,7 @@ jobs:
       - name: 📈 Generate GitHub Activity
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         uses: jamesgeorge007/github-activity-readme@master
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -121,28 +140,51 @@ jobs:
           # Ensure README.md is accessible in scripts directory
           if [ -f "README.md" ]; then
             cp README.md scripts/README.md
+            echo "✅ README.md copied to scripts directory"
+          else
+            echo "❌ README.md not found in root directory"
+            exit 1
           fi
           cd scripts
-          python daily_update.py
+          if [ -f "daily_update.py" ]; then
+            echo "✅ daily_update.py found, executing..."
+            python daily_update.py
+            echo "✅ daily_update.py execution completed"
+          else
+            echo "❌ daily_update.py not found in scripts directory"
+            exit 1
+          fi
           cd ..
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
     
+      - name: 🔍 Final README Verification
+        run: |
+          echo "🔍 Final README.md structure verification..."
+          if grep -q "<!--START_SECTION:activity-->" README.md; then
+            echo "✅ Activity section still present in README.md"
+          else
+            echo "❌ Activity section missing from README.md after updates"
+            exit 1
+          fi
+          if grep -q "<!--START_SECTION:waka-->" README.md; then
+            echo "✅ WakaTime section still present in README.md"
+          else
+            echo "❌ WakaTime section missing from README.md after updates"
+            exit 1
+          fi
+          echo "✅ Final README.md structure verification completed"
+      
       - name: 💾 Commit & Push All Changes
         run: |
           git add .
           git status
           if ! git diff --staged --quiet; then
-            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d) 
-            
-            • 🐍 Updated contribution snake animations
-            • ⏰ Refreshed WakaTime coding statistics  
-            • 📊 Updated GitHub activity feed
-            • 💡 Added daily inspirational quote
-            • 🤖 Automated maintenance completed"
+            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d) - 🐍 Updated contribution snake animations - ⏰ Refreshed WakaTime coding statistics - 📊 Updated GitHub activity feed - 💡 Added daily inspirational quote - 🤖 Automated maintenance completed"
             git push
             echo "✅ Successfully committed and pushed changes"
           else
