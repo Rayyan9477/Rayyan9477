@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 16, 2025 at 08:15 AM UTC -->
+<!-- Quote Updated: August 17, 2025 at 02:21 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -418,14 +418,11 @@ class AIEngineer:
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 09 August 2025 - To: 16 August 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
+> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
 
 <!--END_SECTION:waka-->
 
@@ -526,4 +523,4 @@ No activity tracked
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 16, 2025 at 08:15 AM UTC -->
+<!-- Last Updated: August 17, 2025 at 02:21 AM UTC -->
