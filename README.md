@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 18, 2025 at 02:22 AM UTC -->
+<!-- Quote Updated: August 19, 2025 at 02:03 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -418,14 +418,11 @@ class AIEngineer:
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 11 August 2025 - To: 18 August 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
+> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
 
 <!--END_SECTION:waka-->
 
@@ -487,7 +484,7 @@ No activity tracked
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=The%20best%20way%20to%20predict%20the%20future%20is%20to%20invent%20it.&author=Alan%20Kay" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=First%2C%20solve%20the%20problem.%20Then%2C%20write%20the%20code.&author=John%20Johnson" alt="Dev Quote"/>
 </div>
 
 ---
@@ -526,4 +523,4 @@ No activity tracked
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 18, 2025 at 02:22 AM UTC -->
+<!-- Last Updated: August 19, 2025 at 02:03 AM UTC -->
