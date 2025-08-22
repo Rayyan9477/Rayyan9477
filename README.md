@@ -1,4 +1,4 @@
-<!-- Quote Updated: August 21, 2025 at 01:59 AM UTC -->
+<!-- Quote Updated: August 22, 2025 at 02:00 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -418,14 +418,11 @@ class AIEngineer:
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 14 August 2025 - To: 21 August 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
+> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
 
 <!--END_SECTION:waka-->
 
@@ -487,7 +484,7 @@ No activity tracked
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Code%20is%20like%20humor.%20When%20you%20have%20to%20explain%20it%2C%20it%27s%20bad.&author=Cory%20House" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Any%20fool%20can%20write%20code%20that%20a%20computer%20can%20understand.%20Good%20programmers%20write%20code%20that%20humans%20can%20understand.&author=Martin%20Fowler" alt="Dev Quote"/>
 </div>
 
 ---
@@ -526,4 +523,4 @@ No activity tracked
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: August 21, 2025 at 01:59 AM UTC -->
+<!-- Last Updated: August 22, 2025 at 02:00 AM UTC -->
