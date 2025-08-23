@@ -412,23 +412,6 @@ class AIEngineer:
 
 ## 📊 GitHub Analytics
 
-<!--START_SECTION:activity-->
-1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
-2. 💪 Opened PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
-<!--END_SECTION:activity-->
-
-<!--START_SECTION:waka-->
-
-```text
-From: 16 August 2025 - To: 23 August 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
-
-<!--END_SECTION:waka-->
-
 <div align="center">
 
 ### 🔥 **Performance Metrics**
