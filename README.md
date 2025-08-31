@@ -512,7 +512,7 @@ class AIEngineer:
 <!-- Last Updated: August 30, 2025 at 01:51 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/structured-extractor/pull/1) in [Rayyan9477/structured-extractor](https://github.com/Rayyan9477/structured-extractor)
+1. 💪 Opened PR [#1](https://github.com/Rayyan9477/speech_emotion_classification/pull/1) in [Rayyan9477/speech_emotion_classification](https://github.com/Rayyan9477/speech_emotion_classification)
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
