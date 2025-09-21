@@ -512,7 +512,7 @@ class AIEngineer:
 <!-- Last Updated: September 20, 2025 at 01:50 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/speech_emotion_classification/pull/1) in [Rayyan9477/speech_emotion_classification](https://github.com/Rayyan9477/speech_emotion_classification)
+1. 🎉 Merged PR [#2](https://github.com/Rayyan9477/House-Price-Prediction-Model/pull/2) in [Rayyan9477/House-Price-Prediction-Model](https://github.com/Rayyan9477/House-Price-Prediction-Model)
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
