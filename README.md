@@ -1,4 +1,4 @@
-<!-- Quote Updated: September 23, 2025 at 01:53 AM UTC -->
+<!-- Quote Updated: September 24, 2025 at 01:54 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -470,7 +470,7 @@ class AIEngineer:
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=The%20best%20way%20to%20predict%20the%20future%20is%20to%20invent%20it.&author=Alan%20Kay" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Simplicity%20is%20the%20ultimate%20sophistication.&author=Leonardo%20da%20Vinci" alt="Dev Quote"/>
 </div>
 
 ---
@@ -509,20 +509,17 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: September 23, 2025 at 01:53 AM UTC -->
+<!-- Last Updated: September 24, 2025 at 01:54 AM UTC -->
 
 <!--START_SECTION:activity-->
 1. 🎉 Merged PR [#2](https://github.com/Rayyan9477/House-Price-Prediction-Model/pull/2) in [Rayyan9477/House-Price-Prediction-Model](https://github.com/Rayyan9477/House-Price-Prediction-Model)
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 16 September 2025 - To: 23 September 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
+> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
 
 <!--END_SECTION:waka-->
