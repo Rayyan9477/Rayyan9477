@@ -1,0 +1,19 @@
+extends: default
+
+rules:
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: false  # Don't check keys, only values
+  line-length:
+    max: 80
+  new-lines:
+    type: unix
+  new-line-at-end-of-file: enable
+  trailing-spaces: enable
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  document-start: disable  # GitHub Actions workflows don't need ---

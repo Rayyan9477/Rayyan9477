@@ -1,10 +1,12 @@
+---
 name: 🔄 Unified GitHub Profile Update
 
 # IMPORTANT: GitHub Secrets Configuration:
 # 1. Go to your repository Settings > Secrets and variables > Actions
 # 2. Add the following secrets:
-#    - GH_TOKEN: Your GitHub Personal Access Token (optional - fallback to github.token)
-#    - WAKATIME_API_KEY: Your WakaTime API key from https://wakatime.com/settings/api-key
+#    - GH_TOKEN: Your GitHub Personal Access Token (optional - fallback)
+#    - WAKATIME_API_KEY: Your WakaTime API key from
+#      https://wakatime.com/settings/api-key
 #
 # Required Permissions for Personal Access Token (if using GH_TOKEN):
 # - repo (Full control of private repositories)
@@ -14,16 +16,17 @@ name: 🔄 Unified GitHub Profile Update
 
 on:
   schedule:
-    # Run daily at 8:00 AM UTC
-    - cron: '0 8 * * *'
-    # Run every 12 hours for GitHub activity
-    - cron: '0 */12 * * *'
+    # Run every 12 hours for comprehensive updates
+    - cron: '0 */12 * * *'  # Every 12 hours at 00:00 and 12:00 UTC
+    # Additional daily run at 6:00 AM UTC for extra reliability
+    - cron: '0 6 * * *'
   workflow_dispatch:  # Allow manual trigger
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'scripts/daily_update.py'
       - '.github/workflows/actions.yml'
+      - 'README.md'
 
 jobs:
   profile-update:
@@ -37,30 +40,30 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch full history for contribution snake
-    
-      - name:  Setup Python
+
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-    
-      - name:  Install Dependencies
+
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-    
-      - name:  Configure Git
+
+      - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
-      
+
       - name: 🔍 Verify README Structure
         run: |
           echo "🔍 Checking README.md structure..."
@@ -77,7 +80,7 @@ jobs:
             exit 1
           fi
           echo "✅ README.md structure verification completed"
-    
+
       - name: 🐍 Generate Contribution Snake
         uses: Platane/snk@v3
         continue-on-error: true
@@ -90,7 +93,7 @@ jobs:
             assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: ⏰ Update WakaTime Stats
         uses: athul/waka-readme@master
         continue-on-error: true
@@ -120,21 +123,44 @@ jobs:
           AUTHOR_EMAIL: "action@github.com"
 
       - name: 📈 Generate GitHub Activity
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'schedule' ||
+            github.event_name == 'workflow_dispatch'
         uses: jamesgeorge007/github-activity-readme@master
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          COMMIT_MSG: "📊 Update GitHub activity stats"
-          MAX_LINES: 5
+          COMMIT_MSG: "📊 Update GitHub activity stats - $(date +%Y-%m-%d)"
+          MAX_LINES: 8
           GH_USERNAME: "Rayyan9477"
           TARGET_FILE: "README.md"
           COMMIT_NAME: "github-actions[bot]"
           COMMIT_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
-          EMPTY_COMMIT_MSG: ":memo: empty commit to keep workflow active after 60 days of no activity"
-    
+          EMPTY_COMMIT_MSG: ":memo: empty commit to keep workflow active"
+          SHOW_PRIVATE: false
+          SHOW_COMMIT: true
+          SHOW_ISSUE: true
+          SHOW_PULL: true
+          SHOW_RELEASE: true
+
+      - name: 🔄 Run GitHub Stats Updater
+        run: |
+          cd scripts
+          if [ -f "github_stats_updater.py" ]; then
+            echo "✅ github_stats_updater.py found, executing..."
+            python github_stats_updater.py
+            echo "✅ github_stats_updater.py execution completed"
+          else
+            echo "❌ github_stats_updater.py not found in scripts directory"
+            exit 1
+          fi
+          cd ..
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🔄 Run Daily Update Script
         run: |
           # Ensure README.md is accessible in scripts directory
@@ -161,7 +187,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
-    
+
       - name: 🔍 Final README Verification
         run: |
           echo "🔍 Final README.md structure verification..."
@@ -178,21 +204,26 @@ jobs:
             exit 1
           fi
           echo "✅ Final README.md structure verification completed"
-      
+
       - name: 💾 Commit & Push All Changes
         run: |
           git add .
           git status
           if ! git diff --staged --quiet; then
-            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d) - 🐍 Updated contribution snake animations - ⏰ Refreshed WakaTime coding statistics - 📊 Updated GitHub activity feed - 💡 Added daily inspirational quote - 🤖 Automated maintenance completed"
+            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d)" \
+              -m "🐍 Updated contribution snake animations" \
+              -m "⏰ Refreshed WakaTime coding statistics" \
+              -m "📊 Updated GitHub activity feed" \
+              -m "💡 Added daily inspirational quote" \
+              -m "🤖 Automated maintenance completed"
             git push
             echo "✅ Successfully committed and pushed changes"
           else
             echo "ℹ️ No changes to commit"
           fi
         continue-on-error: true
-    
-      - name:  Upload Logs (if failed)
+
+      - name: Upload Logs (if failed)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
@@ -201,7 +232,7 @@ jobs:
             daily_update.log
             scripts/daily_update.log
           retention-days: 7
-    
+
       - name: ✅ Success Notification
         if: success()
         run: |
@@ -209,7 +240,7 @@ jobs:
           echo "📅 Date: $(date)"
           echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo "🚀 All systems operational!"
-    
+
       - name: ❌ Failure Notification
         if: failure()
         run: |
@@ -217,4 +248,4 @@ jobs:
           echo "📅 Date: $(date)"
           echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo "🔍 Check the logs for more details"
-          echo "⚠️ Troubleshooting: Verify WAKATIME_API_KEY and GH_TOKEN secrets are set"
+          echo "⚠️ Troubleshooting: Verify WAKATIME_API_KEY and GH_TOKEN"

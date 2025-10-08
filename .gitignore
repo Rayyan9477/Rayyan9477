@@ -49,3 +49,7 @@ Thumbs.db
 # Sensitive information
 SECRETS_SETUP.md
 scripts/.env
+.claude
+
+#Ignore cursor AI rules
+.cursor\rules\codacy.mdc
