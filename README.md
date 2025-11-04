@@ -516,8 +516,13 @@ class AIEngineer:
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
-<div align="center">
-  <img src="https://img.shields.io/badge/WakaTime-Time%20Out-lightgrey?style=for-the-badge&logo=wakatime&logoColor=white"/>
-</div>
+
+```text
+From: 27 October 2025 - To: 03 November 2025
+
+Total Time: 0 secs
+
+No activity tracked
+```
 
 <!--END_SECTION:waka-->
