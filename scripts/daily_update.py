@@ -425,18 +425,21 @@ class DailyUpdater:
             # Update GitHub stats badges if stats are available
             if stats:
                 # Update followers badge
-                followers_pattern = r'(https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*)'
+                followers_pattern = r'https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*'
                 followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=for-the-badge&color=4c1&logo=github'
                 if re.search(followers_pattern, content):
                     content = re.sub(followers_pattern, followers_replacement, content)
                     self.log("✅ Updated followers badge")
                 
                 # Update stars badge
-                stars_pattern = r'(https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*)'
+                stars_pattern = r'https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*'
                 stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github'
                 if re.search(stars_pattern, content):
                     content = re.sub(stars_pattern, stars_replacement, content)
                     self.log("✅ Updated stars badge")
+                
+                # Note: Contribution counts are preserved as-is
+                self.log("ℹ️ Contribution counts preserved (existing values maintained)")
             
             # Update WakaTime section (if tags exist)
             if "<!--START_SECTION:waka-->" in content and "<!--END_SECTION:waka-->" in content:

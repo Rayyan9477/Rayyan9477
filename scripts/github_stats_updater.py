@@ -65,7 +65,7 @@ class GitHubStatsUpdater:
     def get_github_user_stats(self) -> Dict[str, Any]:
         """Fetch comprehensive GitHub user statistics"""
         if not self.GH_TOKEN:
-            self.log("⚠️ GitHub token not available, using fallback stats", "WARNING")
+            self.log("⚠️ GitHub token not available, stats will not update", "WARNING")
             return self._get_fallback_stats()
         
         headers = {
@@ -93,7 +93,7 @@ class GitHubStatsUpdater:
             # Get repository statistics
             repos_stats = self._get_repository_stats(headers)
             
-            # Get contribution statistics
+            # Get contribution statistics (basic estimate)
             contribution_stats = self._get_contribution_stats(headers)
             
             stats = {
@@ -102,8 +102,8 @@ class GitHubStatsUpdater:
                 'public_repos': user_data.get('public_repos', 0),
                 'total_stars': repos_stats.get('total_stars', 0),
                 'total_forks': repos_stats.get('total_forks', 0),
-                'total_commits': contribution_stats.get('total_commits', 0),
-                'this_year_commits': contribution_stats.get('this_year_commits', 0),
+                'total_contributions': contribution_stats.get('total_contributions', 0),
+                'this_year_contributions': contribution_stats.get('this_year_contributions', 0),
                 'updated_at': datetime.now().isoformat()
             }
             
@@ -155,12 +155,12 @@ class GitHubStatsUpdater:
         return {'total_stars': total_stars, 'total_forks': total_forks}
     
     def _get_contribution_stats(self, headers: Dict[str, str]) -> Dict[str, int]:
-        """Get contribution statistics"""
-        # This is a simplified version - GitHub's contribution graph API is limited
-        # In a real implementation, you might use GitHub's GraphQL API or third-party services
+        """Get contribution statistics - preserves existing counts if API fails"""
+        # Note: GitHub doesn't provide total contribution counts via REST API
+        # We'll preserve existing badge values and only update if we can get better data
         return {
-            'total_commits': 0,  # Would need GraphQL API for accurate count
-            'this_year_commits': 0  # Would need GraphQL API for accurate count
+            'total_contributions': 0,  # Will preserve existing value
+            'this_year_contributions': 0  # Will preserve existing value
         }
     
     def _get_fallback_stats(self) -> Dict[str, Any]:
@@ -201,23 +201,10 @@ class GitHubStatsUpdater:
                 content = re.sub(stars_pattern, stars_replacement, content)
                 self.log("✅ Updated stars badge")
             
-            # Update contribution badges if we have the data
-            if not stats.get('fallback', False):
-                # Update total contributions badge
-                total_contrib_pattern = r'(https://img\.shields\.io/badge/Total%20Contributions-[^"]*)'
-                if stats.get('total_commits', 0) > 0:
-                    total_contrib_replacement = f'https://img.shields.io/badge/Total%20Contributions-{stats["total_commits"]:,}-green?style=for-the-badge&logo=github'
-                    if re.search(total_contrib_pattern, content):
-                        content = re.sub(total_contrib_pattern, total_contrib_replacement, content)
-                        self.log("✅ Updated total contributions badge")
-                
-                # Update this year contributions badge
-                year_contrib_pattern = r'(https://img\.shields\.io/badge/This%20Year-[^"]*)'
-                if stats.get('this_year_commits', 0) > 0:
-                    year_contrib_replacement = f'https://img.shields.io/badge/This%20Year-{stats["this_year_commits"]}-blue?style=for-the-badge&logo=github'
-                    if re.search(year_contrib_pattern, content):
-                        content = re.sub(year_contrib_pattern, year_contrib_replacement, content)
-                        self.log("✅ Updated this year contributions badge")
+            # Note: Contribution counts are preserved as-is since GitHub REST API
+            # doesn't provide total contribution data. The existing counts remain.
+            # Only followers and stars badges are updated automatically.
+            self.log("ℹ️ Contribution counts preserved (not available via REST API)")
             
             # Update timestamp
             now = datetime.now().strftime("%B %d, %Y at %I:%M %p UTC")
