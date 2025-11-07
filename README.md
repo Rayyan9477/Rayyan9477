@@ -1,4 +1,4 @@
-<!-- Quote Updated: November 07, 2025 at 02:02 AM UTC -->
+<!-- Quote Updated: November 07, 2025 at 12:53 PM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -509,20 +509,17 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: November 07, 2025 at 02:02 AM UTC -->
+<!-- Last Updated: November 07, 2025 at 12:53 PM UTC -->
 
 <!--START_SECTION:activity-->
 1. 💪 Opened PR [#2](undefined) in [Rayyan9477/Solace-AI](https://github.com/Rayyan9477/Solace-AI)
 <!--END_SECTION:activity-->
 
 <!--START_SECTION:waka-->
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Pending%20API%20Key%20Configuration-yellow?style=for-the-badge&logo=wakatime&logoColor=white"/>
+</div>
 
-```text
-From: 30 October 2025 - To: 06 November 2025
-
-Total Time: 0 secs
-
-No activity tracked
-```
+> Add or refresh repo secret `WAKATIME_API_KEY`, then re-run the workflow.
 
 <!--END_SECTION:waka-->
