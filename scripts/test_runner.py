@@ -113,12 +113,9 @@ def main():
         with open(readme_path, "r", encoding="utf-8") as f:
             content = f.read()
             sections = [
-                "WakaTime Stats",
                 "GitHub Analytics",
                 "Tech",
-                "Daily Inspiration",
-                "START_SECTION:waka",
-                "END_SECTION:waka"
+                "Daily Inspiration"
             ]
             
             missing_sections = []
