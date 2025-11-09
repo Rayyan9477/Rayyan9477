@@ -12,10 +12,34 @@
 
 <!-- Profile Stats & Social Links -->
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge&initial=1438" alt="Profile Views" />
-  <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="GitHub Followers" />
-  <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="GitHub Stars" />
-  <img src="https://img.shields.io/badge/Current%20Streak-103%20days-orange?style=for-the-badge&logo=github" alt="Current Streak" />
+  
+### 📊 **Live Stats Dashboard**
+
+<table align="center">
+<tr>
+<td align="center" width="25%">
+<img src="https://img.shields.io/badge/👀_Profile_Views-650+-0e75b6?style=for-the-badge&labelColor=1a1a2e" alt="Profile Views" />
+<br>
+<sub><b>Growing Daily! 📈</b></sub>
+</td>
+<td align="center" width="25%">
+<img src="https://img.shields.io/github/followers/Rayyan9477?label=👥_Followers&style=for-the-badge&color=4c1&labelColor=1a1a2e&logo=github&logoColor=white" alt="Followers" />
+<br>
+<sub><b>Join the Community! 🤝</b></sub>
+</td>
+<td align="center" width="25%">
+<img src="https://img.shields.io/github/stars/Rayyan9477?label=⭐_Total_Stars&style=for-the-badge&color=FFD700&labelColor=1a1a2e&logo=github&logoColor=white" alt="Total Stars" />
+<br>
+<sub><b>Star Power! ✨</b></sub>
+</td>
+<td align="center" width="25%">
+<img src="https://img.shields.io/badge/🔥_Current_Streak-108_Days-F85D7F?style=for-the-badge&labelColor=1a1a2e" alt="Current Streak" />
+<br>
+<sub><b>Keep Going! 💪</b></sub>
+</td>
+</tr>
+</table>
+
 </div>
 
 <br>
@@ -107,8 +131,8 @@ class AIEngineer:
 <tr>
 <td width="50%">
 
-#### 🔍 **OCR-Image-to-Text Engine**
-*Next-Gen AI-Powered Text Extraction*
+#### 🔍 **OCR-APP**
+*State-of-the-art Optical Character Recognition (OCR) with Vision Language Model (VLM) integration for enhanced accuracy and optimal document processing.*
 
 - 🎯 Advanced OCR with real-time Q&A capabilities
 - 🖼️ Smart preprocessing for diverse image formats  
@@ -117,22 +141,22 @@ class AIEngineer:
 
 **Stack:** `Python` `OpenCV` `Streamlit` `Transformers`
 
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/OCR-Image-to-Text)
+[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/ocr-app)
 
 </td>
 <td width="50%">
 
-#### 🤖 **Conversational AI Chatbot**
-*Advanced NLP-Powered Assistant*
+#### 🎤 **Speech Emotion Classification**
+*AI-Powered Emotion Recognition from Speech*
 
-- 🧠 Deep learning with transformer architecture
-- 💬 Contextual understanding for natural conversations
-- ⚡ Real-time responses with PyTorch optimization
-- 🎨 User-friendly interface design
+- 🎤 Advanced speech analysis for emotion detection
+- 🧠 Deep learning models for accurate classification
+- 📊 Real-time processing capabilities
+- � Multiple emotion categories support
 
-**Stack:** `PyTorch` `Transformers` `NLP` `Deep Learning`
+**Stack:** `Python` `PyTorch` `Librosa` `Deep Learning`
 
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/Chatbot-AI)
+[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/speech_emotion_classification)
 
 </td>
 </tr>
@@ -154,7 +178,7 @@ class AIEngineer:
 </td>
 <td width="50%">
 
-#### 🏠 **Smart Property Predictor**
+#### 🏠 **House prediction model**
 *ML-Driven Real Estate Analytics*
 
 - 📊 Data-driven insights with advanced regression
@@ -164,7 +188,7 @@ class AIEngineer:
 
 **Stack:** `Python` `Machine Learning` `Analytics` `Regression`
 
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/House-Price-Prediction)
+[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/House-Price-Prediction-Model)
 
 </td>
 </tr>
