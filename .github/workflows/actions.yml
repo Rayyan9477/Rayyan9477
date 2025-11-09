@@ -5,8 +5,6 @@ name: 🔄 Unified GitHub Profile Update
 # 1. Go to your repository Settings > Secrets and variables > Actions
 # 2. Add the following secrets:
 #    - GH_TOKEN: Your GitHub Personal Access Token (optional - fallback)
-#    - WAKATIME_API_KEY: Your WakaTime API key from
-#      https://wakatime.com/settings/api-key
 #
 # Required Permissions for Personal Access Token (if using GH_TOKEN):
 # - repo (Full control of private repositories)
@@ -39,7 +37,6 @@ jobs:
       # Use GitHub secrets for tokens - NEVER hardcode these values
       GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
-      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
     steps:
       - name: Checkout Repository
@@ -73,12 +70,6 @@ jobs:
             echo "❌ Activity section missing from README.md"
             exit 1
           fi
-          if grep -q "<!--START_SECTION:waka-->" README.md; then
-            echo "✅ WakaTime section found in README.md"
-          else
-            echo "❌ WakaTime section missing from README.md"
-            exit 1
-          fi
           echo "✅ README.md structure verification completed"
 
       - name: 🐍 Generate Contribution Snake
@@ -93,34 +84,6 @@ jobs:
             assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: ⏰ Update WakaTime Stats
-        uses: athul/waka-readme@master
-        continue-on-error: true
-        if: env.WAKATIME_API_KEY != ''
-        with:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY: "Rayyan9477/Rayyan9477"
-          SHOW_TITLE: true
-          SECTION_NAME: "WakaTime Stats"
-          BLOCKS: "programming"
-          CODE_LANG: "text"
-          TIME_RANGE: "last_7_days"
-          LANG_COUNT: 6
-          SHOW_TIME: true
-          SHOW_TOTAL: true
-          SHOW_MASKED_TIME: false
-          STOP_AT_OTHER: true
-          IGNORED_LANGUAGES: "Other"
-          TARGET_BRANCH: "main"
-          TARGET_PATH: "README.md"
-          API_BASE_URL: "https://wakatime.com/api"
-          COMMIT_MESSAGE: " Updated waka-readme graph with new metrics"
-          COMMITTER_NAME: "GitHub Action"
-          COMMITTER_EMAIL: "action@github.com"
-          AUTHOR_NAME: "GitHub Action"
-          AUTHOR_EMAIL: "action@github.com"
 
       - name: 📈 Generate GitHub Activity
         if: github.event_name == 'schedule' ||
@@ -185,7 +148,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
 
       - name: 🔍 Final README Verification
@@ -197,12 +159,6 @@ jobs:
             echo "❌ Activity section missing from README.md after updates"
             exit 1
           fi
-          if grep -q "<!--START_SECTION:waka-->" README.md; then
-            echo "✅ WakaTime section still present in README.md"
-          else
-            echo "❌ WakaTime section missing from README.md after updates"
-            exit 1
-          fi
           echo "✅ Final README.md structure verification completed"
 
       - name: 💾 Commit & Push All Changes
@@ -212,7 +168,6 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d)" \
               -m "🐍 Updated contribution snake animations" \
-              -m "⏰ Refreshed WakaTime coding statistics" \
               -m "📊 Updated GitHub activity feed" \
               -m "💡 Added daily inspirational quote" \
               -m "🤖 Automated maintenance completed"
@@ -248,4 +203,4 @@ jobs:
           echo "📅 Date: $(date)"
           echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo "🔍 Check the logs for more details"
-          echo "⚠️ Troubleshooting: Verify WAKATIME_API_KEY and GH_TOKEN"
+          echo "⚠️ Troubleshooting: Verify GH_TOKEN"

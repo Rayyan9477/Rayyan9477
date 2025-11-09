@@ -1,4 +1,4 @@
-<!-- Quote Updated: November 06, 2025 at 12:55 PM UTC -->
+<!-- Quote Updated: November 09, 2025 at 07:56 PM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -16,7 +16,6 @@
   <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="GitHub Followers" />
   <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="GitHub Stars" />
   <img src="https://img.shields.io/badge/Current%20Streak-103%20days-orange?style=for-the-badge&logo=github" alt="Current Streak" />
-  <img src="https://img.shields.io/badge/Longest%20Streak-103%20days-ff69b4?style=for-the-badge&logo=github" alt="Longest Streak" />
 </div>
 
 <br>
@@ -186,15 +185,13 @@ class AIEngineer:
 ### 🔥 **Performance Metrics**
 
 <p align="center">
-  <img width="49%" src="https://github-readme-stats.vercel.app/api?username=Rayyan9477&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866&text_color=FFFFFF&count_private=true&include_all_commits=true" alt="GitHub Stats"/>
   <img width="49%" src="https://github-readme-streak-stats.herokuapp.com/?user=Rayyan9477&theme=tokyonight&hide_border=true&background=0D1117&stroke=F85D7F&ring=F85D7F&fire=F8D866&currStreakLabel=FFFFFF" alt="GitHub Streak"/>
 </p>
 
 ### 📈 **Language Distribution & Activity**
 
 <p align="center">
-  <img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rayyan9477&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=F85D7F&text_color=FFFFFF&langs_count=8" alt="Top Languages"/>
-  <img width="49%" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Rayyan9477&theme=tokyonight" alt="Commit Languages"/>
+  <img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rayyan9477&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=F85D7F&text_color=FFFFFF&langs_count=8" alt="Most Used Programming Languages"/>
 </p>
 
 ### 🏆 **Achievement Showcase**
@@ -220,7 +217,7 @@ class AIEngineer:
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Any%20fool%20can%20write%20code%20that%20a%20computer%20can%20understand.%20Good%20programmers%20write%20code%20that%20humans%20can%20understand.&author=Martin%20Fowler" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Innovation%20distinguishes%20between%20a%20leader%20and%20a%20follower.&author=Steve%20Jobs" alt="Dev Quote"/>
 </div>
 
 ---
@@ -259,7 +256,7 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: November 06, 2025 at 07:43 PM UTC -->
+<!-- Last Updated: November 09, 2025 at 07:56 PM UTC -->
 
 <!--START_SECTION:activity-->
 1. ❌ Closed PR [#1](undefined) in [Rayyan9477/Solace-AI](https://github.com/Rayyan9477/Solace-AI)

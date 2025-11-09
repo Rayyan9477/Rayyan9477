@@ -1,0 +1,11 @@
+{
+  "pass": 3,
+  "fail": 1,
+  "total": 4,
+  "tests": {
+    "wakatime": false,
+    "workflow": true,
+    "readme": true,
+    "daily_update": true
+  }
+}
