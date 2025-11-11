@@ -220,6 +220,49 @@ class DailyUpdater:
             
         return total_forks
     
+    def _get_profile_views(self) -> str:
+        """Get profile views badge using komarev service"""
+        try:
+            # Use komarev profile view counter service for dynamic badge
+            return "https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge"
+        except Exception as e:
+            self.log(f"⚠️ Error setting up profile views badge: {e}", "WARNING")
+            return "https://img.shields.io/badge/👀_Profile_Views-650+-0e75b6?style=for-the-badge&labelColor=1a1a2e"  # Fallback
+    
+    def _get_current_streak(self) -> str:
+        """Get current streak from GitHub streak stats service"""
+        try:
+            # Fetch the streak stats SVG and parse the current streak
+            streak_url = f"https://github-readme-streak-stats.herokuapp.com/?user={self.username}&theme=tokyonight&hide_border=true&background=0D1117&stroke=F85D7F&ring=F85D7F&fire=F8D866&currStreakLabel=FFFFFF"
+            response = requests.get(streak_url, timeout=15)
+            
+            if response.status_code == 200:
+                svg_content = response.text
+                # Parse current streak from SVG
+                # Look for pattern like "Current Streak</text><text x="180" y="85">108</text>"
+                import re
+                current_streak_match = re.search(r'Current Streak</text><text[^>]*>(\d+)</text>', svg_content)
+                if current_streak_match:
+                    streak_days = current_streak_match.group(1)
+                    self.log(f"✅ Fetched current streak: {streak_days} days")
+                    return f"{streak_days}_Days"
+                else:
+                    self.log("⚠️ Could not parse current streak from SVG", "WARNING")
+                    return "108_Days"  # Return current value as fallback
+            else:
+                self.log(f"⚠️ Streak stats service returned status {response.status_code}", "WARNING")
+                return "108_Days"  # Return current value as fallback
+                
+        except requests.exceptions.Timeout:
+            self.log("⚠️ Streak stats fetch timed out", "WARNING")
+            return "108_Days"  # Return current value as fallback
+        except requests.exceptions.RequestException as e:
+            self.log(f"⚠️ Error fetching streak stats: {e}", "WARNING")
+            return "108_Days"  # Return current value as fallback
+        except Exception as e:
+            self.log(f"⚠️ Unexpected error fetching streak: {e}", "WARNING")
+            return "108_Days"  # Return current value as fallback
+    
     def generate_contribution_snake(self) -> bool:
         """Generate contribution snake using Platane/snk API"""
         try:
@@ -437,6 +480,21 @@ class DailyUpdater:
                 if re.search(stars_pattern, content):
                     content = re.sub(stars_pattern, stars_replacement, content)
                     self.log("✅ Updated stars badge")
+                
+                # Update profile views badge
+                profile_views_badge = self._get_profile_views()
+                profile_views_pattern = r'https://img\.shields\.io/badge/👀_Profile_Views-[\d\+]+-[^"]*'
+                if re.search(profile_views_pattern, content):
+                    content = re.sub(profile_views_pattern, profile_views_badge, content)
+                    self.log("✅ Updated profile views badge")
+                
+                # Update current streak badge
+                current_streak = self._get_current_streak()
+                current_streak_pattern = r'🔥_Current_Streak-[\d_]+Days-'
+                current_streak_replacement = f'🔥_Current_Streak-{current_streak}-'
+                if re.search(current_streak_pattern, content):
+                    content = re.sub(current_streak_pattern, current_streak_replacement, content)
+                    self.log("✅ Updated current streak badge")
                 
                 # Note: Contribution counts are preserved as-is
                 self.log("ℹ️ Contribution counts preserved (existing values maintained)")
