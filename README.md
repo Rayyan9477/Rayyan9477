@@ -33,7 +33,7 @@
 <sub><b>Star Power! ✨</b></sub>
 </td>
 <td align="center" width="25%">
-<img src="https://img.shields.io/badge/🔥_Current_Streak-108_Days-F85D7F?style=for-the-badge&labelColor=1a1a2e" alt="Current Streak" />
+<img src="https://img.shields.io/badge/🔥_Current_Streak-109_Days-F85D7F?style=for-the-badge&labelColor=1a1a2e" alt="Current Streak" />
 <br>
 <sub><b>Keep Going! 💪</b></sub>
 </td>
@@ -118,7 +118,6 @@ class AIEngineer:
 **Premium Tech Stack:** `Advanced Transformers` `Therapeutic NLP` `AWS Cloud` `Redis` `PostgreSQL` `Docker` `Kubernetes`
 
 [![View Premium Project](https://img.shields.io/badge/🔮%20View%20Solace%20AI-6C5CE7?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/Solace-AI)
-[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-00B894?style=for-the-badge&logo=vercel&logoColor=white)](#)
 [![Documentation](https://img.shields.io/badge/📚%20Docs-A29BFE?style=for-the-badge&logo=gitbook&logoColor=white)](#)
 
 </td>

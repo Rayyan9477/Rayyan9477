@@ -230,38 +230,169 @@ class DailyUpdater:
             return "https://img.shields.io/badge/👀_Profile_Views-650+-0e75b6?style=for-the-badge&labelColor=1a1a2e"  # Fallback
     
     def _get_current_streak(self) -> str:
-        """Get current streak from GitHub streak stats service"""
+        """Get current streak from GitHub using GraphQL API or streak stats service"""
+        # Try GitHub GraphQL API first if token is available
+        if self.GH_TOKEN:
+            try:
+                streak = self._get_streak_from_github_api()
+                if streak is not None and streak >= 0:
+                    self.log(f"✅ Fetched current streak from GitHub GraphQL API: {streak} days")
+                    return f"{streak}_Days"
+            except Exception as e:
+                self.log(f"⚠️ GitHub GraphQL API streak fetch failed: {e}", "WARNING")
+        
+        # Fallback to streak stats service
         try:
-            # Fetch the streak stats SVG and parse the current streak
-            streak_url = f"https://github-readme-streak-stats.herokuapp.com/?user={self.username}&theme=tokyonight&hide_border=true&background=0D1117&stroke=F85D7F&ring=F85D7F&fire=F8D866&currStreakLabel=FFFFFF"
-            response = requests.get(streak_url, timeout=15)
+            # Try alternative endpoint first (vercel deployment)
+            streak_urls = [
+                f"https://streak-stats.demolab.com/?user={self.username}&theme=tokyonight&hide_border=true&background=0D1117&stroke=F85D7F&ring=F85D7F&fire=F8D866&currStreakLabel=FFFFFF",
+                f"https://github-readme-streak-stats.herokuapp.com/?user={self.username}&theme=tokyonight&hide_border=true&background=0D1117&stroke=F85D7F&ring=F85D7F&fire=F8D866&currStreakLabel=FFFFFF"
+            ]
             
-            if response.status_code == 200:
-                svg_content = response.text
-                # Parse current streak from SVG
-                # Look for pattern like "Current Streak</text><text x="180" y="85">108</text>"
-                import re
-                current_streak_match = re.search(r'Current Streak</text><text[^>]*>(\d+)</text>', svg_content)
-                if current_streak_match:
-                    streak_days = current_streak_match.group(1)
-                    self.log(f"✅ Fetched current streak: {streak_days} days")
-                    return f"{streak_days}_Days"
-                else:
-                    self.log("⚠️ Could not parse current streak from SVG", "WARNING")
-                    return "108_Days"  # Return current value as fallback
-            else:
-                self.log(f"⚠️ Streak stats service returned status {response.status_code}", "WARNING")
-                return "108_Days"  # Return current value as fallback
-                
+            for streak_url in streak_urls:
+                try:
+                    response = requests.get(streak_url, timeout=15)
+                    if response.status_code == 200:
+                        svg_content = response.text
+                        # Parse current streak from SVG - try multiple patterns
+                        # The actual number appears after the "Current Streak" label in a separate text element
+                        patterns = [
+                            r'Current Streak.*?<text[^>]*>(\d+)</text>',
+                            r'animation: currstreak[^>]*>\s*(\d+)\s*</text>',
+                            r'<text[^>]*>Current Streak</text>.*?<text[^>]*>(\d+)</text>',
+                            r'Current Streak</text><text[^>]*>(\d+)</text>',
+                        ]
+                        
+                        for pattern in patterns:
+                            current_streak_match = re.search(pattern, svg_content, re.IGNORECASE | re.DOTALL)
+                            if current_streak_match:
+                                streak_days = current_streak_match.group(1)
+                                self.log(f"✅ Fetched current streak: {streak_days} days")
+                                return f"{streak_days}_Days"
+                except:
+                    continue
+                    
         except requests.exceptions.Timeout:
             self.log("⚠️ Streak stats fetch timed out", "WARNING")
-            return "108_Days"  # Return current value as fallback
         except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Error fetching streak stats: {e}", "WARNING")
-            return "108_Days"  # Return current value as fallback
         except Exception as e:
             self.log(f"⚠️ Unexpected error fetching streak: {e}", "WARNING")
-            return "108_Days"  # Return current value as fallback
+        
+        # If all methods fail, preserve existing value by returning None
+        self.log("ℹ️ Unable to fetch streak, preserving existing value", "INFO")
+        return None  # Signal to preserve existing value
+    
+    def _get_streak_from_github_api(self) -> int:
+        """Get current contribution streak using GitHub GraphQL API"""
+        if not self.GH_TOKEN:
+            return None
+            
+        headers = {
+            'Authorization': f'bearer {self.GH_TOKEN}',
+            'Content-Type': 'application/json'
+        }
+        
+        # Get contribution calendar for the past year
+        from datetime import datetime, timedelta
+        today = datetime.now()
+        one_year_ago = today - timedelta(days=365)
+        
+        query = """
+        query($username: String!, $from: DateTime!, $to: DateTime!) {
+          user(login: $username) {
+            contributionsCollection(from: $from, to: $to) {
+              contributionCalendar {
+                totalContributions
+                weeks {
+                  contributionDays {
+                    contributionCount
+                    date
+                  }
+                }
+              }
+            }
+          }
+        }
+        """
+        
+        variables = {
+            'username': self.username,
+            'from': one_year_ago.isoformat(),
+            'to': today.isoformat()
+        }
+        
+        try:
+            self.log("🔍 Querying GitHub GraphQL API for contribution data...")
+            response = requests.post(
+                'https://api.github.com/graphql',
+                json={'query': query, 'variables': variables},
+                headers=headers,
+                timeout=20
+            )
+            
+            if response.status_code != 200:
+                self.log(f"⚠️ GraphQL API returned status {response.status_code}", "WARNING")
+                return None
+            
+            data = response.json()
+            
+            if 'errors' in data:
+                self.log(f"⚠️ GraphQL errors: {data['errors']}", "WARNING")
+                return None
+            
+            calendar = data.get('data', {}).get('user', {}).get('contributionsCollection', {}).get('contributionCalendar', {})
+            total_contributions = calendar.get('totalContributions', 0)
+            weeks = calendar.get('weeks', [])
+            
+            self.log(f"📊 Total contributions in past year: {total_contributions}")
+            
+            if not weeks:
+                self.log("⚠️ No contribution weeks data available", "WARNING")
+                return None
+            
+            # Flatten all days from weeks
+            days = []
+            for week in weeks:
+                days.extend(week.get('contributionDays', []))
+            
+            if not days:
+                self.log("⚠️ No contribution days data available", "WARNING")
+                return None
+            
+            # Sort by date descending (most recent first)
+            days.sort(key=lambda x: x.get('date', ''), reverse=True)
+            
+            # Log the most recent contributions for debugging
+            self.log(f"📅 Analyzing {len(days)} days of contribution history...")
+            recent_days = days[:7]  # Last 7 days
+            self.log("Recent contributions:")
+            for day in recent_days:
+                date = day.get('date', 'Unknown')
+                count = day.get('contributionCount', 0)
+                self.log(f"  {date}: {count} contribution(s)")
+            
+            # Calculate current streak
+            current_streak = 0
+            for day in days:
+                count = day.get('contributionCount', 0)
+                if count > 0:
+                    current_streak += 1
+                else:
+                    # Stop at the first day with no contributions
+                    break
+            
+            self.log(f"🔥 Current streak calculated: {current_streak} days")
+            return current_streak
+            
+        except requests.exceptions.RequestException as e:
+            self.log(f"⚠️ Network error accessing GitHub API: {e}", "WARNING")
+            return None
+        except Exception as e:
+            self.log(f"⚠️ Unexpected error in GraphQL API call: {e}", "WARNING")
+            import traceback
+            self.log(f"Stack trace: {traceback.format_exc()}", "WARNING")
+            return None
     
     def generate_contribution_snake(self) -> bool:
         """Generate contribution snake using Platane/snk API"""
@@ -490,11 +621,16 @@ class DailyUpdater:
                 
                 # Update current streak badge
                 current_streak = self._get_current_streak()
-                current_streak_pattern = r'🔥_Current_Streak-[\d_]+Days-'
-                current_streak_replacement = f'🔥_Current_Streak-{current_streak}-'
-                if re.search(current_streak_pattern, content):
-                    content = re.sub(current_streak_pattern, current_streak_replacement, content)
-                    self.log("✅ Updated current streak badge")
+                if current_streak:  # Only update if we successfully fetched the streak
+                    current_streak_pattern = r'🔥_Current_Streak-[\d_]+Days-'
+                    current_streak_replacement = f'🔥_Current_Streak-{current_streak}-'
+                    if re.search(current_streak_pattern, content):
+                        content = re.sub(current_streak_pattern, current_streak_replacement, content)
+                        self.log("✅ Updated current streak badge")
+                    else:
+                        self.log("⚠️ Current streak pattern not found in README", "WARNING")
+                else:
+                    self.log("ℹ️ Preserving existing streak value", "INFO")
                 
                 # Note: Contribution counts are preserved as-is
                 self.log("ℹ️ Contribution counts preserved (existing values maintained)")
