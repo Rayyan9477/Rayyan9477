@@ -1,4 +1,4 @@
-<!-- Quote Updated: November 17, 2025 at 06:26 AM UTC -->
+<!-- Quote Updated: November 17, 2025 at 09:28 PM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -15,27 +15,35 @@
   
 ### 📊 **Live Stats Dashboard**
 
-<table align="center">
-<tr>
-<td align="center" width="25%">
-<img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge" alt="Profile Views" />
+<table align="center" style="border: none; border-collapse: collapse;">
+<tr style="border: none;">
+<td align="center" width="25%" style="padding: 15px; border: none;">
+<img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" height="28" />
+<br><br>
+<b style="font-size: 32px; color: #4FC3F7;">711</b>
 <br>
-<sub><b>Growing Daily! 📈</b></sub>
+<sub style="font-size: 11px; opacity: 0.8;">👁️ Profile Views</sub>
 </td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="Followers" />
+<td align="center" width="25%" style="padding: 15px; border: none;">
+<img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=for-the-badge&color=4c1&logo=github" alt="Followers" height="28" />
+<br><br>
+<b style="font-size: 32px; color: #66BB6A;">52</b>
 <br>
-<sub><b>Join the Community! 🤝</b></sub>
+<sub style="font-size: 11px; opacity: 0.8;">🤝 Followers</sub>
 </td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="Total Stars" />
+<td align="center" width="25%" style="padding: 15px; border: none;">
+<img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github" alt="Total Stars" height="28" />
+<br><br>
+<b style="font-size: 32px; color: #FFD54F;">116</b>
 <br>
-<sub><b>Star Power! ✨</b></sub>
+<sub style="font-size: 11px; opacity: 0.8;">⭐ Total Stars</sub>
 </td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/🔥_Current_Streak-114_Days-F85D7F?style=for-the-badge&labelColor=1a1a2e" alt="Current Streak" />
+<td align="center" width="25%" style="padding: 15px; border: none;">
+<img src="https://img.shields.io/badge/Current_Streak-114_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" height="28" />
+<br><br>
+<b style="font-size: 32px; color: #F85D7F;">114</b>
 <br>
-<sub><b>Keep Going! 💪</b></sub>
+<sub style="font-size: 11px; opacity: 0.8;">🔥 Day Streak</sub>
 </td>
 </tr>
 </table>
@@ -279,7 +287,7 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: November 17, 2025 at 12:55 PM UTC -->
+<!-- Last Updated: November 17, 2025 at 04:32 PM UTC -->
 
 <!--START_SECTION:activity-->
 1. 💪 Opened PR [#5](undefined) in [Rayyan9477/ocr-app](https://github.com/Rayyan9477/ocr-app)
