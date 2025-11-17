@@ -600,40 +600,77 @@ class DailyUpdater:
             if stats:
                 # Update followers badge
                 followers_pattern = r'https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*'
-                followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=for-the-badge&color=4c1&logo=github'
+                followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=flat-square&color=22c55e&logo=github&logoColor=white'
                 if re.search(followers_pattern, content):
                     content = re.sub(followers_pattern, followers_replacement, content)
                     self.log("✅ Updated followers badge")
                 
                 # Update stars badge
                 stars_pattern = r'https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*'
-                stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github'
+                stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white'
                 if re.search(stars_pattern, content):
                     content = re.sub(stars_pattern, stars_replacement, content)
                     self.log("✅ Updated stars badge")
                 
-                # Update profile views badge
-                profile_views_badge = self._get_profile_views()
-                profile_views_pattern = r'https://img\.shields\.io/badge/👀_Profile_Views-[\d\+]+-[^"]*'
+                # Update profile views badge (komarev service)
+                profile_views_pattern = r'https://komarev\.com/ghpvc/\?username=Rayyan9477[^"]*'
+                profile_views_replacement = f'https://komarev.com/ghpvc/?username={self.username}&label=Profile%20Views&color=0e75b6&style=flat-square'
                 if re.search(profile_views_pattern, content):
-                    content = re.sub(profile_views_pattern, profile_views_badge, content)
+                    content = re.sub(profile_views_pattern, profile_views_replacement, content)
                     self.log("✅ Updated profile views badge")
                 
                 # Update current streak badge
                 current_streak = self._get_current_streak()
                 if current_streak:  # Only update if we successfully fetched the streak
-                    current_streak_pattern = r'🔥_Current_Streak-[\d_]+Days-'
-                    current_streak_replacement = f'🔥_Current_Streak-{current_streak}-'
-                    if re.search(current_streak_pattern, content):
-                        content = re.sub(current_streak_pattern, current_streak_replacement, content)
+                    # Update badge URL
+                    current_streak_badge_pattern = r'https://img\.shields\.io/badge/Current_Streak-[\d_]+Days-[^"]*'
+                    current_streak_badge_replacement = f'https://img.shields.io/badge/Current_Streak-{current_streak}-F85D7F?style=flat-square&logo=github&logoColor=white'
+                    if re.search(current_streak_badge_pattern, content):
+                        content = re.sub(current_streak_badge_pattern, current_streak_badge_replacement, content)
                         self.log("✅ Updated current streak badge")
-                    else:
-                        self.log("⚠️ Current streak pattern not found in README", "WARNING")
                 else:
                     self.log("ℹ️ Preserving existing streak value", "INFO")
                 
-                # Note: Contribution counts are preserved as-is
-                self.log("ℹ️ Contribution counts preserved (existing values maintained)")
+                # Update hardcoded numbers in the dashboard
+                # Get profile views from komarev (extract from badge)
+                try:
+                    profile_views_response = requests.get(f'https://komarev.com/ghpvc/?username={self.username}', timeout=5)
+                    if profile_views_response.status_code == 200:
+                        # The service returns an SVG with the count
+                        import re as regex_module
+                        views_match = regex_module.search(r'>(\d+)<', profile_views_response.text)
+                        if views_match:
+                            profile_views = views_match.group(1)
+                            # Update profile views number
+                            content = regex_module.sub(
+                                r'(<b style="font-size: 32px; color: #4FC3F7;">)\d+(</b>)',
+                                f'\\g<1>{profile_views}\\g<2>',
+                                content,
+                                count=1
+                            )
+                            self.log(f"✅ Updated profile views number: {profile_views}")
+                except Exception as e:
+                    self.log(f"⚠️ Could not fetch profile views count: {e}", "WARNING")
+                
+                # Update followers number
+                if 'followers' in stats:
+                    followers_num_pattern = r'(<b style="font-size: 32px; color: #66BB6A;">)\d+(</b>)'
+                    content = re.sub(followers_num_pattern, f'\\g<1>{stats["followers"]}\\g<2>', content, count=1)
+                    self.log(f"✅ Updated followers number: {stats['followers']}")
+                
+                # Update stars number
+                if 'total_stars' in stats:
+                    stars_num_pattern = r'(<b style="font-size: 32px; color: #FFD54F;">)\d+(</b>)'
+                    content = re.sub(stars_num_pattern, f'\\g<1>{stats["total_stars"]}\\g<2>', content, count=1)
+                    self.log(f"✅ Updated stars number: {stats['total_stars']}")
+                
+                # Update streak number
+                if current_streak:
+                    streak_num_pattern = r'(<b style="font-size: 32px; color: #F85D7F;">)\d+(</b>)'
+                    content = re.sub(streak_num_pattern, f'\\g<1>{current_streak.replace("_Days", "")}\\g<2>', content, count=1)
+                    self.log(f"✅ Updated streak number: {current_streak}")
+                
+                self.log("✅ All dashboard numbers updated dynamically")
             
             # Update WakaTime section (if tags exist)
             if "<!--START_SECTION:waka-->" in content and "<!--END_SECTION:waka-->" in content:
