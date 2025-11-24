@@ -373,13 +373,28 @@ class DailyUpdater:
                 self.log(f"  {date}: {count} contribution(s)")
             
             # Calculate current streak
+            # Note: Today might not have contributions yet, so we check from yesterday
+            from datetime import datetime, timezone
+            today_str = datetime.now(timezone.utc).date().isoformat()
+            
             current_streak = 0
-            for day in days:
+            skip_today = True  # Flag to skip today if it has no contributions
+            
+            for i, day in enumerate(days):
+                date = day.get('date', '')
                 count = day.get('contributionCount', 0)
+                
+                # If this is today and has no contributions, skip it
+                if skip_today and date == today_str and count == 0:
+                    self.log(f"ℹ️ Skipping today ({today_str}) with 0 contributions")
+                    skip_today = False
+                    continue
+                
+                # Count days with contributions
                 if count > 0:
                     current_streak += 1
                 else:
-                    # Stop at the first day with no contributions
+                    # Stop at the first day (after today) with no contributions
                     break
             
             self.log(f"🔥 Current streak calculated: {current_streak} days")
