@@ -20,7 +20,7 @@
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #4FC3F7;">762</b>
+<b style="font-size: 32px; color: #4FC3F7;">771</b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">👁️ Profile Views</sub>
 </td>
@@ -34,14 +34,14 @@
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white" alt="Total Stars" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #FFD54F;">117</b>
+<b style="font-size: 32px; color: #FFD54F;">118</b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">⭐ Total Stars</sub>
 </td>
 <td align="center" width="25%" style="padding: 15px; border: none;">
-<img src="https://img.shields.io/badge/Current_Streak-0_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" height="28" />
+<img src="https://img.shields.io/badge/Current_Streak-121_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #F85D7F;">0</b>
+<b style="font-size: 32px; color: #F85D7F;">121</b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">🔥 Day Streak</sub>
 </td>
