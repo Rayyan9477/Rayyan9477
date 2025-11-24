@@ -14,10 +14,8 @@ name: 🔄 Unified GitHub Profile Update
 
 on:
   schedule:
-    # Run every 12 hours for comprehensive updates
-    - cron: '0 */12 * * *'  # Every 12 hours at 00:00 and 12:00 UTC
-    # Additional daily run at 6:00 AM UTC for extra reliability
-    - cron: '0 6 * * *'
+    # Run once every 24 hours at midnight UTC
+    - cron: '0 0 * * *'  # Daily at 00:00 UTC (midnight)
   workflow_dispatch:  # Allow manual trigger
   push:
     branches: [main]
@@ -96,16 +94,6 @@ jobs:
         with:
           COMMIT_MSG: "📊 Update GitHub activity stats - $(date +%Y-%m-%d)"
           MAX_LINES: 8
-          GH_USERNAME: "Rayyan9477"
-          TARGET_FILE: "README.md"
-          COMMIT_NAME: "github-actions[bot]"
-          COMMIT_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
-          EMPTY_COMMIT_MSG: ":memo: empty commit to keep workflow active"
-          SHOW_PRIVATE: false
-          SHOW_COMMIT: true
-          SHOW_ISSUE: true
-          SHOW_PULL: true
-          SHOW_RELEASE: true
 
       - name: 🔄 Run GitHub Stats Updater
         run: |
