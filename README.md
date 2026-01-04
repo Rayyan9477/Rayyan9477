@@ -290,5 +290,5 @@ class AIEngineer:
 <!-- Last Updated: January 03, 2026 at 02:00 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. 🗣 Commented on [#1](https://github.com/Rayyan9477/Real-Time-MLOps-Pipeline-for-USD-Forecasting/pull/1#issuecomment-3702867791) in [Rayyan9477/Real-Time-MLOps-Pipeline-for-USD-Forecasting](https://github.com/Rayyan9477/Real-Time-MLOps-Pipeline-for-USD-Forecasting)
+1. 🗣 Commented on [#1](https://github.com/Rayyan9477/MLOps-Pipeline-for-USD-Forecasting/pull/1#issuecomment-3702867791) in [Rayyan9477/MLOps-Pipeline-for-USD-Forecasting](https://github.com/Rayyan9477/MLOps-Pipeline-for-USD-Forecasting)
 <!--END_SECTION:activity-->
