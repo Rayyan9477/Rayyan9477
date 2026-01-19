@@ -20,7 +20,7 @@
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #4FC3F7;">995</b>
+<b style="font-size: 32px; color: #4FC3F7;">1,091</b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">👁️ Profile Views</sub>
 </td>
