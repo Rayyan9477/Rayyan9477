@@ -119,14 +119,13 @@ class DailyUpdater:
     
     def get_github_stats(self) -> Dict[str, Any]:
         """Fetch latest GitHub statistics"""
-        if not self.GH_TOKEN:
-            self.log("⚠️ GH_TOKEN not set, skipping GitHub stats", "WARNING")
-            return {}
-            
         headers = {
-            'Authorization': f'token {self.GH_TOKEN}',
             'Accept': 'application/vnd.github.v3+json'
         }
+        if self.GH_TOKEN:
+            headers['Authorization'] = f'token {self.GH_TOKEN}'
+        else:
+            self.log("⚠️ GH_TOKEN not set, attempting unauthenticated GitHub stats", "WARNING")
         
         try:
             user_url = f'https://api.github.com/users/{self.username}'
@@ -653,36 +652,78 @@ class DailyUpdater:
                     if profile_views_response.status_code == 200:
                         # The service returns an SVG with the count
                         import re as regex_module
-                        views_match = regex_module.search(r'>(\d+)<', profile_views_response.text)
+                        views_match = regex_module.search(
+                            r'Profile Views</text>\s*<text[^>]*>([\d,]+)</text>',
+                            profile_views_response.text,
+                            regex_module.IGNORECASE
+                        )
+                        if not views_match:
+                            views_match = regex_module.search(r'>([\d,]+)<', profile_views_response.text)
                         if views_match:
                             profile_views = views_match.group(1)
                             # Update profile views number
-                            content = regex_module.sub(
-                                r'(<b style="font-size: 32px; color: #4FC3F7;">)\d+(</b>)',
-                                f'\\g<1>{profile_views}\\g<2>',
-                                content,
-                                count=1
-                            )
+                            if regex_module.search(r'<!--PROFILE_VIEWS-->.*?<!--/PROFILE_VIEWS-->', content, regex_module.DOTALL):
+                                content = regex_module.sub(
+                                    r'<!--PROFILE_VIEWS-->.*?<!--/PROFILE_VIEWS-->',
+                                    f'<!--PROFILE_VIEWS-->{profile_views}<!--/PROFILE_VIEWS-->',
+                                    content,
+                                    count=1,
+                                    flags=regex_module.DOTALL
+                                )
+                            else:
+                                content = regex_module.sub(
+                                    r'(<b style="font-size: 32px; color: #4FC3F7;">)[\d,]+(</b>)',
+                                    f'\\g<1>{profile_views}\\g<2>',
+                                    content,
+                                    count=1
+                                )
                             self.log(f"✅ Updated profile views number: {profile_views}")
                 except Exception as e:
                     self.log(f"⚠️ Could not fetch profile views count: {e}", "WARNING")
                 
                 # Update followers number
                 if 'followers' in stats:
-                    followers_num_pattern = r'(<b style="font-size: 32px; color: #66BB6A;">)\d+(</b>)'
-                    content = re.sub(followers_num_pattern, f'\\g<1>{stats["followers"]}\\g<2>', content, count=1)
+                    if re.search(r'<!--FOLLOWERS-->.*?<!--/FOLLOWERS-->', content, re.DOTALL):
+                        content = re.sub(
+                            r'<!--FOLLOWERS-->.*?<!--/FOLLOWERS-->',
+                            f'<!--FOLLOWERS-->{stats["followers"]}<!--/FOLLOWERS-->',
+                            content,
+                            count=1,
+                            flags=re.DOTALL
+                        )
+                    else:
+                        followers_num_pattern = r'(<b style="font-size: 32px; color: #66BB6A;">)[\d,]+(</b>)'
+                        content = re.sub(followers_num_pattern, f'\\g<1>{stats["followers"]}\\g<2>', content, count=1)
                     self.log(f"✅ Updated followers number: {stats['followers']}")
                 
                 # Update stars number
                 if 'total_stars' in stats:
-                    stars_num_pattern = r'(<b style="font-size: 32px; color: #FFD54F;">)\d+(</b>)'
-                    content = re.sub(stars_num_pattern, f'\\g<1>{stats["total_stars"]}\\g<2>', content, count=1)
+                    if re.search(r'<!--TOTAL_STARS-->.*?<!--/TOTAL_STARS-->', content, re.DOTALL):
+                        content = re.sub(
+                            r'<!--TOTAL_STARS-->.*?<!--/TOTAL_STARS-->',
+                            f'<!--TOTAL_STARS-->{stats["total_stars"]}<!--/TOTAL_STARS-->',
+                            content,
+                            count=1,
+                            flags=re.DOTALL
+                        )
+                    else:
+                        stars_num_pattern = r'(<b style="font-size: 32px; color: #FFD54F;">)[\d,]+(</b>)'
+                        content = re.sub(stars_num_pattern, f'\\g<1>{stats["total_stars"]}\\g<2>', content, count=1)
                     self.log(f"✅ Updated stars number: {stats['total_stars']}")
                 
                 # Update streak number
                 if current_streak:
-                    streak_num_pattern = r'(<b style="font-size: 32px; color: #F85D7F;">)\d+(</b>)'
-                    content = re.sub(streak_num_pattern, f'\\g<1>{current_streak.replace("_Days", "")}\\g<2>', content, count=1)
+                    if re.search(r'<!--CURRENT_STREAK-->.*?<!--/CURRENT_STREAK-->', content, re.DOTALL):
+                        content = re.sub(
+                            r'<!--CURRENT_STREAK-->.*?<!--/CURRENT_STREAK-->',
+                            f'<!--CURRENT_STREAK-->{current_streak.replace("_Days", "")}<!--/CURRENT_STREAK-->',
+                            content,
+                            count=1,
+                            flags=re.DOTALL
+                        )
+                    else:
+                        streak_num_pattern = r'(<b style="font-size: 32px; color: #F85D7F;">)[\d,]+(</b>)'
+                        content = re.sub(streak_num_pattern, f'\\g<1>{current_streak.replace("_Days", "")}\\g<2>', content, count=1)
                     self.log(f"✅ Updated streak number: {current_streak}")
                 
                 self.log("✅ All dashboard numbers updated dynamically")

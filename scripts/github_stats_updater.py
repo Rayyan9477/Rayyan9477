@@ -167,7 +167,7 @@ class GitHubStatsUpdater:
         """Get profile views badge using komarev service"""
         try:
             # Use komarev profile view counter service for dynamic badge
-            return "https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=for-the-badge"
+            return "https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square"
         except Exception as e:
             self.log(f"⚠️ Error setting up profile views badge: {e}", "WARNING")
             return "https://img.shields.io/badge/👀_Profile_Views-650+-0e75b6?style=for-the-badge&labelColor=1a1a2e"  # Fallback
@@ -362,22 +362,22 @@ class GitHubStatsUpdater:
                 content = file.read()
             
             # Update followers badge
-            followers_pattern = r'(https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*)'
-            followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=for-the-badge&color=4c1&logo=github'
+            followers_pattern = r'(https://img\.shields\.io/github/followers/Rayyan9477\?[^\"]*)'
+            followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=flat-square&color=22c55e&logo=github&logoColor=white'
             if re.search(followers_pattern, content):
                 content = re.sub(followers_pattern, followers_replacement, content)
                 self.log("✅ Updated followers badge")
             
             # Update stars badge
-            stars_pattern = r'(https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*)'
-            stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=for-the-badge&color=yellow&logo=github'
+            stars_pattern = r'(https://img\.shields\.io/github/stars/Rayyan9477\?[^\"]*)'
+            stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white'
             if re.search(stars_pattern, content):
                 content = re.sub(stars_pattern, stars_replacement, content)
                 self.log("✅ Updated stars badge")
             
             # Update profile views badge
             profile_views_badge = self._get_profile_views()
-            profile_views_pattern = r'https://img\.shields\.io/badge/👀_Profile_Views-[\d\+]+-[^"]*'
+            profile_views_pattern = r'https://komarev\.com/ghpvc/\?username=Rayyan9477[^\"]*|https://img\.shields\.io/badge/👀_Profile_Views-[\d\+]+-[^\"]*'
             if re.search(profile_views_pattern, content):
                 content = re.sub(profile_views_pattern, profile_views_badge, content)
                 self.log("✅ Updated profile views badge")
@@ -385,8 +385,8 @@ class GitHubStatsUpdater:
             # Update current streak badge
             current_streak = self._get_current_streak()
             if current_streak:  # Only update if we successfully fetched the streak
-                current_streak_pattern = r'🔥_Current_Streak-[\d_]+Days-'
-                current_streak_replacement = f'🔥_Current_Streak-{current_streak}-'
+                current_streak_pattern = r'https://img\.shields\.io/badge/[^\"]*Current_Streak-[\d_]+Days-[^\"]*'
+                current_streak_replacement = f'https://img.shields.io/badge/Current_Streak-{current_streak}-F85D7F?style=flat-square&logo=github&logoColor=white'
                 if re.search(current_streak_pattern, content):
                     content = re.sub(current_streak_pattern, current_streak_replacement, content)
                     self.log("✅ Updated current streak badge")
