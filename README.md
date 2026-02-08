@@ -290,5 +290,5 @@ class AIEngineer:
 <!-- Last Updated: February 07, 2026 at 02:31 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. 🎉 Merged PR [#2](https://github.com/Rayyan9477/MLOps-Pipeline-for-USD-Forecasting/pull/2) in [Rayyan9477/MLOps-Pipeline-for-USD-Forecasting](https://github.com/Rayyan9477/MLOps-Pipeline-for-USD-Forecasting)
+1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant/pull/1) in [Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant](https://github.com/Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant)
 <!--END_SECTION:activity-->
