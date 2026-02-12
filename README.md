@@ -290,5 +290,5 @@ class AIEngineer:
 <!-- Last Updated: February 11, 2026 at 02:51 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. 🎉 Merged PR [#1](https://github.com/Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant/pull/1) in [Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant](https://github.com/Rayyan9477/AutoApply-AI-Smart-Job-Application-Assistant)
+1. ❌ Closed PR [#2](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF/pull/2) in [Rayyan9477/Agentic-Document-Extraction-PDF](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF)
 <!--END_SECTION:activity-->
