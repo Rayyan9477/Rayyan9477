@@ -290,5 +290,5 @@ class AIEngineer:
 <!-- Last Updated: February 12, 2026 at 02:46 AM UTC -->
 
 <!--START_SECTION:activity-->
-1. ❌ Closed PR [#2](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF/pull/2) in [Rayyan9477/Agentic-Document-Extraction-PDF](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF)
+1. ❌ Closed PR [#1](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF/pull/1) in [Rayyan9477/Agentic-Document-Extraction-PDF](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF)
 <!--END_SECTION:activity-->
