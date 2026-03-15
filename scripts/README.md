@@ -1,4 +1,4 @@
-<!-- Quote Updated: March 14, 2026 at 02:32 AM UTC -->
+<!-- Quote Updated: March 15, 2026 at 02:53 AM UTC -->
 
 <!-- Animated Capsule Header Banner -->
 <div align="center">
@@ -20,7 +20,7 @@
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #4FC3F7;"><!--PROFILE_VIEWS-->1,572<!--/PROFILE_VIEWS--></b>
+<b style="font-size: 32px; color: #4FC3F7;"><!--PROFILE_VIEWS-->1,573<!--/PROFILE_VIEWS--></b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">👁️ Profile Views</sub>
 </td>
@@ -34,14 +34,14 @@
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white" alt="Total Stars" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #FFD54F;"><!--TOTAL_STARS-->141<!--/TOTAL_STARS--></b>
+<b style="font-size: 32px; color: #FFD54F;"><!--TOTAL_STARS-->142<!--/TOTAL_STARS--></b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">⭐ Total Stars</sub>
 </td>
 <td align="center" width="25%" style="padding: 15px; border: none;">
 <img src="https://img.shields.io/badge/Current_Streak-232_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" height="28" />
 <br><br>
-<b style="font-size: 32px; color: #F85D7F;"><!--CURRENT_STREAK-->230<!--/CURRENT_STREAK--></b>
+<b style="font-size: 32px; color: #F85D7F;"><!--CURRENT_STREAK-->232<!--/CURRENT_STREAK--></b>
 <br>
 <sub style="font-size: 11px; opacity: 0.8;">🔥 Day Streak</sub>
 </td>
@@ -71,13 +71,15 @@
 <img align="right" alt="AI Development" width="400" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif"/>
 
 ### 🎯 **Current Mission**
-Leading AI transformation at **Nobility RCM**, where I architect cutting-edge **RAG & LLM solutions** that automate complex medical billing workflows and drive operational excellence.
+Building production AI systems at **Nobility RCM** — architecting agentic workflows, medical compliance automation, and LLM integrations that replace hours of manual work with a single pipeline.
 
-### 💡 **Innovation Track Record**
-- ⚡ **18% accuracy boost** in deep learning models at Mentorness
-- 🎯 **35% reduction** in manual workloads through intelligent automation
-- 🚀 **End-to-end ML pipelines** from research to production deployment
-- 🔬 **Research focus** on multimodal AI and human-AI collaboration
+### 💼 **Experience**
+
+**AI Engineer** | **Nobility RCM** | Islamabad, Pakistan | March 2025 – Present
+
+- Developed a medical compliance agent that reads clinical notes and auto-extracts ICD-10/CPT/HCPCS billing codes using a fine-tuned Phi-3 model with a 4-agent LangGraph architecture and 3-layer anti-hallucination validation — replacing hours of manual medical coding with a single pipeline.
+- Built LLM-powered browser automation agents (Playwright + Browser Use) that navigate billing portals, extract claim data, and auto-fill forms — turning repetitive manual workflows into agentic AI processes, cutting processing time by 15% and boosting accuracy by 10%.
+- Designed RAG pipelines with hybrid retrieval (FAISS vectors + BM25 keyword matching) and MCP server integrations to connect LLMs with internal billing systems, enabling natural-language querying across claim databases and accelerating decision-making by 10%.
 
 ### 🌟 **Philosophy & Vision**
 ```python
@@ -138,64 +140,44 @@ class AIEngineer:
 <tr>
 <td width="50%">
 
-#### 🔍 **OCR-APP**
-*State-of-the-art Optical Character Recognition (OCR) with Vision Language Model (VLM) integration for enhanced accuracy and optimal document processing.*
+#### � **LinkedIn MCP Server**
+LinkedIn's API is locked down and most job tools are half-baked wrappers. I built a full MCP (Model Context Protocol) server that gives any LLM-based assistant a structured tool interface to LinkedIn — search jobs, generate tailored resumes and cover letters, and manage applications programmatically. Plugs directly into Claude Desktop, Cursor, or any MCP-compatible client. No scraping, no hacks — clean protocol-level access.
 
-- 🎯 Advanced OCR with real-time Q&A capabilities
-- 🖼️ Smart preprocessing for diverse image formats  
-- 🧠 AI-enhanced accuracy using computer vision
-- 🚀 Interactive Streamlit interface
+**Stack:** `Python` `MCP` `LinkedIn API` `LLM` `FastAPI`
 
-**Stack:** `Python` `OpenCV` `Streamlit` `Transformers`
-
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/ocr-app)
+[![View Project](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/linkedin_mcp)
 
 </td>
 <td width="50%">
 
-#### 🎤 **Speech Emotion Classification**
-*AI-Powered Emotion Recognition from Speech*
+#### 📄 **Agentic Document Extraction**
+Most OCR tools choke on messy scans — broken tables, mixed layouts, multiple records per page. Built an enterprise extraction system that auto-detects document type, generates adaptive schemas on the fly (zero-shot), and extracts multiple records per page using a local VLM (Qwen3-VL 8B). Features cross-page duplicate detection, checkpoint/resume for large batches, 4x parallel speedup, and consolidated Excel + JSON + Markdown exports. Integrates Mem0 — the system learns from corrections and gets smarter over time.
 
-- 🎤 Advanced speech analysis for emotion detection
-- 🧠 Deep learning models for accurate classification
-- 📊 Real-time processing capabilities
-- � Multiple emotion categories support
+**Stack:** `VLM (Qwen3-VL)` `LangGraph` `Mem0` `OpenCV` `FastAPI` `Celery`
 
-**Stack:** `Python` `PyTorch` `Librosa` `Deep Learning`
-
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/speech_emotion_classification)
+[![View Project](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/Agentic-Document-Extraction-PDF)
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-#### 🛡️ **Hate Speech Detection**
-*AI-Powered Content Moderation*
+#### 🤖 **AutoApply AI**
+Job applications are repetitive — same forms, same clicks, hundreds of times. Built a full-stack AI platform (FastAPI + React + Redis) that discovers jobs, scores resumes against postings using FAISS vector matching, tailors documents via LLM, and submits applications through Playwright browser automation. Features a human-in-the-loop review workflow, batch processing queue, real-time WebSocket progress tracking, ATS scoring engine, and analytics dashboard. Supports OpenAI, Groq, and Gemini via LiteLLM routing.
 
-- 🔍 Advanced classification using state-of-the-art NLP
-- 📊 High accuracy with NLTK and transformer models
-- 🧹 Intelligent preprocessing for text normalization
-- 📈 Performance analytics with detailed metrics
+**Stack:** `FastAPI` `React` `Playwright` `Browser Use` `Redis` `LiteLLM` `FAISS`
 
-**Stack:** `Python` `NLTK` `Transformers` `ML`
-
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/Hate-Speech-Detection)
+[![View Project](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/AutoApply-AI-Agentic-Browser-Automation-for-Job-Search)
 
 </td>
 <td width="50%">
 
-#### 🏠 **House prediction model**
-*ML-Driven Real Estate Analytics*
+#### 📈 **MLOps Pipeline — USD Volatility Forecasting**
+A prediction model is useless if it silently goes stale. Built a full production ML system that fetches live EUR/USD forex data, engineers 33 features, and retrains automatically every 2 hours via Airflow. Serves predictions through FastAPI with real-time drift detection on every request. Full observability: Prometheus metrics (latency P95/P99, drift ratio), Grafana dashboards with 13 alert rules, and MLflow experiment tracking. Runs as an 8-service Docker Compose stack with DVC data versioning, 5 CI/CD workflows, and 37 unit tests.
 
-- 📊 Data-driven insights with advanced regression
-- 🎯 45% improvement in prediction accuracy
-- 📈 Comprehensive market analysis features
-- 💡 AI-based investment recommendations
+**Stack:** `Airflow` `Grafana` `Prometheus` `MLflow` `Docker` `DVC` `FastAPI`
 
-**Stack:** `Python` `Machine Learning` `Analytics` `Regression`
-
-[![View](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/House-Price-Prediction-Model)
+[![View Project](https://img.shields.io/badge/View_Project-FF6B6B?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rayyan9477/MLOps-Pipeline-for-USD-Forecasting)
 
 </td>
 </tr>
@@ -248,7 +230,7 @@ class AIEngineer:
 ## 💡 Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Code%20is%20like%20humor.%20When%20you%20have%20to%20explain%20it%2C%20it%27s%20bad.&author=Cory%20House" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Talk%20is%20cheap.%20Show%20me%20the%20code.&author=Linus%20Torvalds" alt="Dev Quote"/>
 </div>
 
 ---
@@ -287,7 +269,7 @@ class AIEngineer:
 </div>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: March 15, 2026 at 02:53 AM UTC -->
+<!-- Last Updated: March 15, 2026 at 10:34 PM UTC -->
 
 <!--START_SECTION:activity-->
 1. 🗣 Commented on [#4](https://github.com/Rayyan9477/Solace-AI/issues/4#issuecomment-4054299804) in [Rayyan9477/Solace-AI](https://github.com/Rayyan9477/Solace-AI)
