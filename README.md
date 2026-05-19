@@ -98,6 +98,9 @@ class AIEngineer:
         ]
 ```
 
+    ### ✅ **Fine-Tuning Impact**
+    Recently won **Third Prize** in the Qwen-Image LoRA Training Competition for *Qwen-image-2512-lora-advertisement* — trained on 12k+ curated images to deliver commercial-grade ad visuals on a single consumer GPU, with an 80-hour final training sprint. Demonstrates fast iteration, clean data curation, and production-ready fine-tuning workflows that get results.
+
 
 ## 🏆 Featured Projects
 
