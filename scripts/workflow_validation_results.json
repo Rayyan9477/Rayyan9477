@@ -2,14 +2,12 @@
   "status": "success",
   "summary": {
     "errors": 0,
-    "warnings": 1,
-    "info": 34
+    "warnings": 0,
+    "info": 50
   },
   "details": {
     "errors": [],
-    "warnings": [
-      "README.md doesn't contain WakaTime section"
-    ],
+    "warnings": [],
     "info": [
       ".github directory exists",
       ".github/workflows directory exists",
@@ -17,19 +15,33 @@
       "scripts directory exists",
       "Found 1 workflow file(s)",
       "Checking actions.yml",
-      "Found 11 Python script(s)",
+      "Found 18 Python script(s)",
       "Checking daily_update.py",
       "daily_update.py syntax is valid",
+      "Checking debug_streak.py",
+      "debug_streak.py syntax is valid",
       "Checking fetch_github_contributions.py",
       "fetch_github_contributions.py syntax is valid",
       "Checking github_stats_updater.py",
       "github_stats_updater.py syntax is valid",
+      "Checking simple_streak_test.py",
+      "simple_streak_test.py syntax is valid",
       "Checking test_contributions.py",
       "test_contributions.py syntax is valid",
+      "Checking test_daily_update_streak.py",
+      "test_daily_update_streak.py syntax is valid",
       "Checking test_environment.py",
       "test_environment.py syntax is valid",
+      "Checking test_improved_regex.py",
+      "test_improved_regex.py syntax is valid",
       "Checking test_runner.py",
       "test_runner.py syntax is valid",
+      "Checking test_saved_svg.py",
+      "test_saved_svg.py syntax is valid",
+      "Checking test_streak_complete.py",
+      "test_streak_complete.py syntax is valid",
+      "Checking test_streak_update.py",
+      "test_streak_update.py syntax is valid",
       "Checking test_wakatime.py",
       "test_wakatime.py syntax is valid",
       "Checking test_workflow.py",
@@ -40,10 +52,12 @@
       "validate_workflow.py syntax is valid",
       "Checking validate_workflow_debug.py",
       "validate_workflow_debug.py syntax is valid",
-      "Found contribution snake SVG",
       "Found banners directory",
       "Found icons directory",
+      "Found achievements directory",
       "requirements.txt appears valid",
+      "Found dynamic profile stat markers in README",
+      "Found achievement proof image references in README",
       "README.md structure appears valid"
     ]
   }

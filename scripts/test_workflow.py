@@ -70,10 +70,11 @@ def test_readme_structure():
             content = f.read()
         
         required_sections = [
-            '<!--START_SECTION:activity-->',
-            '<!--END_SECTION:activity-->',
-            '<!--START_SECTION:waka-->',
-            '<!--END_SECTION:waka-->'
+            '<!--PROFILE_VIEWS-->',
+            '<!--FOLLOWERS-->',
+            '<!--TOTAL_STARS-->',
+            '<!--CURRENT_STREAK-->',
+            'assets/achievements/qwen-image-third-prize-leaderboard.png'
         ]
         
         for section in required_sections:
@@ -125,9 +126,8 @@ def test_workflow_file():
         required_components = [
             'schedule:',
             'cron:',
-            'github-activity-readme',
-            'waka-readme',
-            'Platane/snk'
+            'github_stats_updater.py',
+            'daily_update.py'
         ]
         
         for component in required_components:

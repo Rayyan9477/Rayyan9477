@@ -5,7 +5,6 @@ Workflow Validation Script - Tests the GitHub Actions workflow configuration
 
 import os
 import sys
-import subprocess
 import json
 import re
 from pathlib import Path
@@ -100,16 +99,13 @@ class WorkflowValidator:
                 self.errors.append(f"{script_file.name} is empty")
                 continue
                 
-            # Check for Python syntax errors
+            # Check for Python syntax errors without writing __pycache__ files
             try:
-                subprocess.run(
-                    [sys.executable, "-m", "py_compile", str(script_file)],
-                    check=True,
-                    capture_output=True
-                )
+                source = script_file.read_text(encoding='utf-8')
+                compile(source, str(script_file), 'exec')
                 self.info.append(f"{script_file.name} syntax is valid")
-            except subprocess.CalledProcessError as e:
-                self.errors.append(f"{script_file.name} has syntax errors: {e.stderr.decode('utf-8')}")
+            except SyntaxError as e:
+                self.errors.append(f"{script_file.name} has syntax errors: {e}")
     
     def validate_asset_files(self):
         """Validate required asset files"""
@@ -119,15 +115,8 @@ class WorkflowValidator:
             self.warnings.append("Assets directory missing, skipping asset validation")
             return
             
-        # Check for contribution snake SVG
-        snake_svg = self.assets_dir / "github-contribution-grid-snake.svg"
-        if snake_svg.exists():
-            self.info.append("Found contribution snake SVG")
-        else:
-            self.warnings.append("Missing github-contribution-grid-snake.svg")
-            
         # Check for required subdirectories
-        for subdir in ["banners", "icons"]:
+        for subdir in ["banners", "icons", "achievements"]:
             if (self.assets_dir / subdir).exists():
                 self.info.append(f"Found {subdir} directory")
             else:
@@ -169,19 +158,23 @@ class WorkflowValidator:
             self.errors.append("README.md is empty")
             return
             
-        # Check for WakaTime section
-        if "WakaTime Stats" in content and "<!--START_SECTION:waka-->" in content:
-            self.info.append("Found WakaTime section in README")
-        elif "WakaTime Stats" in content:
-            self.warnings.append("WakaTime heading exists but missing START/END tags")
+        # Check for dynamic profile stat markers
+        required_markers = [
+            "<!--PROFILE_VIEWS-->",
+            "<!--FOLLOWERS-->",
+            "<!--TOTAL_STARS-->",
+            "<!--CURRENT_STREAK-->",
+        ]
+        missing_markers = [marker for marker in required_markers if marker not in content]
+        if missing_markers:
+            self.errors.append(f"README.md missing profile stat markers: {', '.join(missing_markers)}")
         else:
-            self.warnings.append("README.md doesn't contain WakaTime section")
-            
-        # Check for GitHub Activity section
-        if "Recent GitHub Activity" in content and "<!--START_SECTION:activity-->" in content:
-            self.info.append("Found GitHub Activity section in README")
-        elif "Recent GitHub Activity" in content:
-            self.warnings.append("GitHub Activity heading exists but missing START/END tags")
+            self.info.append("Found dynamic profile stat markers in README")
+
+        if "assets/achievements/qwen-image-third-prize-leaderboard.png" in content:
+            self.info.append("Found achievement proof image references in README")
+        else:
+            self.warnings.append("README.md doesn't reference achievement proof images")
             
         self.info.append("README.md structure appears valid")
     

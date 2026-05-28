@@ -1,38 +1,26 @@
 ---
-name: 🔄 Unified GitHub Profile Update
-
-# IMPORTANT: GitHub Secrets Configuration:
-# 1. Go to your repository Settings > Secrets and variables > Actions
-# 2. Add the following secrets:
-#    - GH_TOKEN: Your GitHub Personal Access Token (optional - fallback)
-#
-# Required Permissions for Personal Access Token (if using GH_TOKEN):
-# - repo (Full control of private repositories)
-# - workflow (Update GitHub Action workflows)
-# - read:user (Read user profile data)
-# - user:email (Access user email addresses)
+name: Unified GitHub Profile Update
 
 on:
   schedule:
-    # Run once every 24 hours at midnight UTC
-    - cron: '0 0 * * *'  # Daily at 00:00 UTC (midnight)
-  workflow_dispatch:  # Allow manual trigger
+    - cron: '0 0 * * *'
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'scripts/daily_update.py'
+      - 'scripts/github_stats_updater.py'
       - '.github/workflows/actions.yml'
       - 'README.md'
 
 jobs:
   profile-update:
-    name: 🔄 GitHub Profile Update
+    name: GitHub Profile Update
     runs-on: ubuntu-latest
     permissions:
       contents: write
       actions: read
     env:
-      # Use GitHub secrets for tokens - NEVER hardcode these values
       GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
 
@@ -40,7 +28,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for contribution snake
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -59,114 +47,65 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
 
-      - name: 🔍 Verify README Structure
+      - name: Verify README Structure
         run: |
-          echo "🔍 Checking README.md structure..."
-          if grep -q "<!--START_SECTION:activity-->" README.md; then
-            echo "✅ Activity section found in README.md"
-          else
-            echo "❌ Activity section missing from README.md"
-            exit 1
-          fi
-          echo "✅ README.md structure verification completed"
+          echo "Checking README.md structure..."
+          grep -q "<!--PROFILE_VIEWS-->" README.md
+          grep -q "<!--FOLLOWERS-->" README.md
+          grep -q "<!--TOTAL_STARS-->" README.md
+          grep -q "<!--CURRENT_STREAK-->" README.md
+          grep -q "assets/achievements/qwen-image-third-prize-leaderboard.png" README.md
+          echo "README.md structure verification completed"
 
-      - name: 🐍 Generate Contribution Snake
-        uses: Platane/snk@v3
-        continue-on-error: true
-        with:
-          github_user_name: "Rayyan9477"
-          outputs: |
-            assets/github-contribution-grid-snake.svg
-            assets/github-contribution-grid-snake-dark.svg?palette=github-dark
-            assets/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
-            assets/github-contribution-grid-snake-rainbow.svg?palette=github-rainbow&color_snake=rainbow
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 📈 Generate GitHub Activity
-        if: github.event_name == 'schedule' ||
-            github.event_name == 'workflow_dispatch'
-        uses: jamesgeorge007/github-activity-readme@master
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          COMMIT_MSG: "📊 Update GitHub activity stats - $(date +%Y-%m-%d)"
-          MAX_LINES: 8
-
-      - name: 🔄 Run GitHub Stats Updater
+      - name: Run GitHub Stats Updater
         run: |
           cd scripts
-          if [ -f "github_stats_updater.py" ]; then
-            echo "✅ github_stats_updater.py found, executing..."
-            python github_stats_updater.py
-            echo "✅ github_stats_updater.py execution completed"
-          else
-            echo "❌ github_stats_updater.py not found in scripts directory"
-            exit 1
-          fi
+          python github_stats_updater.py
           cd ..
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔄 Run Daily Update Script
+      - name: Run Daily Update Script
         run: |
-          # Ensure README.md is accessible in scripts directory
-          if [ -f "README.md" ]; then
-            cp README.md scripts/README.md
-            echo "✅ README.md copied to scripts directory"
-          else
-            echo "❌ README.md not found in root directory"
-            exit 1
-          fi
+          cp README.md scripts/README.md
           cd scripts
-          if [ -f "daily_update.py" ]; then
-            echo "✅ daily_update.py found, executing..."
-            python daily_update.py
-            echo "✅ daily_update.py execution completed"
-          else
-            echo "❌ daily_update.py not found in scripts directory"
-            exit 1
-          fi
+          python daily_update.py
           cd ..
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUSH_CHANGES: 'false'  # Don't push yet, we'll do one commit
+          PUSH_CHANGES: 'false'
 
-      - name: 🔍 Final README Verification
+      - name: Final README Verification
         run: |
-          echo "🔍 Final README.md structure verification..."
-          if grep -q "<!--START_SECTION:activity-->" README.md; then
-            echo "✅ Activity section still present in README.md"
-          else
-            echo "❌ Activity section missing from README.md after updates"
-            exit 1
-          fi
-          echo "✅ Final README.md structure verification completed"
+          echo "Final README.md structure verification..."
+          grep -q "<!--PROFILE_VIEWS-->" README.md
+          grep -q "<!--FOLLOWERS-->" README.md
+          grep -q "<!--TOTAL_STARS-->" README.md
+          grep -q "<!--CURRENT_STREAK-->" README.md
+          grep -q "assets/achievements/qwen-image-third-prize-leaderboard.png" README.md
+          echo "Final README.md structure verification completed"
 
-      - name: 💾 Commit & Push All Changes
+      - name: Commit & Push Changes
         run: |
           git add .
           git status
           if ! git diff --staged --quiet; then
-            git commit -m "🔄 Daily profile update - $(date +%Y-%m-%d)" \
-              -m "🐍 Updated contribution snake animations" \
-              -m "📊 Updated GitHub activity feed" \
-              -m "💡 Added daily inspirational quote" \
-              -m "🤖 Automated maintenance completed"
+            git commit -m "Daily profile update - $(date +%Y-%m-%d)" \
+              -m "Refreshed profile statistics" \
+              -m "Updated daily inspirational quote" \
+              -m "Automated maintenance completed"
             git push
-            echo "✅ Successfully committed and pushed changes"
+            echo "Successfully committed and pushed changes"
           else
-            echo "ℹ️ No changes to commit"
+            echo "No changes to commit"
           fi
         continue-on-error: true
 
-      - name: Upload Logs (if failed)
+      - name: Upload Logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
@@ -174,21 +113,5 @@ jobs:
           path: |
             daily_update.log
             scripts/daily_update.log
+            scripts/github_stats.log
           retention-days: 7
-
-      - name: ✅ Success Notification
-        if: success()
-        run: |
-          echo "🎉 Daily update completed successfully!"
-          echo "📅 Date: $(date)"
-          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "🚀 All systems operational!"
-
-      - name: ❌ Failure Notification
-        if: failure()
-        run: |
-          echo "💥 Daily update failed!"
-          echo "📅 Date: $(date)"
-          echo "🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "🔍 Check the logs for more details"
-          echo "⚠️ Troubleshooting: Verify GH_TOKEN"
