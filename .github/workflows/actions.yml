@@ -98,8 +98,16 @@ jobs:
               -m "Refreshed profile statistics" \
               -m "Updated daily inspirational quote" \
               -m "Automated maintenance completed"
-            git push
-            echo "Successfully committed and pushed changes"
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "Successfully committed and pushed changes"
+                break
+              fi
+
+              echo "Push failed; syncing with origin/main and retrying..."
+              git fetch origin main
+              git rebase origin/main
+            done
           else
             echo "No changes to commit"
           fi
