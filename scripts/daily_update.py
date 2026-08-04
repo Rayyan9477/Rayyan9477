@@ -30,6 +30,7 @@ class DailyUpdater:
             
         self.GH_TOKEN = os.getenv('GH_TOKEN')
         self.wakatime_token = os.getenv('WAKATIME_API_KEY')
+        self.dry_run = os.getenv('DRY_RUN', 'false').lower() == 'true' or os.getenv('PUSH_CHANGES', 'true').lower() != 'true'
         self.username = 'Rayyan9477'
         self.quotes_api_url = "https://api.quotable.io/random"
         self.wakatime_api_base = "https://wakatime.com/api/v1"
@@ -718,10 +719,14 @@ class DailyUpdater:
             else:
                 content += f"\n<!-- Last Updated: {now} -->"
             
+            if self.dry_run:
+                self.log("ℹ️ Dry run enabled; skipping README write")
+                return True
+
             # Write updated content
             with open(self.readme_file, 'w', encoding='utf-8') as file:
                 file.write(content)
-            
+
             self.log("✅ README content updated successfully")
             return True
             
@@ -812,12 +817,15 @@ class DailyUpdater:
                 return False
             
             # Step 5: Commit changes
-            if not self.commit_changes():
-                self.log("❌ Commit failed", "ERROR")
-                return False
+            if self.dry_run:
+                self.log("ℹ️ Dry run enabled; skipping git commit and push")
+            else:
+                if not self.commit_changes():
+                    self.log("❌ Commit failed", "ERROR")
+                    return False
             
             # Step 6: Push changes (optional)
-            if os.getenv('PUSH_CHANGES', 'true').lower() == 'true':
+            if not self.dry_run and os.getenv('PUSH_CHANGES', 'true').lower() == 'true':
                 self.push_changes()
             
             self.log("🎉 Daily update completed successfully!")

@@ -114,7 +114,7 @@ def main():
             content = f.read()
             sections = [
                 "GitHub Analytics",
-                "Tech",
+                "Technical Stack",
                 "Daily Inspiration"
             ]
             
