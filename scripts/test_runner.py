@@ -141,7 +141,7 @@ def main():
     daily_update_test = run_test(
         "Daily Update Script",
         f"cd {scripts_dir} && python daily_update.py",
-        {"PUSH_CHANGES": "false"}
+        {"PUSH_CHANGES": "false", "DRY_RUN": "true"}
     )
     results["tests"]["daily_update"] = daily_update_test
     results["total"] += 1

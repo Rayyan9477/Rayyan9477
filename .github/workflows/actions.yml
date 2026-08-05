@@ -47,6 +47,9 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --local pull.rebase false
 
+      - name: Run Profile Stats Regression Tests
+        run: python scripts/test_profile_stats.py
+
       - name: Verify README Structure
         run: |
           echo "Checking README.md structure..."
@@ -57,26 +60,12 @@ jobs:
           grep -q "assets/achievements/qwen-image-third-prize-leaderboard.png" README.md
           echo "README.md structure verification completed"
 
-      - name: Run GitHub Stats Updater
-        run: |
-          cd scripts
-          python github_stats_updater.py
-          cd ..
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run Daily Update Script
         run: |
-          cp README.md scripts/README.md
-          cd scripts
-          python daily_update.py
-          cd ..
-        continue-on-error: true
+          python scripts/daily_update.py
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
           PUSH_CHANGES: 'false'
 
       - name: Final README Verification
@@ -86,6 +75,8 @@ jobs:
           grep -q "<!--FOLLOWERS-->" README.md
           grep -q "<!--TOTAL_STARS-->" README.md
           grep -q "<!--CURRENT_STREAK-->" README.md
+          grep -q "assets/github-languages.svg" README.md
+          test -s assets/github-languages.svg
           grep -q "assets/achievements/qwen-image-third-prize-leaderboard.png" README.md
           echo "Final README.md structure verification completed"
 
@@ -98,9 +89,11 @@ jobs:
               -m "Refreshed profile statistics" \
               -m "Updated daily inspirational quote" \
               -m "Automated maintenance completed"
+            pushed=false
             for attempt in 1 2 3; do
               if git push; then
                 echo "Successfully committed and pushed changes"
+                pushed=true
                 break
               fi
 
@@ -108,11 +101,13 @@ jobs:
               git fetch origin main
               git rebase origin/main
             done
+            if [ "$pushed" != "true" ]; then
+              echo "Failed to push changes after 3 attempts"
+              exit 1
+            fi
           else
             echo "No changes to commit"
           fi
-        continue-on-error: true
-
       - name: Upload Logs
         if: failure()
         uses: actions/upload-artifact@v4

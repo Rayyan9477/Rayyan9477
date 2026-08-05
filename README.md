@@ -32,7 +32,7 @@
       <td align="center" width="25%">
         <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" />
         <br />
-        <strong><!--PROFILE_VIEWS-->2,662<!--/PROFILE_VIEWS--></strong>
+        <strong><!--PROFILE_VIEWS-->2,666<!--/PROFILE_VIEWS--></strong>
         <br />
         <sub>Profile views</sub>
       </td>
@@ -46,12 +46,12 @@
       <td align="center" width="25%">
         <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white" alt="Total Stars" />
         <br />
-        <strong><!--TOTAL_STARS-->214<!--/TOTAL_STARS--></strong>
+        <strong><!--TOTAL_STARS-->215<!--/TOTAL_STARS--></strong>
         <br />
         <sub>Total stars</sub>
       </td>
       <td align="center" width="25%">
-        <img src="https://img.shields.io/badge/Current_Streak-0_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" />
+        <img src="https://img.shields.io/badge/Current_Streak-365_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" />
         <br />
         <strong><!--CURRENT_STREAK-->365<!--/CURRENT_STREAK--></strong>
         <br />
@@ -255,8 +255,8 @@ Joined as the company's founding AI engineer and started the AI function from sc
 ## GitHub Analytics
 
 <p align="center">
-  <img width="49%" src="https://github-readme-streak-stats.herokuapp.com/?user=Rayyan9477&theme=tokyonight&hide_border=true&background=0D1117&stroke=7CF6D2&ring=FFD166&fire=FF6B6B&currStreakLabel=FFFFFF" alt="GitHub streak" />
-  <img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rayyan9477&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=7CF6D2&text_color=FFFFFF&langs_count=8" alt="Most used languages" />
+  <img width="49%" src="https://streak-stats.demolab.com/?user=Rayyan9477&theme=tokyonight&hide_border=true&background=0D1117&stroke=7CF6D2&ring=FFD166&fire=FF6B6B&currStreakLabel=FFFFFF" alt="GitHub streak" />
+  <img width="49%" src="assets/github-languages.svg" alt="Most used languages" />
 </p>
 
 <p align="center">

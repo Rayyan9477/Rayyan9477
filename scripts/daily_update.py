@@ -11,7 +11,9 @@ import requests
 import random
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
+from html import escape
+from pathlib import Path
 from typing import Dict, Any
 
 class DailyUpdater:
@@ -30,7 +32,8 @@ class DailyUpdater:
             
         self.GH_TOKEN = os.getenv('GH_TOKEN')
         self.wakatime_token = os.getenv('WAKATIME_API_KEY')
-        self.dry_run = os.getenv('DRY_RUN', 'false').lower() == 'true' or os.getenv('PUSH_CHANGES', 'true').lower() != 'true'
+        self.dry_run = os.getenv('DRY_RUN', 'false').lower() == 'true'
+        self.push_changes_enabled = os.getenv('PUSH_CHANGES', 'true').lower() == 'true'
         self.username = 'Rayyan9477'
         self.quotes_api_url = "https://api.quotable.io/random"
         self.wakatime_api_base = "https://wakatime.com/api/v1"
@@ -148,7 +151,8 @@ class DailyUpdater:
                 'following': user_data.get('following', 0),
                 'public_repos': user_data.get('public_repos', 0),
                 'total_stars': self._get_total_stars(headers),
-                'total_forks': self._get_total_forks(headers)
+                'total_forks': self._get_total_forks(headers),
+                'languages': self._get_primary_languages(headers),
             }
             
             self.log(f"✅ GitHub stats fetched: {stats['public_repos']} repos, {stats['followers']} followers")
@@ -219,6 +223,110 @@ class DailyUpdater:
             self.log(f"⚠️ Unexpected error fetching forks: {e}", "WARNING")
             
         return total_forks
+
+    def _get_primary_languages(self, headers: Dict[str, str]) -> Dict[str, int]:
+        """Count primary languages across non-fork public repositories."""
+        url = f'https://api.github.com/users/{self.username}/repos'
+        languages: Dict[str, int] = {}
+        page = 1
+
+        try:
+            while True:
+                response = requests.get(
+                    f'{url}?page={page}&per_page=100&type=owner',
+                    headers=headers,
+                    timeout=10,
+                )
+                if response.status_code != 200:
+                    self.log(
+                        f"⚠️ Languages fetch failed with status {response.status_code}",
+                        "WARNING",
+                    )
+                    break
+
+                repos = response.json()
+                if not repos:
+                    break
+
+                for repo in repos:
+                    language = repo.get('language')
+                    if language and not repo.get('fork', False):
+                        languages[language] = languages.get(language, 0) + 1
+
+                if len(repos) < 100:
+                    break
+                page += 1
+        except requests.exceptions.RequestException as e:
+            self.log(f"⚠️ Error fetching repository languages: {e}", "WARNING")
+
+        return languages
+
+    @staticmethod
+    def _replace_stat_marker(content: str, marker: str, value: Any) -> str:
+        """Replace exactly one dashboard marker while preserving its comments."""
+        pattern = rf'<!--{marker}-->.*?<!--/{marker}-->'
+        replacement = f'<!--{marker}-->{value}<!--/{marker}-->'
+        updated, count = re.subn(pattern, replacement, content, count=1, flags=re.DOTALL)
+        if count != 1:
+            raise ValueError(f'Missing README statistic marker: {marker}')
+        return updated
+
+    @staticmethod
+    def _calculate_current_streak(days: list, today_str: str) -> int:
+        """Calculate a streak without treating an unfinished current day as a break."""
+        current_streak = 0
+        for index, day in enumerate(days):
+            date = day.get('date', '')
+            count = day.get('contributionCount', 0)
+            if index == 0 and date == today_str and count == 0:
+                continue
+            if count <= 0:
+                break
+            current_streak += 1
+        return current_streak
+
+    @staticmethod
+    def _build_languages_card(languages: Dict[str, int]) -> str:
+        """Build a self-hosted SVG card from repository primary-language counts."""
+        palette = ['#7CF6D2', '#FFD166', '#7C8CFF', '#FF6B6B', '#22C55E']
+        top_languages = sorted(languages.items(), key=lambda item: (-item[1], item[0]))[:5]
+        total = sum(count for _, count in top_languages) or 1
+        rows = []
+
+        for index, (language, count) in enumerate(top_languages):
+            y = 62 + index * 25
+            width = max(6, round(250 * count / total))
+            color = palette[index]
+            rows.extend([
+                f'  <circle cx="22" cy="{y - 4}" r="5" fill="{color}"/>',
+                f'  <text x="34" y="{y}" class="label">{escape(language)}</text>',
+                f'  <rect x="180" y="{y - 12}" width="250" height="9" rx="4.5" fill="#1F2937"/>',
+                f'  <rect x="180" y="{y - 12}" width="{width}" height="9" rx="4.5" fill="{color}"/>',
+                f'  <text x="450" y="{y}" text-anchor="end" class="count">{count} repos</text>',
+            ])
+
+        if not top_languages:
+            rows.append('  <text x="22" y="92" class="label">Language data is temporarily unavailable.</text>')
+
+        return '\n'.join([
+            '<svg xmlns="http://www.w3.org/2000/svg" width="495" height="195" viewBox="0 0 495 195" role="img" aria-labelledby="title desc">',
+            '  <title id="title">Most used languages</title>',
+            '  <desc id="desc">Top primary languages across public, non-fork repositories.</desc>',
+            '  <style>.title{font:600 17px Segoe UI,Ubuntu,sans-serif;fill:#7CF6D2}.label{font:13px Segoe UI,Ubuntu,sans-serif;fill:#FFFFFF}.count{font:12px Segoe UI,Ubuntu,sans-serif;fill:#AAB2C0}.note{font:11px Segoe UI,Ubuntu,sans-serif;fill:#7D8590}</style>',
+            '  <rect width="494" height="194" x=".5" y=".5" rx="8" fill="#0D1117" stroke="#30363D"/>',
+            '  <text x="22" y="31" class="title">Most Used Languages</text>',
+            *rows,
+            '  <text x="22" y="183" class="note">By primary language across public, non-fork repositories</text>',
+            '</svg>',
+            '',
+        ])
+
+    def _write_languages_card(self, languages: Dict[str, int]) -> None:
+        """Write the generated language card beside the repository assets."""
+        asset_path = Path(self.readme_file).resolve().parent / 'assets' / 'github-languages.svg'
+        asset_path.parent.mkdir(parents=True, exist_ok=True)
+        asset_path.write_text(self._build_languages_card(languages), encoding='utf-8')
+        self.log(f"✅ Updated language card: {asset_path}")
     
     def _get_profile_views(self) -> str:
         """Get profile views badge using komarev service"""
@@ -377,25 +485,9 @@ class DailyUpdater:
             from datetime import datetime, timezone
             today_str = datetime.now(timezone.utc).date().isoformat()
             
-            current_streak = 0
-            skip_today = True  # Flag to skip today if it has no contributions
-            
-            for i, day in enumerate(days):
-                date = day.get('date', '')
-                count = day.get('contributionCount', 0)
-                
-                # If this is today and has no contributions, skip it
-                if skip_today and date == today_str and count == 0:
-                    self.log(f"ℹ️ Skipping today ({today_str}) with 0 contributions")
-                    skip_today = False
-                    continue
-                
-                # Count days with contributions
-                if count > 0:
-                    current_streak += 1
-                else:
-                    # Stop at the first day (after today) with no contributions
-                    break
+            if days and days[0].get('date') == today_str and days[0].get('contributionCount', 0) == 0:
+                self.log(f"ℹ️ Skipping today ({today_str}) with 0 contributions")
+            current_streak = self._calculate_current_streak(days, today_str)
             
             self.log(f"🔥 Current streak calculated: {current_streak} days")
             return current_streak
@@ -626,13 +718,7 @@ class DailyUpdater:
                             profile_views = views_match.group(1)
                             # Update profile views number
                             if regex_module.search(r'<!--PROFILE_VIEWS-->.*?<!--/PROFILE_VIEWS-->', content, regex_module.DOTALL):
-                                content = regex_module.sub(
-                                    r'<!--PROFILE_VIEWS-->.*?<!--/PROFILE_VIEWS-->',
-                                    f'<!--PROFILE_VIEWS-->{profile_views}<!--/PROFILE_VIEWS-->',
-                                    content,
-                                    count=1,
-                                    flags=regex_module.DOTALL
-                                )
+                                content = self._replace_stat_marker(content, 'PROFILE_VIEWS', profile_views)
                             else:
                                 content = regex_module.sub(
                                     r'(<b style="font-size: 32px; color: #4FC3F7;">)[\d,]+(</b>)',
@@ -647,13 +733,7 @@ class DailyUpdater:
                 # Update followers number
                 if 'followers' in stats:
                     if re.search(r'<!--FOLLOWERS-->.*?<!--/FOLLOWERS-->', content, re.DOTALL):
-                        content = re.sub(
-                            r'<!--FOLLOWERS-->.*?<!--/FOLLOWERS-->',
-                            f'<!--FOLLOWERS-->{stats["followers"]}<!--/FOLLOWERS-->',
-                            content,
-                            count=1,
-                            flags=re.DOTALL
-                        )
+                        content = self._replace_stat_marker(content, 'FOLLOWERS', stats['followers'])
                     else:
                         followers_num_pattern = r'(<b style="font-size: 32px; color: #66BB6A;">)[\d,]+(</b>)'
                         content = re.sub(followers_num_pattern, f'\\g<1>{stats["followers"]}\\g<2>', content, count=1)
@@ -662,13 +742,7 @@ class DailyUpdater:
                 # Update stars number
                 if 'total_stars' in stats:
                     if re.search(r'<!--TOTAL_STARS-->.*?<!--/TOTAL_STARS-->', content, re.DOTALL):
-                        content = re.sub(
-                            r'<!--TOTAL_STARS-->.*?<!--/TOTAL_STARS-->',
-                            f'<!--TOTAL_STARS-->{stats["total_stars"]}<!--/TOTAL_STARS-->',
-                            content,
-                            count=1,
-                            flags=re.DOTALL
-                        )
+                        content = self._replace_stat_marker(content, 'TOTAL_STARS', stats['total_stars'])
                     else:
                         stars_num_pattern = r'(<b style="font-size: 32px; color: #FFD54F;">)[\d,]+(</b>)'
                         content = re.sub(stars_num_pattern, f'\\g<1>{stats["total_stars"]}\\g<2>', content, count=1)
@@ -677,12 +751,10 @@ class DailyUpdater:
                 # Update streak number
                 if current_streak:
                     if re.search(r'<!--CURRENT_STREAK-->.*?<!--/CURRENT_STREAK-->', content, re.DOTALL):
-                        content = re.sub(
-                            r'<!--CURRENT_STREAK-->.*?<!--/CURRENT_STREAK-->',
-                            f'<!--CURRENT_STREAK-->{current_streak.replace("_Days", "")}<!--/CURRENT_STREAK-->',
+                        content = self._replace_stat_marker(
                             content,
-                            count=1,
-                            flags=re.DOTALL
+                            'CURRENT_STREAK',
+                            current_streak.replace('_Days', ''),
                         )
                     else:
                         streak_num_pattern = r'(<b style="font-size: 32px; color: #F85D7F;">)[\d,]+(</b>)'
@@ -705,7 +777,7 @@ class DailyUpdater:
                 self.log("ℹ️ WakaTime tags not found in README; skipping WakaTime update")
 
             # Update timestamps
-            now = datetime.now().strftime("%B %d, %Y at %I:%M %p UTC")
+            now = datetime.now(timezone.utc).strftime("%B %d, %Y at %I:%M %p UTC")
             
             # Update quote timestamp
             if "<!-- Quote Updated:" in content:
@@ -722,6 +794,9 @@ class DailyUpdater:
             if self.dry_run:
                 self.log("ℹ️ Dry run enabled; skipping README write")
                 return True
+
+            if stats.get('languages'):
+                self._write_languages_card(stats['languages'])
 
             # Write updated content
             with open(self.readme_file, 'w', encoding='utf-8') as file:
@@ -816,16 +891,18 @@ class DailyUpdater:
                 self.log("❌ README update failed", "ERROR")
                 return False
             
-            # Step 5: Commit changes
+            # Step 5: Commit changes only when this script owns Git operations.
             if self.dry_run:
                 self.log("ℹ️ Dry run enabled; skipping git commit and push")
-            else:
+            elif self.push_changes_enabled:
                 if not self.commit_changes():
                     self.log("❌ Commit failed", "ERROR")
                     return False
+            else:
+                self.log("ℹ️ README written; commit and push are managed by the caller")
             
             # Step 6: Push changes (optional)
-            if not self.dry_run and os.getenv('PUSH_CHANGES', 'true').lower() == 'true':
+            if not self.dry_run and self.push_changes_enabled:
                 self.push_changes()
             
             self.log("🎉 Daily update completed successfully!")
