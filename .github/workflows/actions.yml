@@ -53,7 +53,6 @@ jobs:
       - name: Verify README Structure
         run: |
           echo "Checking README.md structure..."
-          grep -q "<!--PROFILE_VIEWS-->" README.md
           grep -q "<!--FOLLOWERS-->" README.md
           grep -q "<!--TOTAL_STARS-->" README.md
           grep -q "<!--CURRENT_STREAK-->" README.md
@@ -71,7 +70,6 @@ jobs:
       - name: Final README Verification
         run: |
           echo "Final README.md structure verification..."
-          grep -q "<!--PROFILE_VIEWS-->" README.md
           grep -q "<!--FOLLOWERS-->" README.md
           grep -q "<!--TOTAL_STARS-->" README.md
           grep -q "<!--CURRENT_STREAK-->" README.md

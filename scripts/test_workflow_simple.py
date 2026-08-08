@@ -53,7 +53,6 @@ def test_readme_structure():
             content = f.read()
         
         required_sections = [
-            '<!--PROFILE_VIEWS-->',
             '<!--FOLLOWERS-->',
             '<!--TOTAL_STARS-->',
             '<!--CURRENT_STREAK-->',

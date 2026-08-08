@@ -160,7 +160,6 @@ class WorkflowValidator:
             
         # Check for dynamic profile stat markers
         required_markers = [
-            "<!--PROFILE_VIEWS-->",
             "<!--FOLLOWERS-->",
             "<!--TOTAL_STARS-->",
             "<!--CURRENT_STREAK-->",

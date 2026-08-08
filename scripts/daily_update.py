@@ -11,10 +11,10 @@ import requests
 import random
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict, Optional
 
 class DailyUpdater:
     def __init__(self):
@@ -168,7 +168,7 @@ class DailyUpdater:
             self.log(f"❌ Unexpected error fetching GitHub stats: {e}", "ERROR")
             return {}
     
-    def _get_total_stars(self, headers: Dict[str, str]) -> int:
+    def _get_total_stars(self, headers: Dict[str, str]) -> Optional[int]:
         """Get total stars across all repositories"""
         url = f'https://api.github.com/users/{self.username}/repos'
         total_stars = 0
@@ -178,7 +178,11 @@ class DailyUpdater:
             while True:
                 response = requests.get(f'{url}?page={page}&per_page=100', headers=headers, timeout=10)
                 if response.status_code != 200:
-                    break
+                    self.log(
+                        f"⚠️ Stars fetch failed with status {response.status_code}",
+                        "WARNING",
+                    )
+                    return None
                     
                 repos = response.json()
                 if not repos:
@@ -189,14 +193,17 @@ class DailyUpdater:
                 
         except requests.exceptions.Timeout:
             self.log("⚠️ Stars fetch timed out", "WARNING")
+            return None
         except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Error fetching stars: {e}", "WARNING")
+            return None
         except Exception as e:
             self.log(f"⚠️ Unexpected error fetching stars: {e}", "WARNING")
+            return None
             
         return total_stars
     
-    def _get_total_forks(self, headers: Dict[str, str]) -> int:
+    def _get_total_forks(self, headers: Dict[str, str]) -> Optional[int]:
         """Get total forks across all repositories"""
         url = f'https://api.github.com/users/{self.username}/repos'
         total_forks = 0
@@ -206,7 +213,11 @@ class DailyUpdater:
             while True:
                 response = requests.get(f'{url}?page={page}&per_page=100', headers=headers, timeout=10)
                 if response.status_code != 200:
-                    break
+                    self.log(
+                        f"⚠️ Forks fetch failed with status {response.status_code}",
+                        "WARNING",
+                    )
+                    return None
                     
                 repos = response.json()
                 if not repos:
@@ -217,10 +228,13 @@ class DailyUpdater:
                 
         except requests.exceptions.Timeout:
             self.log("⚠️ Forks fetch timed out", "WARNING")
+            return None
         except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Error fetching forks: {e}", "WARNING")
+            return None
         except Exception as e:
             self.log(f"⚠️ Unexpected error fetching forks: {e}", "WARNING")
+            return None
             
         return total_forks
 
@@ -392,26 +406,19 @@ class DailyUpdater:
         return None  # Signal to preserve existing value
     
     def _get_streak_from_github_api(self) -> int:
-        """Get current contribution streak using GitHub GraphQL API"""
+        """Get the full current contribution streak using yearly GraphQL windows."""
         if not self.GH_TOKEN:
             return None
-            
+
         headers = {
             'Authorization': f'bearer {self.GH_TOKEN}',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
-        
-        # Get contribution calendar for the past year
-        from datetime import datetime, timedelta
-        today = datetime.now()
-        one_year_ago = today - timedelta(days=365)
-        
         query = """
         query($username: String!, $from: DateTime!, $to: DateTime!) {
           user(login: $username) {
             contributionsCollection(from: $from, to: $to) {
               contributionCalendar {
-                totalContributions
                 weeks {
                   contributionDays {
                     contributionCount
@@ -423,75 +430,107 @@ class DailyUpdater:
           }
         }
         """
-        
-        variables = {
-            'username': self.username,
-            'from': one_year_ago.isoformat(),
-            'to': today.isoformat()
-        }
-        
+
         try:
-            self.log("🔍 Querying GitHub GraphQL API for contribution data...")
-            response = requests.post(
-                'https://api.github.com/graphql',
-                json={'query': query, 'variables': variables},
-                headers=headers,
-                timeout=20
-            )
-            
-            if response.status_code != 200:
-                self.log(f"⚠️ GraphQL API returned status {response.status_code}", "WARNING")
-                return None
-            
-            data = response.json()
-            
-            if 'errors' in data:
-                self.log(f"⚠️ GraphQL errors: {data['errors']}", "WARNING")
-                return None
-            
-            calendar = data.get('data', {}).get('user', {}).get('contributionsCollection', {}).get('contributionCalendar', {})
-            total_contributions = calendar.get('totalContributions', 0)
-            weeks = calendar.get('weeks', [])
-            
-            self.log(f"📊 Total contributions in past year: {total_contributions}")
-            
-            if not weeks:
-                self.log("⚠️ No contribution weeks data available", "WARNING")
-                return None
-            
-            # Flatten all days from weeks
-            days = []
-            for week in weeks:
-                days.extend(week.get('contributionDays', []))
-            
-            if not days:
-                self.log("⚠️ No contribution days data available", "WARNING")
-                return None
-            
-            # Sort by date descending (most recent first)
-            days.sort(key=lambda x: x.get('date', ''), reverse=True)
-            
-            # Log the most recent contributions for debugging
-            self.log(f"📅 Analyzing {len(days)} days of contribution history...")
-            recent_days = days[:7]  # Last 7 days
-            self.log("Recent contributions:")
-            for day in recent_days:
-                date = day.get('date', 'Unknown')
-                count = day.get('contributionCount', 0)
-                self.log(f"  {date}: {count} contribution(s)")
-            
-            # Calculate current streak
-            # Note: Today might not have contributions yet, so we check from yesterday
-            from datetime import datetime, timezone
-            today_str = datetime.now(timezone.utc).date().isoformat()
-            
-            if days and days[0].get('date') == today_str and days[0].get('contributionCount', 0) == 0:
-                self.log(f"ℹ️ Skipping today ({today_str}) with 0 contributions")
-            current_streak = self._calculate_current_streak(days, today_str)
-            
-            self.log(f"🔥 Current streak calculated: {current_streak} days")
+            today = datetime.now(timezone.utc).date()
+            today_str = today.isoformat()
+            window_end = today
+            current_streak = 0
+            first_day_checked = False
+
+            # GitHub limits contributionsCollection to roughly one year.
+            # Continue backwards until the first zero-contribution day.
+            for window_number in range(1, 11):
+                window_start = window_end - timedelta(days=364)
+                variables = {
+                    'username': self.username,
+                    'from': f'{window_start.isoformat()}T00:00:00Z',
+                    'to': f'{window_end.isoformat()}T23:59:59Z',
+                }
+                self.log(
+                    f"🔍 Querying contribution window {window_number}: "
+                    f"{window_start} to {window_end}"
+                )
+                response = requests.post(
+                    'https://api.github.com/graphql',
+                    json={'query': query, 'variables': variables},
+                    headers=headers,
+                    timeout=20,
+                )
+
+                if response.status_code != 200:
+                    self.log(f"⚠️ GraphQL API returned status {response.status_code}", "WARNING")
+                    return None
+
+                data = response.json()
+                if 'errors' in data:
+                    self.log(f"⚠️ GraphQL errors: {data['errors']}", "WARNING")
+                    return None
+
+                calendar = (
+                    data.get('data', {})
+                    .get('user', {})
+                    .get('contributionsCollection', {})
+                    .get('contributionCalendar', {})
+                )
+                weeks = calendar.get('weeks', [])
+                if not weeks:
+                    self.log("⚠️ No contribution weeks data available", "WARNING")
+                    return None
+
+                days_by_date = {}
+                for week in weeks:
+                    for day in week.get('contributionDays', []):
+                        date = day.get('date', '')
+                        if window_start.isoformat() <= date <= window_end.isoformat():
+                            days_by_date[date] = day
+
+                days = sorted(
+                    days_by_date.values(),
+                    key=lambda item: item.get('date', ''),
+                    reverse=True,
+                )
+                if not days:
+                    self.log("⚠️ No contribution days data available", "WARNING")
+                    return None
+                expected_days = (window_end - window_start).days + 1
+                if len(days) != expected_days:
+                    self.log(
+                        f"⚠️ Incomplete contribution window: expected {expected_days} "
+                        f"days, received {len(days)}",
+                        "WARNING",
+                    )
+                    return None
+
+                if window_number == 1:
+                    self.log("Recent contributions:")
+                    for day in days[:7]:
+                        self.log(
+                            f"  {day.get('date', 'Unknown')}: "
+                            f"{day.get('contributionCount', 0)} contribution(s)"
+                        )
+
+                for day in days:
+                    date = day.get('date', '')
+                    count = day.get('contributionCount', 0)
+                    if not first_day_checked:
+                        first_day_checked = True
+                        if date == today_str and count == 0:
+                            self.log(f"ℹ️ Skipping today ({today_str}) with 0 contributions")
+                            continue
+                    if count <= 0:
+                        self.log(f"🔥 Current streak calculated: {current_streak} days")
+                        return current_streak
+                    current_streak += 1
+
+                self.log(
+                    f"ℹ️ Streak exceeds {current_streak} days; querying the prior window"
+                )
+                window_end = window_start - timedelta(days=1)
+
+            self.log("⚠️ Streak exceeds the 10-year safety limit", "WARNING")
             return current_streak
-            
+
         except requests.exceptions.RequestException as e:
             self.log(f"⚠️ Network error accessing GitHub API: {e}", "WARNING")
             return None
@@ -667,21 +706,26 @@ class DailyUpdater:
             
             # Update GitHub stats badges if stats are available
             if stats:
-                # Update followers badge
-                followers_pattern = r'https://img\.shields\.io/github/followers/Rayyan9477\?[^"]*'
-                followers_replacement = f'https://img.shields.io/github/followers/{self.username}?label=Followers&style=flat-square&color=22c55e&logo=github&logoColor=white'
+                # Use the same fetched values in each badge and number so the
+                # dashboard cannot show two different snapshots.
+                followers_pattern = r'https://img\.shields\.io/(?:github/followers/Rayyan9477\?[^"]*|badge/Followers-[^"]*)'
+                followers_replacement = f'https://img.shields.io/badge/Followers-{stats["followers"]}-22c55e?style=flat-square&logo=github&logoColor=white'
                 if re.search(followers_pattern, content):
                     content = re.sub(followers_pattern, followers_replacement, content)
                     self.log("✅ Updated followers badge")
                 
-                # Update stars badge
-                stars_pattern = r'https://img\.shields\.io/github/stars/Rayyan9477\?[^"]*'
-                stars_replacement = f'https://img.shields.io/github/stars/{self.username}?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white'
-                if re.search(stars_pattern, content):
-                    content = re.sub(stars_pattern, stars_replacement, content)
-                    self.log("✅ Updated stars badge")
+                # Update stars only when every repository page was fetched.
+                if stats.get('total_stars') is not None:
+                    stars_pattern = r'https://img\.shields\.io/(?:github/stars/Rayyan9477\?[^"]*|badge/Total_Stars-[^"]*)'
+                    stars_replacement = f'https://img.shields.io/badge/Total_Stars-{stats["total_stars"]}-FFC107?style=flat-square&logo=github&logoColor=white'
+                    if re.search(stars_pattern, content):
+                        content = re.sub(stars_pattern, stars_replacement, content)
+                        self.log("✅ Updated stars badge")
+                else:
+                    self.log("ℹ️ Preserving existing stars badge", "INFO")
                 
-                # Update profile views badge (komarev service)
+                # Komarev remains the single visible source for profile views.
+                # A duplicated daily snapshot would inevitably drift from it.
                 profile_views_pattern = r'https://komarev\.com/ghpvc/\?username=Rayyan9477[^"]*'
                 profile_views_replacement = f'https://komarev.com/ghpvc/?username={self.username}&label=Profile%20Views&color=0e75b6&style=flat-square'
                 if re.search(profile_views_pattern, content):
@@ -700,36 +744,6 @@ class DailyUpdater:
                 else:
                     self.log("ℹ️ Preserving existing streak value", "INFO")
                 
-                # Update hardcoded numbers in the dashboard
-                # Get profile views from komarev (extract from badge)
-                try:
-                    profile_views_response = requests.get(f'https://komarev.com/ghpvc/?username={self.username}', timeout=5)
-                    if profile_views_response.status_code == 200:
-                        # The service returns an SVG with the count
-                        import re as regex_module
-                        views_match = regex_module.search(
-                            r'Profile Views</text>\s*<text[^>]*>([\d,]+)</text>',
-                            profile_views_response.text,
-                            regex_module.IGNORECASE
-                        )
-                        if not views_match:
-                            views_match = regex_module.search(r'>([\d,]+)<', profile_views_response.text)
-                        if views_match:
-                            profile_views = views_match.group(1)
-                            # Update profile views number
-                            if regex_module.search(r'<!--PROFILE_VIEWS-->.*?<!--/PROFILE_VIEWS-->', content, regex_module.DOTALL):
-                                content = self._replace_stat_marker(content, 'PROFILE_VIEWS', profile_views)
-                            else:
-                                content = regex_module.sub(
-                                    r'(<b style="font-size: 32px; color: #4FC3F7;">)[\d,]+(</b>)',
-                                    f'\\g<1>{profile_views}\\g<2>',
-                                    content,
-                                    count=1
-                                )
-                            self.log(f"✅ Updated profile views number: {profile_views}")
-                except Exception as e:
-                    self.log(f"⚠️ Could not fetch profile views count: {e}", "WARNING")
-                
                 # Update followers number
                 if 'followers' in stats:
                     if re.search(r'<!--FOLLOWERS-->.*?<!--/FOLLOWERS-->', content, re.DOTALL):
@@ -740,7 +754,7 @@ class DailyUpdater:
                     self.log(f"✅ Updated followers number: {stats['followers']}")
                 
                 # Update stars number
-                if 'total_stars' in stats:
+                if stats.get('total_stars') is not None:
                     if re.search(r'<!--TOTAL_STARS-->.*?<!--/TOTAL_STARS-->', content, re.DOTALL):
                         content = self._replace_stat_marker(content, 'TOTAL_STARS', stats['total_stars'])
                     else:

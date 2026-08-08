@@ -32,28 +32,28 @@
       <td align="center" width="25%">
         <img src="https://komarev.com/ghpvc/?username=Rayyan9477&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" />
         <br />
-        <strong><!--PROFILE_VIEWS-->2,694<!--/PROFILE_VIEWS--></strong>
+        <strong>Live</strong>
         <br />
         <sub>Profile views</sub>
       </td>
       <td align="center" width="25%">
-        <img src="https://img.shields.io/github/followers/Rayyan9477?label=Followers&style=flat-square&color=22c55e&logo=github&logoColor=white" alt="Followers" />
+        <img src="https://img.shields.io/badge/Followers-93-22c55e?style=flat-square&logo=github&logoColor=white" alt="Followers" />
         <br />
         <strong><!--FOLLOWERS-->93<!--/FOLLOWERS--></strong>
         <br />
         <sub>Followers</sub>
       </td>
       <td align="center" width="25%">
-        <img src="https://img.shields.io/github/stars/Rayyan9477?label=Total%20Stars&style=flat-square&color=FFC107&logo=github&logoColor=white" alt="Total Stars" />
+        <img src="https://img.shields.io/badge/Total_Stars-215-FFC107?style=flat-square&logo=github&logoColor=white" alt="Total Stars" />
         <br />
         <strong><!--TOTAL_STARS-->215<!--/TOTAL_STARS--></strong>
         <br />
         <sub>Total stars</sub>
       </td>
       <td align="center" width="25%">
-        <img src="https://img.shields.io/badge/Current_Streak-366_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" />
+        <img src="https://img.shields.io/badge/Current_Streak-378_Days-F85D7F?style=flat-square&logo=github&logoColor=white" alt="Current Streak" />
         <br />
-        <strong><!--CURRENT_STREAK-->366<!--/CURRENT_STREAK--></strong>
+        <strong><!--CURRENT_STREAK-->378<!--/CURRENT_STREAK--></strong>
         <br />
         <sub>Day streak</sub>
       </td>
