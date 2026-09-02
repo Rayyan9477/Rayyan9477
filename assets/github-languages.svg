@@ -7,22 +7,22 @@
   <circle cx="22" cy="58" r="5" fill="#7CF6D2"/>
   <text x="34" y="62" class="label">Python</text>
   <rect x="180" y="50" width="250" height="9" rx="4.5" fill="#1F2937"/>
-  <rect x="180" y="50" width="113" height="9" rx="4.5" fill="#7CF6D2"/>
-  <text x="450" y="62" text-anchor="end" class="count">19 repos</text>
+  <rect x="180" y="50" width="116" height="9" rx="4.5" fill="#7CF6D2"/>
+  <text x="450" y="62" text-anchor="end" class="count">20 repos</text>
   <circle cx="22" cy="83" r="5" fill="#FFD166"/>
   <text x="34" y="87" class="label">Jupyter Notebook</text>
   <rect x="180" y="75" width="250" height="9" rx="4.5" fill="#1F2937"/>
-  <rect x="180" y="75" width="71" height="9" rx="4.5" fill="#FFD166"/>
+  <rect x="180" y="75" width="70" height="9" rx="4.5" fill="#FFD166"/>
   <text x="450" y="87" text-anchor="end" class="count">12 repos</text>
   <circle cx="22" cy="108" r="5" fill="#7C8CFF"/>
   <text x="34" y="112" class="label">TypeScript</text>
   <rect x="180" y="100" width="250" height="9" rx="4.5" fill="#1F2937"/>
-  <rect x="180" y="100" width="30" height="9" rx="4.5" fill="#7C8CFF"/>
+  <rect x="180" y="100" width="29" height="9" rx="4.5" fill="#7C8CFF"/>
   <text x="450" y="112" text-anchor="end" class="count">5 repos</text>
   <circle cx="22" cy="133" r="5" fill="#FF6B6B"/>
   <text x="34" y="137" class="label">JavaScript</text>
   <rect x="180" y="125" width="250" height="9" rx="4.5" fill="#1F2937"/>
-  <rect x="180" y="125" width="24" height="9" rx="4.5" fill="#FF6B6B"/>
+  <rect x="180" y="125" width="23" height="9" rx="4.5" fill="#FF6B6B"/>
   <text x="450" y="137" text-anchor="end" class="count">4 repos</text>
   <circle cx="22" cy="158" r="5" fill="#22C55E"/>
   <text x="34" y="162" class="label">HTML</text>
