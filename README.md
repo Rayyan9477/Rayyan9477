@@ -1,4 +1,4 @@
-<!-- Quote Updated: September 03, 2026 at 03:50 AM UTC -->
+<!-- Quote Updated: September 04, 2026 at 03:52 AM UTC -->
 
 <div align="center">
   <img src="assets/banners/header-banner.svg" width="100%" alt="Rayyan Ahmed - Founding AI Engineer building production AI systems from scratch" />
@@ -266,7 +266,7 @@ Joined as the company's founding AI engineer and started the AI function from sc
 ## Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Talk%20is%20cheap.%20Show%20me%20the%20code.&author=Linus%20Torvalds" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Innovation%20distinguishes%20between%20a%20leader%20and%20a%20follower.&author=Steve%20Jobs" alt="Dev Quote"/>
 </div>
 
 ## Connect
@@ -290,7 +290,7 @@ Joined as the company's founding AI engineer and started the AI function from sc
 </p>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: September 03, 2026 at 03:50 AM UTC -->
+<!-- Last Updated: September 04, 2026 at 03:52 AM UTC -->
 
 <div align="center">
   <sub>Production AI, practical automation, and measurable delivery.</sub>
