@@ -11,7 +11,7 @@
   <a href="https://www.linkedin.com/in/rayyan-ahmed9477/">
     <img src="https://img.shields.io/badge/LinkedIn-Rayyan%20Ahmed-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
-  <a href="./Rayyan_Ahmed_Resume%202026.pdf">
+  <a href="./assets/resume/Rayyan_Ahmed_AI_Engineer_Resume.pdf">
     <img src="https://img.shields.io/badge/Resume-2026-FF6B6B?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="Resume 2026" />
   </a>
   <a href="https://rayyan-portfolio.vercel.app">
