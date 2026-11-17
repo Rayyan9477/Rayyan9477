@@ -1,4 +1,4 @@
-<!-- Quote Updated: November 16, 2026 at 05:44 AM UTC -->
+<!-- Quote Updated: November 17, 2026 at 07:22 AM UTC -->
 
 <div align="center">
   <img src="assets/banners/header-banner.svg" width="100%" alt="Rayyan Ahmed - Founding AI Engineer building production AI systems from scratch" />
@@ -44,9 +44,9 @@
         <sub>Followers</sub>
       </td>
       <td align="center" width="25%">
-        <img src="https://img.shields.io/badge/Total_Stars-240-FFC107?style=flat-square&logo=github&logoColor=white" alt="Total Stars" />
+        <img src="https://img.shields.io/badge/Total_Stars-241-FFC107?style=flat-square&logo=github&logoColor=white" alt="Total Stars" />
         <br />
-        <strong><!--TOTAL_STARS-->240<!--/TOTAL_STARS--></strong>
+        <strong><!--TOTAL_STARS-->241<!--/TOTAL_STARS--></strong>
         <br />
         <sub>Total stars</sub>
       </td>
@@ -266,7 +266,7 @@ Joined as the company's founding AI engineer and started the AI function from sc
 ## Daily Inspiration
 
 <div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Code%20is%20like%20humor.%20When%20you%20have%20to%20explain%20it%2C%20it%27s%20bad.&author=Cory%20House" alt="Dev Quote"/>
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true&quote=Any%20fool%20can%20write%20code%20that%20a%20computer%20can%20understand.%20Good%20programmers%20write%20code%20that%20humans%20can%20understand.&author=Martin%20Fowler" alt="Dev Quote"/>
 </div>
 
 ## Connect
@@ -290,7 +290,7 @@ Joined as the company's founding AI engineer and started the AI function from sc
 </p>
 
 <!-- Dynamic Content - Auto-updated via GitHub Actions -->
-<!-- Last Updated: November 16, 2026 at 05:44 AM UTC -->
+<!-- Last Updated: November 17, 2026 at 07:22 AM UTC -->
 
 <div align="center">
   <sub>Production AI, practical automation, and measurable delivery.</sub>
